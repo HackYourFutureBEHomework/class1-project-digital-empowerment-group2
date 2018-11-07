@@ -61,7 +61,7 @@ class Modules extends Component {
       return (
         <div className='container'>
 
-            <div className='container1'>
+            {/* <div className='container1'>
                   <h1> PROJECT DIGITAL EMPOWERMENT</h1>
                   <br/>
                   <div className= 'user'>
@@ -69,7 +69,7 @@ class Modules extends Component {
                       <br/>
                       <span> Log out</span>
                   </div>
-            </div>
+            </div> */}
           
             <div className='container2'>
                   <h1>Module</h1>

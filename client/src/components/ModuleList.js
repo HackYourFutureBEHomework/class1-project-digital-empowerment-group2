@@ -41,4 +41,15 @@ class ModuleList extends React.Component {
   }
 }
 
+
+  {/* <div className='container1'>
+                  <h1> PROJECT DIGITAL EMPOWERMENT</h1>
+                  <br/>
+                  <div className= 'user'>
+                      <span>Manage Users</span> 
+                      <br/>
+                      <span> Log out</span>
+                  </div>
+            </div> */}
+          
 export default Form;
