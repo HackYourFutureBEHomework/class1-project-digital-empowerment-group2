@@ -1,78 +1,70 @@
 import React, { Component} from 'react';
-import { getModules , createModule} from '../api/modules';
-//import  Form from  './form.js'
-
+import { getModules, createModule } from '../api/modules';
 
 class Modules extends Component {
   state = {
-   
-    modules: [  
-    {
-      _id: 1,
-      title: 'Using google'
-    },
-    {
-      _id: 2,
-      title: 'Using the address bar'
-    },
-    {
-      _id: 3,
-      title: 'Sending an email'
-    }
-
-   ]
-   
-    
+    newmodules:'',
+    modules: [
+      {
+        _id: 1,
+        title: 'Using google'
+      },
+      {
+        _id: 2,
+        title: 'Using the address bar'
+      },
+      {
+        _id: 3,
+        title: 'Sending an email'
+      }
+  
+    ],
+    isLoading: false
   };
 
-  // addNewItem = (e) => {
-  //   e.preventDefault()
-    
-  //   const title = this.newItemText.value
-    
-  //   const newtitle = {
-  //     _id: nextID,
-  //     title
-  //   }
-  //   const newmodules = [... modules, newmodule]
-  //   this.setState({
-  //       modules: newmodules,
-  //       nextID: nextID +1
-      
-  //   })
-  //   this.newItemText.value = ''
-    
-  // }
   componentDidMount() {
     getModules().then((modules) => {
       this.setState({ modules: modules });
     });
 
     createModule({ title: 'user provided module title' })
-    .then((newModule) => {
+      .then((newModule) => {
     // Add the new module to the array in state
-  });
-
+      });
   }
 
+  addNewModule = (e) => {
+    e.preventDefault()
+    
+    const {newmodules, modules} = this.state
+    
+  if(newmodules){
+    this.setState({
+      newModule: '',
+      modules: modules.concat({newmodules:newmodules})
+    })
+  }
+    
+ }
+
+
   render() {
-    const { modules } = this.state;
+    const { modules , newmodules} = this.state;
 
     if (modules.length > 0) {
       return (
         <div>
-          {/* <form onSubmit={this.addNewItem}>
-          <input className="" 
-          type='text'
-           ref={el=>this.newItemText = el}
-           required
-          placeholder="Enter module title -" />
+          {/* <button onClick={this.addNewModule.bind(this)}>Add module</button> */}
+           <form onSubmit={this.addNewModule.bind(this)}>
+           <input className="" 
+           type='text'
+          value = {newmodules}
+           placeholder="Enter new module" 
+           onChange={(e) => this.setState({newmodules: e.target.value})} />
          
-          <button className="" onClick={this.handleSubmit}>Add module </button>
-          </form> */}
-          <button onClick={this.addModule}>Add module</button>
+           <button className="" >Add module </button>
+           </form>
           {modules.map((module) => <li key={module._id}>{module.title}</li>)}
-          
         </div>
       )
     } else {
@@ -84,3 +76,16 @@ class Modules extends Component {
 }
 
 export default Modules;
+
+
+
+
+
+
+
+
+
+
+
+
+
