@@ -1,5 +1,6 @@
 import React, { Component} from 'react';
 import { getModules, createModule } from '../api/modules';
+//import ClickToEdit from "react-inline-editing";
 
 
 
@@ -11,12 +12,10 @@ class Modules extends Component {
       this.state = {
         
       title:'',
-      // nextID: 1,
+      modules: [],
+      // id: '',
+      // filter: 'all',
 
-      modules: [
-                 
-              
-              ],
     
   };
 }
@@ -53,39 +52,62 @@ class Modules extends Component {
 }
 
 
+
    
   render() {
     const { modules } = this.state;
 
 
       return (
+        
         <div className='container'>
-
+        <div className = ' pathcontainer' >
+             <h2>  Title of the active path</h2>       
+        </div>
+        <fieldset>
+        <legend className='' >Module :</legend>
           
             <div className='container2'>
-                  <h1>Module</h1>
-                  <input  
-                      type='text'
-                      placeholder="Enter new module" 
-                      onChange={this.handleChange}
-                      value = {this.state.title}
-                  />
-                
-                  <button className=""
-                      onClick ={this.addNewModule} 
-                  >Add module </button>
-                  
+            
+                      <input 
+                          type='text'
+                          placeholder="Enter new module" 
+                          onChange={this.handleChange}
+                          value = {this.state.title}
+                      />
+                      
+                    
+                      <button className="btn"
+                          
+                          onClick ={this.addNewModule} 
+                      >Add module </button>
             </div>
-           
-          <div className="modulesliste">
-          {modules.map((module) => <div className= 'module' key={module._id}
+                             
+          <div 
+            className="modulesliste">
+            {modules.map((module) => <div className= 'module' key={module._id}
           >
-          {/* {<input type='checkbox'/>} */}
-          {module.title} <br/>
-          {<button>Delete</button>}
-          </div>)}
-        </div>
+          
+            {module.title} <br/>
+            {
+              <div class="">
 
+              <button       
+                        className="remove-btn"
+                        onClick={()=> {
+                          this.setState(state => ({modules: state.modules.filter(mod => module._id !== mod._id)
+                          }));
+                        }}
+                      >delete
+              </button>
+              <button className="Edit-btn"> Edit </button>
+
+
+              </div> }
+          
+            </div>)}
+            </div>
+        </fieldset>
         </div>
       )
    
