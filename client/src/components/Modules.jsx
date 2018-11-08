@@ -6,10 +6,12 @@ class Modules extends Component {
     super();
     this.state = {
       title: "",
-      modules: []
+      modules: [],
+      id: '',
+      filter: 'all',
     };
   }
-
+ 
    componentDidMount() {
     getModules().then((modules) => {
       this.setState({ modules: modules });
@@ -23,70 +25,57 @@ class Modules extends Component {
   };
   addModule = e => {
     e.preventDefault();
-    createModule(this.state.title).then(newPath => {
+    createModule(this.state.title).then(newModule => {
       this.setState({
-        modules: this.state.modules.concat(newPath),
-        title: ""
+        modules: this.state.modules.concat(newModule),
+        title: "",
+        id:''
       });
     });
   };
   
   render() {
-    const { modules } = this.state;
-  
+    const filterModules = this.state.modules.filter((repo) => {
+      const regex = new RegExp(this.state.searchString, 'g')
+        return regex.test(repo.title)
+      })
+ 
     return (
-      <div>
-        <div 
-          className="nav"
-        >
-          <h1>
-              DIGITAL EMPOWERMENT
-          </h1>
-          <a onClick={this.MangageUsers}>
-            <span>
-              Mangage users 
-            </span>
-          </a>
-          <a onClick={this.logOut}>
-            <span>
-              Log out 
-            </span>
-          </a>
-        </div>
-        <div 
-          className="continer"
-        >
-            <div 
-              className="Paths"
-            >
-              <h1>
-                Paths
-              </h1>
+      <div className="continer">
+            <div className="module-nav">
+              <h2>
+                Using a web browser
+              </h2>
               <input
-                className="search"
-                type='search'
-                placeholder='Search for paths...' 
-                onChange={this.searchItem}
-              />
-              <input
-                className="new-path"
+                className="input"
                 type="text"
-                placeholder="Add new path"
+                placeholder="Add new module"
                 onChange={this.addNewModule}
                 value={this.state.title}
               />
-                <button 
+               <button
+                  className="button"
                   onClick={this.addModule}>
-                  Add path
-                </button>
+                  Add module
+                </button> 
             </div>
-            <div class="continer_paths"> 
-                {modules.map((module) => <div className="items_paths" key={module._id}>{module.title}</div>)}
+            <div class="continer_modules">
+                {filterModules.map((module) => 
+                  <div className="module" key={module._id}>
+                    {module.title}
+                      <button
+                        className="remove-btn"
+                        onClick={()=> {
+                          this.setState(state => ({modules: state.modules.filter(mod => module._id !== mod._id)
+                          }));
+                        }}
+                      >&times;
+                      </button>
+                      <button className="Edit-btn"></button>
+                  </div>)}
             </div>
-          </div>   
       </div>
     );
   }
-}
-
-export default Modules;
+ }
+ export default Modules;
