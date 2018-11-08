@@ -13,11 +13,3 @@ export const createModule = (title) => {
     body: JSON.stringify({ title: title })
   }).then(response => response.json());
 };
-// export const DeleteModule = (id) => {
-//   return fetch(`${API_URL}/module`, {
-//     method: 'DELETE',
-//     headers: headers, // this is where we set the headers
-//     body: JSON.stringify({ id: id })
-//   }).then(response => response.json());
- 
-// }; 
