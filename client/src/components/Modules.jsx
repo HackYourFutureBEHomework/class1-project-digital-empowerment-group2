@@ -1,5 +1,5 @@
 import React, { Component} from 'react';
-import { getModules , createModule} from '../api/modules';
+import { getModules , createModule,checkModule,deleteModule} from '../api/modules';
 
 class Modules extends Component {
   constructor() {
@@ -9,6 +9,7 @@ class Modules extends Component {
       modules: [],
       id: '',
       filter: 'all',
+      completed: false,
     };
   }
  
@@ -18,22 +19,40 @@ class Modules extends Component {
     });
   }
  
-  addNewModule = e => {
+  addNewModule = event => {
     this.setState({
-      title: e.target.value
+      title: event.target.value
     });
   };
-  addModule = e => {
-    e.preventDefault();
+  addModule = () => {
     createModule(this.state.title).then(newModule => {
       this.setState({
         modules: this.state.modules.concat(newModule),
         title: "",
-        id:''
+        id:'',
+        completed:''
       });
     });
   };
-  
+
+  handleDelete = (id) => {
+    deleteModule(id)
+      this.setState({
+        modules: this.state.modules.filter(mod => mod._id !== id)
+      });
+  };
+
+
+  handleCheck = (completed) => {
+    checkModule(completed)
+    this.setState({
+      modules : this.state.modules.filter(mod => mod._completed !== completed)
+    });
+  };
+
+
+  completedText=()=> { return this.state.modules.filter(module => module.completed).length;}
+
   render() {
     const filterModules = this.state.modules.filter((repo) => {
       const regex = new RegExp(this.state.searchString, 'g')
@@ -65,13 +84,18 @@ class Modules extends Component {
                     {module.title}
                       <button
                         className="remove-btn"
-                        onClick={()=> {
-                          this.setState(state => ({modules: state.modules.filter(mod => module._id !== mod._id)
-                          }));
-                        }}
-                      >&times;
+                        onClick={()=>this.handleDelete(module._id)}
+                      >
+                      &times;
                       </button>
                       <button className="Edit-btn"></button>
+
+                      <input 
+                          class="checkbox"
+                          type="checkbox"
+                          onChange={()=>{this.handleCheck(module.completed)}}
+                      />
+      
                   </div>)}
             </div>
       </div>
