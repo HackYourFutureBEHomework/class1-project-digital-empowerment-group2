@@ -13,3 +13,14 @@ export const createModule = (title) => {
     body: JSON.stringify({ title: title })
   }).then(response => response.json());
 };
+export const deleteModule = (id) => {
+  return fetch(`${API_URL}/module/${id}`, {
+    method: 'DELETE'
+  }).then(response => response.json());
+};
+
+export const checkModule = (completed) => {
+  return fetch(`${API_URL}/module/${completed}`, {
+    method: 'GET',
+  }).then(response => response.json());
+};
