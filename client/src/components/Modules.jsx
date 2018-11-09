@@ -1,35 +1,32 @@
 import React, { Component} from 'react';
 import { getModules, createModule } from '../api/modules';
-//import ClickToEdit from "react-inline-editing";
-
-
+import EditModule from './EditModule'
+import Module from './Module'
 
 class Modules extends Component {
-  constructor() {
+  constructor(props) {
 
-    super();
+    super(props);
     
       this.state = {
         
       title:'',
       modules: [],
-      // id: '',
-      // filter: 'all',
-
-    
-  };
+                  };
+      
+   
+      
 }
+
+
 
   componentDidMount() {
     getModules().then((modules) => {
       this.setState({ modules: modules });
     });
-
-
   }
 
-  
-  handleChange = e => {
+  handlingChange = e => {
     this.setState({
       title: e.target.value
     });
@@ -51,81 +48,91 @@ class Modules extends Component {
    
 }
 
+  handleSelect = (module) =>{
+    this.setState({ selectedModule: module})
 
 
-   
+  }
+  handeleSave = (modules) =>{
+    //this.setState({ selectedModule: module})
+
+
+  }
+  handleCancel = () =>{
+    this.setState({ selectedModule: null})
+
+
+  }
+  hanlechange = (e) =>{
+    let selectedModule = this.state.selectedModule;
+    selectedModule[e.target.name]= e.target.value;
+    this.setState({ selectedModule: selectedModule});
+
+
+  }
+
   render() {
     const { modules } = this.state;
 
 
       return (
-        
-        <div className='container'>
-        <div className = ' pathcontainer' >
-             <h2>  Title of the active path</h2>       
-        </div>
-        <fieldset>
-        <legend className='' >Module :</legend>
-          
-            <div className='container2'>
+          <div>
+              <fieldset className= 'container'>
+              <legend className='' >modules :</legend>
+              <div className = 'container2'>
             
-                      <input 
-                          type='text'
-                          placeholder="Enter new module" 
-                          onChange={this.handleChange}
-                          value = {this.state.title}
-                      />
-                      
-                    
-                      <button className="btn"
-                          
-                          onClick ={this.addNewModule} 
-                      >Add module </button>
-            </div>
-                             
-          <div 
-            className="modulesliste">
-            {modules.map((module) => <div className= 'module' key={module._id}
-          >
+            <input 
+                type='text'
+                placeholder="Enter new module" 
+                onChange={this.handlingChange}
+                value = {this.state.title}
+            />
+            
           
-            {module.title} <br/>
-            {
-              <div class="">
+            <button className="btn"
+                
+                onClick ={this.addNewModule} 
+            >Add module </button>
+  
+              </div>
+            
+            <ul 
+                
+                >
+                
+                
+                {modules.map(module =>{ 
+                  return < Module 
+                         key={module._id}
+                         module={module} 
+                         onSelect = {this.handleSelect} 
+                         selectedModule ={this.selectedModule}  />;
+               
+              })}
+                
+            </ul>
+            
+             <div className = 'editarea'> 
+      
+              <  EditModule  
+                //addingModule={this.state.addingModule}
+                selectedModule={this.state.selectedModule}
+                onChange = {this.hanlechange} 
+                onSave = { this.handeleSave}
+                onCancel = {this.handleCancel}
+              />
 
-              <button       
-                        className="remove-btn"
-                        onClick={()=> {
-                          this.setState(state => ({modules: state.modules.filter(mod => module._id !== mod._id)
-                          }));
-                        }}
-                      >delete
-              </button>
-              <button className="Edit-btn"> Edit </button>
-
-
-              </div> }
+             </div>
+             </fieldset>
           
-            </div>)}
-            </div>
-        </fieldset>
-        </div>
+          </div>
+
+        
       )
-   
-  }
-  }
-
+    
+      
+    }
+  
+}
 
 export default Modules;
-
-
-
-
-
-
-
-
-
-
-
-
-
