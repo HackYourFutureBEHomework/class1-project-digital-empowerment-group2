@@ -9,7 +9,12 @@ const ModuleSchema = mongoose.Schema(
   },
   {
     timestamps: true
+  },
+  
+  { 
+    completed: true
   }
+  
 );
 
 module.exports = mongoose.model('Module', ModuleSchema);
