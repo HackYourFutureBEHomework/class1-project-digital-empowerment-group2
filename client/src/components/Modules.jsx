@@ -13,6 +13,7 @@ class Modules extends Component {
         
       title:'',
       modules: [],
+      
                   };
       
    
@@ -50,7 +51,8 @@ class Modules extends Component {
 }
 
 
-handleDelete = (module)=>{ 
+handleDelete = (event, module)=>{ 
+  event.stopPropagation();
   deleteModule(module).then(()=> {
     const modules = this.state.modules;
     modules = modules.filter(m => m !== module);
@@ -67,12 +69,16 @@ handleDelete = (module)=>{
 
   }
   handeleSave = () =>{
+    const modules = this.state.modules;
+    // if (this.state.addNewModule)
+    
     updateModule(this.state.selectedModule)
     .then(newModule => {
       this.setState({ selectedModule: null
         
       });
     });
+  
 
 
   }

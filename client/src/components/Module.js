@@ -15,7 +15,7 @@ const Module = (props) =>{
                  <div> {props.module.title} </div>
                 </div>
                 <button className = 'delete-button'
-                onClick ={() =>  props.onDelete(props.module)}
+                onClick ={(e) =>  props.onDelete(e, props.module)}
                 > Delete </button>
         </li>
         
