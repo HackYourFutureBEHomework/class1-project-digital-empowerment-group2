@@ -50,23 +50,33 @@ class Modules extends Component {
 }
 
 
-handleDelete = (_id) => {
-  deleteModule(_id);
-  this.setState({
-    modules: this.state.modules.filter(m => m._id !== module._id)
-  });
-};
+handleDelete = (module)=>{ 
+  deleteModule(module).then(()=> {
+    const modules = this.state.modules;
+    modules = modules.filter(m => m !== module);
+  this.setState({ modules: modules });
+  if (this.selectedModule === module){
+    this.setState ({selectedModule:null})
+  }
+});
+}
 
   handleSelect = (module) =>{
     this.setState({ selectedModule: module})
 
 
   }
-  handeleSave = (modules) =>{
-    this.setState({ selectedModule: module})
+  handeleSave = () =>{
+    updateModule(this.state.selectedModule)
+    .then(newModule => {
+      this.setState({ selectedModule: null
+        
+      });
+    });
 
 
   }
+
   handleCancel = () =>{
     this.setState({ selectedModule: null})
 
@@ -116,7 +126,9 @@ handleDelete = (_id) => {
                          key={module._id}
                          module={module} 
                          onSelect = {this.handleSelect} 
-                         selectedModule ={this.selectedModule}  />;
+                         selectedModule ={this.selectedModule}  
+                         onDelete = {this.handleDelete}
+                         />;
                
               })}
                 
@@ -125,7 +137,7 @@ handleDelete = (_id) => {
              <div className = 'editarea'> 
       
               <  EditModule  
-                //addingModule={this.state.addingModule}
+                
                 selectedModule={this.state.selectedModule}
                 onChange = {this.hanlechange} 
                 onSave = { this.handeleSave}
