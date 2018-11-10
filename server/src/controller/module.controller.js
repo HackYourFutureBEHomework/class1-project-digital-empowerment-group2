@@ -21,22 +21,28 @@ exports.create = (req, res) => {
 };
 
 
-// for updating input
-// exports.update = (req, res) =>{
+exports.update = (req, res) => {
+  // const {id} = new Module(req.body);
+    Module.findOneAndUpdate({id: req.params._id}, req.body, {new: true})
+    .then((data) => { res.send(data); })
+    .catch((err) => {
+      res.status(500).send({
+        message: err.message
+      });
+    });
+};
 
-// }
-// exports.product_update = function (req, res) {
-//   Product.findByIdAndUpdate(req.params.id, {$set: req.body}, function (err, product) {
-//       if (err) return next(err);
-//       res.send('Product udpated.');
-//   });
-// };
+exports.destroy = (req, res) => {
+  const {id} = req.params; 
+  
+  Module.findOneAndRemove('_id')
+  .then((data) => { res.send(data); })
+  .catch((err) => {
+    res.status(500).send({
+      message: err.message
+    });
+  });
+};
 
 
-//deleting 
-// exports.product_delete = function (req, res) {
-//   Product.findByIdAndRemove(req.params.id, function (err) {
-//       if (err) return next(err);
-//       res.send('Deleted successfully!');
-//   })
-// };
+
