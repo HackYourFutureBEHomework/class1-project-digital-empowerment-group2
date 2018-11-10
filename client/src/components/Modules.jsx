@@ -1,5 +1,6 @@
 import React, { Component} from 'react';
-import { getModules, createModule } from '../api/modules';
+import { getModules, createModule ,    deleteModule,
+  updateModule } from '../api/modules';
 import EditModule from './EditModule'
 import Module from './Module'
 
@@ -48,13 +49,21 @@ class Modules extends Component {
    
 }
 
+
+handleDelete = (_id) => {
+  deleteModule(_id);
+  this.setState({
+    modules: this.state.modules.filter(m => m._id !== module._id)
+  });
+};
+
   handleSelect = (module) =>{
     this.setState({ selectedModule: module})
 
 
   }
   handeleSave = (modules) =>{
-    //this.setState({ selectedModule: module})
+    this.setState({ selectedModule: module})
 
 
   }
@@ -77,6 +86,7 @@ class Modules extends Component {
 
       return (
           <div>
+            <h2>  Title of the active path</h2>
               <fieldset className= 'container'>
               <legend className='' >modules :</legend>
               <div className = 'container2'>
@@ -120,6 +130,7 @@ class Modules extends Component {
                 onChange = {this.hanlechange} 
                 onSave = { this.handeleSave}
                 onCancel = {this.handleCancel}
+                onDelete = {this.handleDelete}
               />
 
              </div>
