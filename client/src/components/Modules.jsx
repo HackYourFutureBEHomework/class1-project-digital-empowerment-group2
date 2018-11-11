@@ -1,4 +1,5 @@
 import React, { Component} from 'react';
+
 import { getModules, createModule ,    deleteModule,
   updateModule } from '../api/modules';
 import EditModule from './EditModule'
@@ -23,33 +24,31 @@ class Modules extends Component {
 
 
   componentDidMount() {
+
     getModules().then((modules) => {
       this.setState({ modules: modules });
     });
   }
+  
 
   handlingChange = e => {
-    this.setState({
+ 
+     this.setState({
       title: e.target.value
     });
-};
+  };
 
- 
-
-
-  addNewModule = (e) => {
-    e.preventDefault()
-    createModule(this.state.title)
-    .then(newModule => {
+  addModule = e => {
+    e.preventDefault();
+    createModule(this.state.title).then(newModule => {
       this.setState({
         modules: this.state.modules.concat(newModule),
-        title: ""
+        title: "",
+       
       });
     });
-    
-   
-}
-
+  };
+ 
 
 handleDelete = (event, module)=>{ 
   event.stopPropagation();
