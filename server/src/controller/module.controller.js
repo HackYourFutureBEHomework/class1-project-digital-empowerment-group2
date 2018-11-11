@@ -45,9 +45,3 @@ exports.destroy = (req, res) => {
     });
   });
 };
-
-
-
-
-};
-
