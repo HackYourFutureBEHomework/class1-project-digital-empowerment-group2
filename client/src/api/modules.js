@@ -16,19 +16,20 @@ export const createModule = (title) => {
 
 
 
-export const updateModule = (title) => {
-  return fetch(`${API_URL}/module`, {
-    method: 'put',
-    headers: headers, // this is where we set the headers
-    body: JSON.stringify({
-      title: title
-    })
+export const updateModule = (module) => {
+  return fetch(`${API_URL}/module/${module._id}`, {
+    method: 'patch',
+    headers, // this is where we set the headers
+    
+    body: JSON.stringify( {module:module})
+
   }).then(response => response.json());
 };
 
 
-export const deleteModule = (_id) => {
-  return fetch(`${API_URL}/module/${_id}`, {
+export const deleteModule = (id) => {
+  console.log(id)
+  return fetch(`${API_URL}/module/${id}`, {
     method: 'DELETE'
   }).then(response => response.json());
 };

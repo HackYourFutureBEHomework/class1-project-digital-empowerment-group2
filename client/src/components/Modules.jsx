@@ -50,13 +50,13 @@ class Modules extends Component {
   };
  
 
-handleDelete = (event, module)=>{ 
+handleDelete = (event, id)=>{ 
   event.stopPropagation();
-  deleteModule(module).then(()=> {
-    const modules = this.state.modules;
-    modules = modules.filter(m => m !== module);
-  this.setState({ modules: modules });
-  if (this.selectedModule === module){
+  deleteModule(id).then(()=> {
+    //const modules = this.state.modules;
+    this.setState({
+  modules:this.state.modules.filter( module=>module._id!== id )})
+  if (this.selectedModule === id){
     this.setState ({selectedModule:null})
   }
 });
@@ -67,20 +67,33 @@ handleDelete = (event, module)=>{
 
 
   }
-  handeleSave = () =>{
-    const modules = this.state.modules;
-    // if (this.state.addNewModule)
-    
-    updateModule(this.state.selectedModule)
+  handeleSave = (module) =>{
+     updateModule(module)
     .then(newModule => {
-      this.setState({ selectedModule: null
+      this.setState( (previousState) =>{
+        const modules = [...previousState.modules];
+        const index  = modules.findIndex(mod => mod._id === module._id);
+        modules[index] = newModule;
+        return{modules};
         
       });
     });
+   }
+  // handeleSave = (module) =>{
+  //   //const modules = this.state.modules;
+  //   // if (this.state.addNewModule)
+  //   updateModule(module)
+  //   .then(newModule => {
+  //     this.setState((previousState)=>{
+  //       const modules = [...previousState.modules];
+  //       const index  = modules.findIndex(mod => mod._id === module._id);
+  //       modules[index] = newModule;
+  //       return{modules};
+  //     });
+  //   });
   
 
-
-  }
+  // }
 
   handleCancel = () =>{
     this.setState({ selectedModule: null})
@@ -93,7 +106,7 @@ handleDelete = (event, module)=>{
     this.setState({ selectedModule: selectedModule});
 
 
-  }
+  };
 
   render() {
     const { modules } = this.state;

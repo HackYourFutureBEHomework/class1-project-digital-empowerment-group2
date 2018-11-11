@@ -24,7 +24,9 @@ exports.create = (req, res) => {
 
 exports.update = (req, res) => {
   // const {id} = new Module(req.body);
-    Module.findOneAndUpdate({id: req.params._id}, req.body, {new: true})
+  const {title}= req.body
+   const {id}=req.params
+    Module.findOneAndUpdate({_id:id}, {title}, {new: true})
     .then((data) => { res.send(data); })
     .catch((err) => {
       res.status(500).send({
@@ -34,9 +36,8 @@ exports.update = (req, res) => {
 };
 
 exports.destroy = (req, res) => {
-  const {id} = req.params; 
-  
-  Module.findOneAndRemove('_id')
+ const {id}=req.params
+  Module.remove({_id:id})
   .then((data) => { res.send(data); })
   .catch((err) => {
     res.status(500).send({
