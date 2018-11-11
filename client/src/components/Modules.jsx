@@ -25,7 +25,7 @@ class Modules extends Component {
     });
   };
 
-  addModule = e => {
+  addNewModule = e => {
     e.preventDefault();
     createModule(this.state.title).then(newModule => {
       this.setState({
