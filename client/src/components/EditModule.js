@@ -3,9 +3,7 @@ const  EditModule = (props) =>{
     
     if(props.selectedModule){
         return(
-            
             <div className = 'editfields'>
-            
               <div> 
                   <label> title:</label>
                   <input 
@@ -14,7 +12,6 @@ const  EditModule = (props) =>{
                    placeholder = 'title'
                    onChange = {props.onChange}
                    />
-
               </div>
               <button onClick = {props.onCancel}> Cancel </button>
               <button onClick = {props.onSave}> Save </button>
