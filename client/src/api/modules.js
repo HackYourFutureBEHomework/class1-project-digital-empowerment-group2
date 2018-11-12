@@ -16,12 +16,15 @@ export const createModule = (title) => {
 
 
 
+
+
 export const updateModule = (module) => {
+  
   return fetch(`${API_URL}/module/${module._id}`, {
     method: 'patch',
-    headers, // this is where we set the headers
+    headers, 
     
-    body: JSON.stringify( {module:module})
+    body: JSON.stringify( module)
 
   }).then(response => response.json());
 };

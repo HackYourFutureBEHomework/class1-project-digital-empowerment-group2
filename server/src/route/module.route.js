@@ -5,7 +5,7 @@ module.exports = (app) => {
   app.post('/module', modules.create);
  
   app.delete('/module/:id', modules.destroy);
-  app.patch('/module/:id', modules.update);
+  app.put('/module/:id', modules.update);
 
 
 
