@@ -44,13 +44,13 @@ class Modules extends Component {
   };
  
 
-handleDelete = (event, id)=>{ 
- // this.setState({selectedModule: null})
-  deleteModule(id)
-    this.setState({     
-  modules:this.state.modules.filter( module=>module._id!== id )})
+  handleDelete =  id => { 
+    deleteModule(id);
+      this.setState({     
+        modules:this.state.modules.filter( mod => mod._id!== id )
+      });
+    };
   
-  }
 
 
   handleSelect = (module) =>{
@@ -81,13 +81,18 @@ handleDelete = (event, id)=>{
     selectedModule[e.target.name]= e.target.value;
     this.setState({ selectedModule: selectedModule});
   };
+
+
+
+
+
+  
+
   render() {
     const { modules } = this.state;
       return (
         <div>
-          <h2 >  Title of the active path </h2>
-          {/* <Trigger/> */}
-          
+          <h2 > Using a web browser</h2>
           <fieldset className= ''>
               <legend className='' >modules :</legend>
               <div className = 'container2'>

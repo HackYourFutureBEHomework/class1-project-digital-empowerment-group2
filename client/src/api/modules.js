@@ -24,12 +24,8 @@ export const updateModule = module => (
   }).then(response => response.json())
 );
 
-
 export const deleteModule = (id) => {
-  console.log(id)
   return fetch(`${API_URL}/module/${id}`, {
     method: 'DELETE'
   }).then(response => response.json());
 };
-
-
