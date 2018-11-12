@@ -4,15 +4,20 @@ import { getModules, createModule ,    deleteModule,
   updateModule } from '../api/modules';
 import EditModule from './EditModule'
 import Module from './Module'
+//import Trigger from './Trigger'
+import{ Button ,Modal} from 'react-bootstrap'
 
 class Modules extends Component {
  state = {
       title:'',
       modules: [],
       selectedModule: null,
-      edit:false
+      show:false
           };
 
+  HandleDialoge=() =>{
+    this.setState({ show: !this.state.show });
+  }
   componentDidMount() {
     getModules().then((modules) => {
       this.setState({ modules: modules });
@@ -25,19 +30,22 @@ class Modules extends Component {
     });
   };
 
-  addNewModule = e => {
+  addModule = e => {
+    console.log(this.state.title)
     e.preventDefault();
+    //this.setState({show:true})
     createModule(this.state.title).then(newModule => {
       this.setState({
         modules: this.state.modules.concat(newModule),
         title: "",
-       
+        
       });
     });
   };
  
 
 handleDelete = (event, id)=>{ 
+ // this.setState({selectedModule: null})
   deleteModule(id)
     this.setState({     
   modules:this.state.modules.filter( module=>module._id!== id )})
@@ -77,45 +85,63 @@ handleDelete = (event, id)=>{
     const { modules } = this.state;
       return (
         <div>
-          <h2>  Title of the active path</h2>
-          <fieldset className= 'container'>
+          <h2 >  Title of the active path </h2>
+          {/* <Trigger/> */}
+          
+          <fieldset className= ''>
               <legend className='' >modules :</legend>
               <div className = 'container2'>
-            
-                <input 
-                  type='text'
-                  placeholder="Enter new module" 
-                  onChange={this.handlingChange}
-                  value = {this.state.title} />
-                <button className="btn"   
-                        onClick ={this.addModule} >Add module </button>
+                <div className="modal-container">
+                        <Button 
+                            bsStyle="primary"
+                            bsSize="large"
+                            onClick={this.HandleDialoge}
+                            >
+                            Add module
+                          </Button>
+                          <Modal
+                            show={this.state.show}
+                            onHide={this.HandleDialoge}
+                            aria-labelledby="contained-modal-title"
+                          >
+                            <Modal.Header closeButton>
+                              <Modal.Title id="contained-modal-title">
+                                Add New Module
+                              </Modal.Title>
+                            </Modal.Header>
+                            <input type='text' placeholder='Enter The title' onChange={this.handlingChange}></input>
+                            <button onClick={this.addModule}>submet</button>
+                            <Modal.Body>
+                              you can add the 
+                            </Modal.Body>
+                            <Modal.Footer>
+                              <Button onClick={this.HandleDialoge}>Close</Button>
+                            </Modal.Footer>
+                          </Modal>
+                        </div>
+            </div>
+              <ul>
+                  {modules.map(module =>{ 
+                    return (
+                      <Module 
+                        key={module._id}
+                        module={module} 
+                        onSelect = {this.handleSelect} 
+                        selectedModule ={this.state.selectedModule}  
+                        onDelete = {this.handleDelete}
+                        //onEdit={this.handlechange}
+                      />)
+                    })}  
+              </ul>
+              <div className = 'editarea'> 
+                    <EditModule  
+                        selectedModule={this.state.selectedModule}
+                        onChange = {this.handlechange} 
+                        onSave = { this.handeleSave}
+                        onCancel = {this.handleCancel}
+                        onDelete = {this.handleDelete}
+                    />
               </div>
-              {
-                modules.length>0?
-                <nav>
-                  <ul>
-                      {modules.map(module =>{ 
-                        return (
-                          <Module 
-                            key={module._id}
-                            module={module} 
-                            onSelect = {this.handleSelect} 
-                            selectedModule ={this.state.selectedModule}  
-                            onDelete = {this.handleDelete}
-                          />)
-                        })}  
-                  </ul>
-                  <div className = 'editarea'> 
-                        <EditModule  
-                            selectedModule={this.state.selectedModule}
-                            onChange = {this.handlechange} 
-                            onSave = { this.handeleSave}
-                            onCancel = {this.handleCancel}
-                            onDelete = {this.handleDelete}
-                        />
-                  </div>
-
-              </nav>:<b>No items</b>}
           </fieldset>
           
           </div>
