@@ -122,15 +122,23 @@ class Modules extends Component {
                               </Modal.Header>
                                   <input type='text' placeholder='Enter The title' onChange={this.handlingChange}></input>
                                   <button onClick={this.createModule}>submet</button>
+                                  <div> 
                               <Modal.Body>
+                                <h3> Contents for the evaluation</h3>
                                 <ReactQuill
                                   value={Text}
                                   key={module._id}
                                   onChange={this.handleTextChange}
                                   modules={editorOptions}
                                 />
-                                you can add the 
+                                <div className = 'content for evaluation'> 
+                                <button className ='link' type='button'> Explanation</button>
+                                <button className ='link' type='button'> Exercise</button>
+                                <button className ='link' type='button'> Evaluation</button>
+                                </div>
+                                Add a Module 
                               </Modal.Body>
+                              </div>
                               <Modal.Footer>
                                 <Button onClick={this.HandleDialoge}>Close</Button>
                               </Modal.Footer>
