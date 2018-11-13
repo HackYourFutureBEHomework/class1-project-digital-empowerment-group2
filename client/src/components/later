@@ -124,6 +124,24 @@ class Modules extends Component {
 
 export default Modules;
 
+  // handelContentEvaluation(e) {
+  //   if (e.target.name == 'Explanation') {
+  //     this.setState({
+  //       Explanation: e.target.value
+  //     });
+  //   }
+  //   if (e.target.name == 'Exercise') {
+  //     this.setState({
+  //       Exercise: e.target.value
+  //     });
+  //   }
+  //   if (e.target.name == 'Evaluation') {
+  //     this.setState({
+  //       Evaluation: e.target.value
+  //     });
+  // }
+//}
+
 
 
 

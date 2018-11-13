@@ -92,23 +92,28 @@ class Modules extends Component {
   console.log(param);
     }
   
-  handelContentEvaluation(e) {
-    if (e.target.name == 'Explanation') {
-      this.setState({
-        Explanation: e.target.value
-      });
-    }
-    if (e.target.name == 'Exercise') {
-      this.setState({
-        Exercise: e.target.value
-      });
-    }
-    if (e.target.name == 'Evaluation') {
-      this.setState({
-        Evaluation: e.target.value
-      });
-  }
-}
+
+
+// this are the function of the three action: evalutaion, explanation and exercise
+
+
+// handelContentEvaluation = ()= =>{
+//   $('#saveExplanation').click(function (){
+//    window.Explanation = quill.getContents();
+//   console.log(Explanation)
+// }),
+// $('#saveExercise').click(function (){
+//   window.Exercise = quill.getContents();
+//   console.log(Exercise)
+// }),
+// $('#saveEvalution').click(function (){
+//   window.Exercise = quill.getContents();
+//   console.log(Exercise)
+// })} 
+
+
+// but do not know where to put them exactly because the tutorial i watch 
+// theyy are using normal html and put the code in the <script/>???any help?/?
 
 
   render() {
@@ -127,6 +132,8 @@ class Modules extends Component {
         ['clean']
       ]
     };
+    // i think we creat a const handleSelectEvation and pass to the ReactQuill but am not sure
+    // so look  at it  
     const { modules} = this.state;
       return (
         <div>
@@ -151,21 +158,22 @@ class Modules extends Component {
                                   <div> 
                               <Modal.Body>
                                 <h3> Contents for the evaluation</h3>
+                                <div className = 'content for evaluation'> 
+                                <button id = 'saveExplanation' type='button'
+                                
+                                > Save Explanation</button>
+                                <button id = 'saveExercise' type='button'>    Save Exercise</button>
+                                <button id = 'saveEvaluation' type='button' > Save Evaluation</button>
+                                </div>
                                 <ReactQuill
                                   value={Text}
                                   key={module._id}
                                   onChange={this.handleTextChange}
                                   modules={editorOptions}
+                                  
+
                                 />
-                                <div className = 'content for evaluation'
-                                  onClick ={()=> this.statte.handelContentEvaluation}> 
-                                <button className ='link' type='button'
-                                  onClick ={()=> this.statte.handelContentEvaluation}> Explanation</button>
-                                <button className ='link' type='button'
-                                  onClick ={()=> this.statte.handelContentEvaluation}> Exercise</button>
-                                <button className ='link' type='button' 
-                                  onClick ={()=> this.statte.handelContentEvaluation}> Evaluation</button>
-                                </div>
+                                
                                 
                               </Modal.Body>
                               </div>
