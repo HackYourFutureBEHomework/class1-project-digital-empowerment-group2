@@ -5,13 +5,13 @@ const  EditModule = (props) =>{
         return(
             <div className = 'editfields'>
               <div> 
-                  <label> title:</label>
-                  <input 
-                   name='title'
-                   value= {props.selectedModule.title}
-                   placeholder = 'title'
-                   onChange = {props.onChange}
-                   />
+                <label> title:</label>
+                <input 
+                    name='title'
+                    value= {props.selectedModule.title}
+                    placeholder = 'title'
+                    onChange = {props.onChange}
+                />
               </div>
               <button onClick = {props.onCancel}> Cancel </button>
               <button onClick = {props.onSave}> Save </button>
@@ -30,3 +30,6 @@ const  EditModule = (props) =>{
   
 
 export default EditModule;
+
+
+
