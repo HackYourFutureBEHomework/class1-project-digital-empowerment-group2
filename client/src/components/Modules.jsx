@@ -19,9 +19,9 @@ class Modules extends Component {
       selectedModule: null,
       show:false, 
       //edit: '', 
-      Explanation: '',
-      Exercise: '',
-      Evaluation: '',
+      //Explanation: '',
+      //Exercise: '',
+      //Evaluation: '',
           };
 
    componentDidMount() {
