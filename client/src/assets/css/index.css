@@ -8,6 +8,8 @@
 }
 
 body {
+  width: 50%;
+  margin: 0 auto;
   font-size: 1.6rem;
 }
 
@@ -51,18 +53,22 @@ h3 {
 
 
 
-  
+  .delete-button{
+    float :right;
+    position: relative;
+  }
 
 .module{
-  background-color: aqua;
-  border: 2px solid red;
-  justify-content: space-between;
-  display: flex;
+  background-color: rgb(197, 214, 214);
+  border: 2px solid rgb(116, 110, 110);
+   display: flex; 
+   justify-content: space-between;
   margin: 20px
 
 }
 .module:hover {
   background-color: yellowgreen;
+<<<<<<< HEAD
 }  */
 
 
@@ -136,6 +142,8 @@ h3 {
 }
 .module:hover {
   background-color: yellowgreen;
+=======
+>>>>>>> 0adda30083fdd324dec5aecb9e2e70022ed714a1
 } 
 .modal-container {
   position: relative;

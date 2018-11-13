@@ -1,5 +1,6 @@
 import React from 'react';
 
+<<<<<<< HEAD
 const Module = (props) =>{
     return(
         <ul>
@@ -26,6 +27,36 @@ const Module = (props) =>{
                     </button>
                 </nav>
                     
+=======
+
+const Module = (props ) =>{
+
+    return(
+        <ul>
+            <li  className = 'module'>
+                <div> 
+                    {props.module.title} 
+                </div>  
+                <div>
+                    <nav className="edit">
+                        <button 
+                            className = 'glyphicon glyphicon-edit'
+                            onClick ={()=>  props.onSelect(props.module)}
+                        > 
+                        Edit
+                        </button>
+                        <button 
+                            className = 'glyphicon glyphicon-trash'
+                            onClick={() => 
+                                {if (window.confirm(`Are you sure you want to delete?  `))
+                                    props.onDelete( props.module._id);
+                                }}
+                        >
+                        Delete
+                        </button>
+                    </nav>
+                </div>     
+>>>>>>> 0adda30083fdd324dec5aecb9e2e70022ed714a1
             </li>
         </ul> 
     )
@@ -33,6 +64,7 @@ const Module = (props) =>{
 export default Module
 
 
+<<<<<<< HEAD
 
 
 
@@ -71,3 +103,5 @@ export default Module
 //     )
 // }
 // export default Module
+=======
+>>>>>>> 0adda30083fdd324dec5aecb9e2e70022ed714a1
