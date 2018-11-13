@@ -18,6 +18,7 @@ class Modules extends Component {
       modules: [],
       selectedModule: null,
       show:false, 
+      //edit: '', 
       Explanation: '',
       Exercise: '',
       Evaluation: '',
@@ -84,7 +85,7 @@ class Modules extends Component {
   };
   // ?????????????????????????????
     handleCancel = () =>{
-    this.setState({ selectedModule: null,edit:!this.state.edit})
+    this.setState({ selectedModule: null ,edit:!this.state.edit})
   }
  // ?????????????????????????????
  handleTextChange = (param) => {
@@ -113,12 +114,16 @@ class Modules extends Component {
   render() {
     const editorOptions = {
       toolbar: [
-        [{ header: '1' }, { header: '2' }],
+        [{ header: [1,2,3,4,5,6, false] }],
         ['bold', 'italic', 'underline', 'strike'],
         [
           { list: 'ordered' }, { list: 'bullet' }
         ],
-        ['link', 'image', 'video'],
+        ['link', 'image', 'video'], 
+        [{'indent':'-1'},{'indent':' +1'}],
+        [{'size': ['small', false, 'large', 'huge']}],
+        [{'color': []}, {'background': []}],
+        [{'align':[]}], [{'font': []}]
         ['clean']
       ]
     };
@@ -161,7 +166,7 @@ class Modules extends Component {
                                 <button className ='link' type='button' 
                                   onClick ={()=> this.statte.handelContentEvaluation}> Evaluation</button>
                                 </div>
-                                Add a Module 
+                                
                               </Modal.Body>
                               </div>
                               <Modal.Footer>
