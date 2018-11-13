@@ -17,7 +17,10 @@ class Modules extends Component {
       title:'',
       modules: [],
       selectedModule: null,
-      show:false
+      show:false, 
+      Explanation: '',
+      Exercise: '',
+      Evaluation: '',
           };
 
    componentDidMount() {
@@ -88,6 +91,24 @@ class Modules extends Component {
   console.log(param);
     }
   
+  handelContentEvaluation(e) {
+    if (e.target.name == 'Explanation') {
+      this.setState({
+        Explanation: e.target.value
+      });
+    }
+    if (e.target.name == 'Exercise') {
+      this.setState({
+        Exercise: e.target.value
+      });
+    }
+    if (e.target.name == 'Evaluation') {
+      this.setState({
+        Evaluation: e.target.value
+      });
+  }
+}
+
 
   render() {
     const editorOptions = {
@@ -121,7 +142,7 @@ class Modules extends Component {
                                 </Modal.Title>
                               </Modal.Header>
                                   <input type='text' placeholder='Enter The title' onChange={this.handlingChange}></input>
-                                  <button onClick={this.createModule}>submet</button>
+                                  <button onClick={this.createModule}>submit</button>
                                   <div> 
                               <Modal.Body>
                                 <h3> Contents for the evaluation</h3>
@@ -131,10 +152,14 @@ class Modules extends Component {
                                   onChange={this.handleTextChange}
                                   modules={editorOptions}
                                 />
-                                <div className = 'content for evaluation'> 
-                                <button className ='link' type='button'> Explanation</button>
-                                <button className ='link' type='button'> Exercise</button>
-                                <button className ='link' type='button'> Evaluation</button>
+                                <div className = 'content for evaluation'
+                                  onClick ={()=> this.statte.handelContentEvaluation}> 
+                                <button className ='link' type='button'
+                                  onClick ={()=> this.statte.handelContentEvaluation}> Explanation</button>
+                                <button className ='link' type='button'
+                                  onClick ={()=> this.statte.handelContentEvaluation}> Exercise</button>
+                                <button className ='link' type='button' 
+                                  onClick ={()=> this.statte.handelContentEvaluation}> Evaluation</button>
                                 </div>
                                 Add a Module 
                               </Modal.Body>
