@@ -32,6 +32,18 @@ export const deleteModule = id =>
     headers 
   });
 
+<<<<<<< HEAD
+
+
+export const updateModule = (module) => {
+  
+  return fetch(`${API_URL}/module/${module._id}`, {
+    method: 'patch',
+    headers, 
+    
+    body: JSON.stringify( module)
+=======
+>>>>>>> 0adda30083fdd324dec5aecb9e2e70022ed714a1
 
 
 
