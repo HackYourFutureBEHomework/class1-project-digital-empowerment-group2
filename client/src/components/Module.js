@@ -1,107 +1,3 @@
-// import React from 'react';
-// import{ Button ,Modal} from 'react-bootstrap'
-// import { Component } from 'react';
-// import ReactQuill from 'react-quill';
-// import 'react-quill/dist/quill.snow.css';
-
-// class Module extends Component{
-//     constructor(props){
-//     super(props)
-//     this.state={
-//         show:false,
-//         selectedModule:null,
-//         title:props.module.tilte
-//         }
-//     }
-//     handleDialoge=(module)=>{
-//         this.handleSelect(this.props.module)
-//         this.setState({show:!this.state.show})
-        
-//     }
-//     handlechange = (e) =>{
-//         console.log(this.state.selectedModule)
-//         let selectedModule = this.state.selectedModule;
-//         selectedModule[e.target.name]= e.target.value;
-//         this.setState({ selectedModule: selectedModule});
-//       };
-//     handleSelect = (module) =>{
-//           console.log(this.props.module)
-//           console.log(this.state.selectedModule)
-//           this.setState({ selectedModule: module})
-//         }
-//     handleSave=()=>{
-//             this.props.onSave({...this.props.module},this.state.title)
-//             this.setState({show:false})
-//         }
-        
-//     render(){
-//         const editorOptions = {
-//             toolbar: [
-//               [{ header: '1' }, { header: '2' }, { font: [] }],
-//               [{ size: [] }],
-//               ['bold', 'italic', 'underline', 'strike', 'blockquote'],
-//               [{ list: 'ordered' }, { list: 'bullet' }],
-//               ['link', 'image', 'video'],
-//               ['clean'],
-//               ['code-block']
-//             ]
-//           };
-//         return(
-           
-//             <li  className = 'module'>
-//                 <div> {this.props.module.title} 
-//                 </div>
-//                     <nav className="edit">            
-//                         <Modal
-//                             show={this.state.show}
-//                             onHide={this.handleDialoge}
-//                             aria-labelledby="contained-modal-title"
-//                         >
-//                             <Modal.Header closeButton>
-//                                 <Modal.Title id="contained-modal-title">
-//                                     Update module 
-//                                 </Modal.Title>                                
-//                             </Modal.Header> 
-//                             <form onSubmit={this.addModule}>                   
-//                                 <input 
-//                                     // name='title'
-//                                     type='text'
-//                                     placeholder = 'title' 
-//                                     onChange = {this.handlechange}
-//                                     value= {this.props.module.title}>                       
-//                                 </input>                      
-//                             <Modal.Body>
-//                                 <ReactQuill 
-//                                     modules={editorOptions}                                
-//                                     placeholder="Contents"
-//                                     // onChange={this.handleTextChange}
-//                                     // onChange = {this.handlechange}
-//                                     value={this.props.module.explanation}                                    
-//                                 />
-//                             </Modal.Body>
-//                             <Modal.Footer>
-//                                 <Button onClick = {this.handleSave}> Update module </Button>
-//                                 {/* <Button onClick={this.handleDialoge}>Close</Button> */}
-//                             </Modal.Footer></form>     
-//                         </Modal>
-//                         <Button className="glyphicon glyphicon-edit"
-//                                 onClick={this.handleDialoge}>
-//                         </Button> 
-//                         <Button 
-//                             className = 'glyphicon glyphicon-trash' 
-//                             onClick={() => 
-//                                 {if (window.confirm(`Are you sure you want to delete?  `))
-//                                     this.props.onDelete( this.props.module._id);
-//                                 }}
-//                         >                        
-//                         </Button>                
-//                     </nav>                
-//             </li>
-//         )
-//     }
-// }
-// export default Module
-
 import React from 'react';
 import{ Button ,Modal} from 'react-bootstrap'
 import { Component } from 'react';
@@ -158,8 +54,7 @@ class Module extends Component{
               ['code-block']
             ]
           };
-    return(
-      
+    return(      
         <li  className = 'module'>
             <div> {this.props.module.title} 
             </div>
@@ -190,7 +85,7 @@ class Module extends Component{
                                 modules={editorOptions}                                
                                 placeholder="Contents"
                                 onChange={this.handleTextChange}
-                                // value={this.state.explanation}
+                                // value={this.state.explanation} ???????
                             />   
                         </Modal.Body>
                         <Modal.Footer>
@@ -205,13 +100,10 @@ class Module extends Component{
                         this.props.onDelete( this.props.module._id);
                     }}>
                     
-                    </Button>
-                
-                </nav>
-                
-        </li>
-        
+                    </Button>                
+                </nav>                
+        </li>        
     )
-}
+  }
 }
 export default Module
