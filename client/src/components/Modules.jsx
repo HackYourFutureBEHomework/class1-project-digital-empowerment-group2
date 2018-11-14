@@ -15,6 +15,8 @@ class Modules extends Component {
        explanation: ""
    }
 
+   
+
   HandleDialoge=() =>{
     this.setState({ show: !this.state.show });
   }
@@ -131,7 +133,7 @@ class Modules extends Component {
                               <Button onClick={this.HandleDialoge}>Close</Button>
                             </Modal.Footer>
                       </form>
-                  </Modal>
+                      </Modal>
               </div>
           </div>
           {modules.length > 0 ? (
