@@ -14,9 +14,6 @@ class Modules extends Component {
        show:false,
        explanation: ""
    }
-
-   
-
   HandleDialoge=() =>{
     this.setState({ show: !this.state.show });
   }
