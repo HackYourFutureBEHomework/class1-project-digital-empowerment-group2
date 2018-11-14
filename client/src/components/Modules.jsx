@@ -17,7 +17,10 @@ class Modules extends Component {
       title:'',
       modules: [],
       selectedModule: null,
-      show:false
+      show:false, 
+      Explanation: '',
+      Exercise: '',
+      Evaluation: '',
           };
 
    componentDidMount() {
@@ -30,8 +33,7 @@ class Modules extends Component {
        createModule(this.state.title).then(newModule => {
       this.setState({
         modules: this.state.modules.concat(newModule),
-        // title: "",
-        moduleFormShown: false
+        title: "",
       });
     });
   };
@@ -55,9 +57,7 @@ class Modules extends Component {
       });
     };
 
-    showModuleFrom = () => {
-      this.setState({ moduleFormShown: true });
-    }
+    
   HandleDialoge=() =>{
     this.setState({ show: !this.state.show });
   }
@@ -80,25 +80,44 @@ class Modules extends Component {
     this.setState({ selectedModule: selectedModule});
   };
   // ?????????????????????????????
-    handleCancel = () =>{
-    this.setState({ selectedModule: null,edit:!this.state.edit})
-  }
+  //   handleCancel  = () =>{
+  //   this.setState({ selectedModule: null,edit:!this.state.edit})
+  // }
+  
  // ?????????????????????????????
  handleTextChange = (param) => {
   console.log(param);
     }
   
+  handelContentEvaluation(e) {
+    if (e.target.name == 'Explanation') {
+      this.setState({
+        Explanation: e.target.value
+      });
+    }
+    if (e.target.name == 'Exercise') {
+      this.setState({
+        Exercise: e.target.value
+      });
+    }
+    if (e.target.name == 'Evaluation') {
+      this.setState({
+        Evaluation: e.target.value
+      });
+  }
+}
+
 
   render() {
     const editorOptions = {
       toolbar: [
-        [{ header: '1' }, { header: '2' }],
-        ['bold', 'italic', 'underline', 'strike'],
-        [
-          { list: 'ordered' }, { list: 'bullet' }
-        ],
+        [{ header: '1' }, { header: '2' }, { font: [] }],
+        [{ size: [] }],
+        ['bold', 'italic', 'underline', 'strike', 'blockquote'],
+        [{ list: 'ordered' }, { list: 'bullet' }],
         ['link', 'image', 'video'],
-        ['clean']
+        ['clean'],
+        ['code-block']
       ]
     };
     const { modules} = this.state;
@@ -106,7 +125,6 @@ class Modules extends Component {
         <div>
           <h2 > Using a web browser</h2>
             <fieldset className= ''>
-              <legend className='' >modules :</legend>
                 <div className = 'container2'>
                   <div className="modal-container">
                       <Button type="button"  bsStyle="primary" className="button" onClick={this.HandleDialoge}>Add module</Button> 
@@ -121,19 +139,33 @@ class Modules extends Component {
                                 </Modal.Title>
                               </Modal.Header>
                                   <input type='text' placeholder='Enter The title' onChange={this.handlingChange}></input>
-                                  <button onClick={this.createModule}>submet</button>
+                                  {/* <button onClick={this.createModule}>submit</button> */}
+                                  <div> 
                               <Modal.Body>
+                                <h3> Contents for the evaluation</h3>
                                 <ReactQuill
                                   value={Text}
                                   key={module._id}
                                   onChange={this.handleTextChange}
                                   modules={editorOptions}
+                                  placeholder="Title"
                                 />
-                                you can add the 
+                                <div className = 'content for evaluation'
+                                  onClick ={()=> this.statte.handelContentEvaluation}> 
+                                <button className ='link' type='button'
+                                  onClick ={()=> this.statte.handelContentEvaluation}> Explanation</button>
+                                <button className ='link' type='button'
+                                  onClick ={()=> this.statte.handelContentEvaluation}> Exercise</button>
+                                <button className ='link' type='button' 
+                                  onClick ={()=> this.statte.handelContentEvaluation}> Evaluation</button>
+                                </div>
+                                <button onClick={this.createModule}>Add a Module</button>
+                                {/* Add a Module  */}
                               </Modal.Body>
-                              <Modal.Footer>
+                              </div>
+                              {/* <Modal.Footer>
                                 <Button onClick={this.HandleDialoge}>Close</Button>
-                              </Modal.Footer>
+                              </Modal.Footer> */}
                           </Modal>
                     </div>
               </div>
@@ -158,7 +190,7 @@ class Modules extends Component {
                     selectedModule={this.state.selectedModule}
                     onChange = {this.handleEditChange} 
                     onSave = { this.updateModule}
-                    onCancel = {this.handleExt}
+                    onCancel = {this.handleCancel}
                     onDelete = {this.deleteModule}
                   />
                 </div>
@@ -169,3 +201,4 @@ class Modules extends Component {
 }
 
 export default Modules;
+
