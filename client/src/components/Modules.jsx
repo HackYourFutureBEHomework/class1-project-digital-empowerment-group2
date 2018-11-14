@@ -94,8 +94,9 @@ class Modules extends Component {
   
 
 
-// this are the function of the three action: evalutaion, explanation and exercise
+   
 
+    // this are the function of the three action: evalutaion, explanation and exercise
 
 // handelContentEvaluation = ()= =>{
 //   $('#saveExplanation').click(function (){
@@ -138,6 +139,7 @@ class Modules extends Component {
       return (
         <div>
           <h2 > Using a web browser</h2>
+          <form className > 
             <fieldset className= ''>
               <legend className='' >modules :</legend>
                 <div className = 'container2'>
@@ -208,7 +210,8 @@ class Modules extends Component {
                     onDelete = {this.deleteModule}
                   />
                 </div>
-            </fieldset>            
+            </fieldset>   
+            </form>         
         </div>
       )        
   }    
