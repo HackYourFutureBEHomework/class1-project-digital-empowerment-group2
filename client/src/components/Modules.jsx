@@ -111,7 +111,7 @@ class Modules extends Component {
                           </Modal.Title>
                       </Modal.Header>
                       <form onSubmit={this.addModule}>
-                              <h3>Title:</h3>
+                            <h3>Title:</h3>
                               <input 
                                 type='text' 
                                 placeholder='Enter The title' 
