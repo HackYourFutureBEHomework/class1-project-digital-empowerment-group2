@@ -53,9 +53,7 @@ class Modules extends Component {
       })
     };
 
-  
-
-  handleDelete = (id)=>{ 
+    handleDelete = (id)=>{ 
   deleteModule(id)
   this.setState({     
    modules:this.state.modules.filter( module=>module._id!== id )})
