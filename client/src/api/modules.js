@@ -31,9 +31,3 @@ export const deleteModule = id =>
     method: 'DELETE', 
     headers 
   });
-
-
-
-
-
-
