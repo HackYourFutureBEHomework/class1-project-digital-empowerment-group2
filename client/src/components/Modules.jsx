@@ -12,21 +12,17 @@ import 'react-quill/dist/quill.snow.css';
 
 
 
-
 class Modules extends Component {
  state = {
       title:'',
       modules: [],
       selectedModule: null,
       show:false, 
-      Explanation: '',
-      Exercise: '',
-      Evaluation: '',
+      //edit: '', 
+      //Explanation: '',
+      //Exercise: '',
+      //Evaluation: '',
           };
-
-    HandleDialoge=() =>{
-      this.setState({ show: !this.state.show });
-    }
 
    componentDidMount() {
    getModules().then((modules) => {
@@ -89,44 +85,55 @@ class Modules extends Component {
   };
   // ?????????????????????????????
     handleCancel = () =>{
-    this.setState({ selectedModule: null,edit:!this.state.edit})
+    this.setState({ selectedModule: null ,edit:!this.state.edit})
   }
  // ?????????????????????????????
  handleTextChange = (param) => {
   console.log(param);
     }
   
-  handelContentEvaluation(e) {
-    if (e.target.name == 'Explanation') {
-      this.setState({
-        Explanation: e.target.value
-      });
-    }
-    if (e.target.name == 'Exercise') {
-      this.setState({
-        Exercise: e.target.value
-      });
-    }
-    if (e.target.name == 'Evaluation') {
-      this.setState({
-        Evaluation: e.target.value
-      });
-  }
-}
+
+
+// this are the function of the three action: evalutaion, explanation and exercise
+
+
+// handelContentEvaluation = ()= =>{
+//   $('#saveExplanation').click(function (){
+//    window.Explanation = quill.getContents();
+//   console.log(Explanation)
+// }),
+// $('#saveExercise').click(function (){
+//   window.Exercise = quill.getContents();
+//   console.log(Exercise)
+// }),
+// $('#saveEvalution').click(function (){
+//   window.Exercise = quill.getContents();
+//   console.log(Exercise)
+// })} 
+
+
+// but do not know where to put them exactly because the tutorial i watch 
+// theyy are using normal html and put the code in the <script/>???any help?/?
 
 
   render() {
     const editorOptions = {
       toolbar: [
-        [{ header: '1' }, { header: '2' }],
+        [{ header: [1,2,3,4,5,6, false] }],
         ['bold', 'italic', 'underline', 'strike'],
         [
           { list: 'ordered' }, { list: 'bullet' }
         ],
-        ['link', 'image', 'video'],
+        ['link', 'image', 'video'], 
+        [{'indent':'-1'},{'indent':' +1'}],
+        [{'size': ['small', false, 'large', 'huge']}],
+        [{'color': []}, {'background': []}],
+        [{'align':[]}], [{'font': []}]
         ['clean']
       ]
     };
+    // i think we creat a const handleSelectEvation and pass to the ReactQuill but am not sure
+    // so look  at it  
     const { modules} = this.state;
       return (
         <div>
@@ -151,22 +158,23 @@ class Modules extends Component {
                                   <div> 
                               <Modal.Body>
                                 <h3> Contents for the evaluation</h3>
+                                <div className = 'content for evaluation'> 
+                                <button id = 'saveExplanation' type='button'
+                                
+                                > Save Explanation</button>
+                                <button id = 'saveExercise' type='button'>    Save Exercise</button>
+                                <button id = 'saveEvaluation' type='button' > Save Evaluation</button>
+                                </div>
                                 <ReactQuill
                                   value={Text}
                                   key={module._id}
                                   onChange={this.handleTextChange}
                                   modules={editorOptions}
+                                  
+
                                 />
-                                <div className = 'content for evaluation'
-                                  onClick ={()=> this.statte.handelContentEvaluation}> 
-                                <button className ='link' type='button'
-                                  onClick ={()=> this.statte.handelContentEvaluation}> Explanation</button>
-                                <button className ='link' type='button'
-                                  onClick ={()=> this.statte.handelContentEvaluation}> Exercise</button>
-                                <button className ='link' type='button' 
-                                  onClick ={()=> this.statte.handelContentEvaluation}> Evaluation</button>
-                                </div>
-                                Add a Module 
+                                
+                                
                               </Modal.Body>
                               </div>
                               <Modal.Footer>
