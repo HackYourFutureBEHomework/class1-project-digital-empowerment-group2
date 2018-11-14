@@ -18,10 +18,7 @@ class Module extends Component{
         this.setState({show:!this.state.show})
         
     }
-    // handleCancel=()=>{
-    //     this.setState({show:false})
-    //     this.setState({title:this.props.module.title})
-    // }
+
     handlechange = (e) =>{
         console.log(this.state.selectedModule)
         let selectedModule = this.state.selectedModule;
