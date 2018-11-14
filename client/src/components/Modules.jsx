@@ -14,6 +14,7 @@ class Modules extends Component {
        show:false,
        explanation: ""
    }
+
   HandleDialoge=() =>{
     this.setState({ show: !this.state.show });
   }
@@ -85,14 +86,12 @@ class Modules extends Component {
     const { modules } = this.state;
     return (
       <div>        
-        <h2 >  Title of the active path </h2>          
+                
         <fieldset className= ''>
-            <legend className='' >modules :</legend>
-            <div className = 'container2'>
               <div className="modal-container">
-                  <Button 
-                      bsStyle="primary"
-                      bsSize="large"
+                 <h2 >  Title of the active path </h2>   
+                 <Button 
+                      bsStyle="primary"                    
                       onClick={this.HandleDialoge}
                       >
                       Add module
@@ -107,15 +106,15 @@ class Modules extends Component {
                             Add New Module
                           </Modal.Title>
                       </Modal.Header>
-                      <form onSubmit={this.addModule}>
-                            <h3>Title:</h3>
+                      <form onSubmit={this.addModule}>                                           
+                            <Modal.Body>
+                              <h3>Title:</h3>
                               <input 
                                 type='text' 
                                 placeholder='Enter The title' 
                                 onChange={this.handlingChange}
                                 value= {this.title}>
-                              </input>                          
-                            <Modal.Body>
+                              </input>           
                               <h3> Contents for the evaluation</h3>
                               <ReactQuill 
                                 modules={editorOptions}                                
@@ -132,7 +131,6 @@ class Modules extends Component {
                       </form>
                       </Modal>
               </div>
-          </div>
           {modules.length > 0 ? (
             <ul>
                 {modules.map(module =>{ 
