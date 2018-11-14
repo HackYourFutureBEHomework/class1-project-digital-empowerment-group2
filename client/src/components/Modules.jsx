@@ -82,7 +82,7 @@ class Modules extends Component {
   }
 
   handleEditChange = (e) =>{
-    console.log(this.state.selectedModule)
+    //console.log(this.state.selectedModule)
     let selectedModule = this.state.selectedModule;
     selectedModule[e.target.name]= e.target.value;
     this.setState({ selectedModule: selectedModule});
@@ -166,7 +166,7 @@ class Modules extends Component {
                                 <button className ='link' type='button' 
                                   onClick ={()=> this.statte.handelContentEvaluation}> Evaluation</button>
                                 </div>
-                                Add a Module 
+                                 
                               </Modal.Body>
                               </div>
                               <Modal.Footer>
