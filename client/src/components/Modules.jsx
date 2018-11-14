@@ -1,12 +1,14 @@
 import React, { Component} from 'react';
 
-import { getModules, createModule, deleteModule, updateModule } from '../api/modules';
-import EditModule from './EditModule'
+import { getModules, createModule , deleteModule, updateModule } from '../api/modules';
 import Module from './Module'
 import{ Button ,Modal} from 'react-bootstrap'
-
 import ReactQuill from 'react-quill';
 import 'react-quill/dist/quill.snow.css';
+// // import renderHTML from 'react-render-html';
+
+// import ReactQuill from 'react-quill';
+// import 'react-quill/dist/quill.snow.css';
 
 
 
@@ -38,7 +40,13 @@ class Modules extends Component {
         moduleFormShown: false
       });
     });
-  };
+      createModule(this.state.explanation).then(newModule => {
+        this.setState({
+          modules: this.state.modules.concat(newModule),
+          explanation: "",
+        });
+      })
+    };
 
   updateModule = (module) => {
     const {selectedModule}=this.state
