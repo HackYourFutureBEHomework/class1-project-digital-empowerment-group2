@@ -27,7 +27,6 @@ class Modules extends Component {
     HandleDialoge=() =>{
       this.setState({ show: !this.state.show });
     }
-    
    componentDidMount() {
    getModules().then((modules) => {
       this.setState({  modules });
