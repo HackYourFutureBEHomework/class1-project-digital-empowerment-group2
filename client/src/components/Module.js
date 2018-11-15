@@ -26,7 +26,7 @@ class Module extends Component{
         selectedModule[e.target.name]= e.target.value;
         this.setState({ selectedModule: selectedModule});
       };
-    handleSelect = (module) =>{
+    handleSelect = (module) => {
           console.log(this.props.module)
           console.log(this.state.selectedModule)
           this.setState({ selectedModule: module})
