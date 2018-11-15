@@ -95,7 +95,7 @@ class Module extends Component{
                         <Button 
                         className = 'glyphicon glyphicon-trash' 
                         onClick={() => 
-                        {if (window.confirm(`Are you sure you want to delete?  `))
+                        {if (window.confirm(`Are you sure you want to delete "${this.props.module.title}"? `))
                             this.props.onDelete( this.props.module._id);
                         }}>                    
                         </Button>                

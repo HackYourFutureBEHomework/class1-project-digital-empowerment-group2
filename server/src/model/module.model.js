@@ -7,15 +7,14 @@ const ModuleSchema = mongoose.Schema(
       type: String,
       required: true
     },
-    
+    contents: {
       explanation: String,
       exercise: String,
       evaluation: String
-    
+    }
   },
   {
     timestamps: true
   }
 );
-
 module.exports = mongoose.model('Module', ModuleSchema);
