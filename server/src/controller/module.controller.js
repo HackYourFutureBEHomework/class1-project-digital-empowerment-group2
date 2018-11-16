@@ -11,7 +11,12 @@ exports.findAll = (req, res) => {
 };
 
 exports.create = (req, res) => {
-  const newModule = new Module(req.body);
+  const newModule = new Module(
+    { title: req.body.title, 
+      explanation:  req.body.explanation,
+      exercise:     req.body.exercise,
+      evaluation:   req.body.evaluation
+    });
   newModule
     .save()
     .then((data) => { res.send(data); })
@@ -20,6 +25,17 @@ exports.create = (req, res) => {
     });
 
 };
+
+// exports.create = (req, res) => {
+//   const newModule = new Module(req.body);
+//   newModule
+//     .save()
+//     .then((data) => { res.send(data); })
+//     .catch((err) => {
+//       res.status(500).send({ message: err.message });
+//     });
+
+// };
 
 
 exports.update = (req, res) => {

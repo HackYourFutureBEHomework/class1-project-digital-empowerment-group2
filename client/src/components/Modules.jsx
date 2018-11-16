@@ -4,7 +4,7 @@ import { getModules, createModule, deleteModule, updateModule } from '../api/mod
 import EditModule from './EditModule'
 import Module from './Module'
 import{ Button ,Modal} from 'react-bootstrap'
-
+import editorOptions from './editorOptions'
 import ReactQuill from 'react-quill';
 import 'react-quill/dist/quill.snow.css';
 
@@ -19,6 +19,7 @@ class Modules extends Component {
       modules: [],
       selectedModule: null,
       show:false, 
+      Text: '',
       Explanation: '',
       Exercise: '',
       Evaluation: '',
@@ -96,8 +97,12 @@ class Modules extends Component {
   console.log(param);
     }
   
+    saveExplanation = ()=>{
+      var Explanation = ReactQuill.getContents();
+      console.log(Explanation)
+  }
 
-    // this are the function of the three action: evalutaion, explanation and exercise
+// this are the function of the three action: evalutaion, explanation and exercise
 
 // handelContentEvaluation = ()= =>{
 //   $('#saveExplanation').click(function (){
@@ -120,28 +125,36 @@ class Modules extends Component {
 
 
 
-//   handelContentEvaluation(e) {
-//     if (e.target.name == 'Explanation') {
-//       this.setState({
-//         Explanation: e.target.value
-//       });
-//     }
-//     if (e.target.name == 'Exercise') {
-//       this.setState({
-//         Exercise: e.target.value
-//       });
-//     }
-//     if (e.target.name == 'Evaluation') {
-//       this.setState({
-//         Evaluation: e.target.value
-//       });
-//   }
-// }
+
 
 
   render() {
-    const editorOptions = {
-      toolbar: [
+    const { modules} = this.state;
+    //var quill = new Quill('#editor-container', 
+  //   const editorOptions= {
+  //     modules: {
+  //       toolbar: [
+  //         [{ header: [1,2,3,4,5,6, false] }],
+  //         ['bold', 'italic', 'underline', 'strike'],
+  //         [
+  //           { list: 'ordered' }, { list: 'bullet' }
+  //         ],
+  //         ['link', 'image', 'video'], 
+  //         [{'indent':'-1'},{'indent':' +1'}],
+  //         [{'size': ['small', false, 'large', 'huge']}],
+  //         [{'color': []}, {'background': []}],
+  //         [{'align':[]}], [{'font': []}]
+  //         ['clean']
+  //       ]
+  //     },
+  //     placeholder: 'Compose an epic...',
+      
+  //   }
+  // //);
+
+
+    
+    const editorOptions = [
         [{ header: [1,2,3,4,5,6, false] }],
         ['bold', 'italic', 'underline', 'strike'],
         [
@@ -154,14 +167,28 @@ class Modules extends Component {
         [{'align':[]}], [{'font': []}]
         ['clean']
       ]
-    };
+
+      // var quill = new Quill('#content-evalution',{
+      //   module: {
+      //     toolbar:toolbarOption
+      //   }
+      // })
+      
+      // $('#saveExplanation').click(function (){
+      //     var Explanation = quill.getContents();
+      //      console.log(Explanation)
+      //    }), 
+
+    //};
     // i think we creat a const handleSelectEvation and pass to the ReactQuill but am not sure
-    // so look  at it 
-    const { modules} = this.state;
+    // so look  at it
+        //}
+
+    
       return (
         <div>
           <h2 > Using a web browser</h2>
-          <form className > 
+          
             <fieldset className= ''>
               <legend className='' >modules :</legend>
                 <div className = 'container2'>
@@ -180,31 +207,26 @@ class Modules extends Component {
                                   <input type='text' placeholder='Enter The title' onChange={this.handlingChange}></input>
                                   <button onClick={this.createModule}>submit</button>
                                   <div> 
+                                  <form>
+                                  <h3> Contents for the evaluation</h3>
+                                  <div className = 'content for evaluation'> 
+                                          <button id = 'saveExplanation' type='button'
+                                          onClick ={this.saveExplanation}                    
+                                          > Explanation</button>
+                                          <button id = 'saveExercise' type='button'>    Exercise</button>
+                                          <button id = 'saveEvaluation' type='button' > Evaluation</button>
+                                  </div>
+                              </form>
                               <Modal.Body>
-                                <h3> Contents for the evaluation</h3>
-                                <div className = 'content for evaluation'> 
-                                <button id = 'saveExplanation' type='button'
-                                
-                                > Save Explanation</button>
-                                <button id = 'saveExercise' type='button'>    Save Exercise</button>
-                                <button id = 'saveEvaluation' type='button' > Save Evaluation</button>
-                                </div>
-
+                              
                                 <ReactQuill
-                                  value={Text}
+                                  value={this.state.Text}
                                   key={module._id}
                                   onChange={this.handleTextChange}
-                                  modules={editorOptions}
+                                  editorOptions={editorOptions}
                                 />
-                                {/* <div className = 'content for evaluation'
-                                  onClick ={()=> this.statte.handelContentEvaluation}> 
-                                <button className ='link' type='button'
-                                  onClick ={()=> this.statte.handelContentEvaluation}> Explanation</button>
-                                <button className ='link' type='button'
-                                  onClick ={()=> this.statte.handelContentEvaluation}> Exercise</button>
-                                <button className ='link' type='button' 
-                                  onClick ={()=> this.statte.handelContentEvaluation}> Evaluation</button>
-                                </div> */}
+                                {/* <div dangerouslySetInnerHTML={{ __html: module.explanation }} /> */}
+                                
                                  
                               </Modal.Body>
                               </div>
@@ -240,7 +262,7 @@ class Modules extends Component {
                   />
                 </div>
             </fieldset> 
-            </form> 
+            
             
         </div>
       )        
