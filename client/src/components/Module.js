@@ -1,8 +1,10 @@
-import React from 'react';
+import React, { Component } from 'react';
 import{ Button ,Modal} from 'react-bootstrap'
-import { Component } from 'react';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faEdit, faTrash } from '@fortawesome/free-solid-svg-icons'
 import ReactQuill from 'react-quill';
 import 'react-quill/dist/quill.snow.css';
+
 
 class Module extends Component{
     constructor(props){
@@ -53,55 +55,47 @@ class Module extends Component{
           };
         return(
         
-            <li  className = 'module'>
+            <div  className = 'module'>
                 <div> {this.props.module.title} 
                 </div>
-                    <nav className="edit">
-                        <Button className="glyphicon glyphicon-edit"
-                                onClick={this.handleDialoge}>
-                        </Button>
+                    <article className="edit">
+                      
                         <Modal
                             show={this.state.show}
                             onHide={this.handleDialoge}
-                            aria-labelledby="contained-modal-title"
-                        >
-                            <Modal.Header closeButton>
-                                <Modal.Title id="contained-modal-title">
-                                Update module
-                                </Modal.Title>
-                                
-                            </Modal.Header>                                
-                            <Modal.Body>
-                                <h3>Title:</h3>                        
-                                <input 
-                                    name='title'
-                                    value= {this.props.module.title}
-                                    placeholder = 'title'
-                                    onChange = {this.handlechange}
-                                    />
-                                <h3>Contents for the explanation step:</h3>
-                                <ReactQuill 
-                                    modules={editorOptions}                                
-                                    placeholder="Contents"
-                                    onChange={this.handleTextChange}
-                                    // value={this.state.explanation}
-                                />   
-                            </Modal.Body>
-                            <Modal.Footer>
-                            <Button bsStyle="primary" onClick = {this.handleSave}> Update modeule </Button>
-                            <Button onClick={this.handleDialoge}>Close</Button>
-                            </Modal.Footer>
-                        </Modal>
-                        <Button 
-                        className = 'glyphicon glyphicon-trash' 
-                        onClick={() => 
-                        {if (window.confirm(`Are you sure you want to delete "${this.props.module.title}"? `))
-                            this.props.onDelete( this.props.module._id);
-                        }}>                    
-                        </Button>                
-                    </nav>                
-            </li>        
+                            className="modal module-form"
+                            overlayClassName="modal-overlay"
+                          >
+                            { module
+                              ? <h2 className="modal__title">Update module</h2>
+                              : <h2 className="modal__title">Add a new module</h2>
+                            }
+                            <form onSubmit={this.onSubmit}>
+                              <label htmlFor="module-title">
+                                Title:
+                                <input type="text" className="input" id="module-title" value={this.props.module.title} onChange={this.handlechange} />
+                              </label>
+                              {/* <ReactQuill 
+                              type="text" className="input" id="module-title" value={this.props.module.title} onChange={this.setTitle} placeholder="Contents"/>            */}
+                              <div className="module-form__actions">
+                                <input type="submit" className="button"onClick={this.addModule} value={module ? 'Update module' : 'Add module'} />
+                              </div>
+                            </form>
+                          </Modal>                        
+                        <h3 className="module__title">{module.title}</h3>
+                        <div className="module__actions">
+                          <i><FontAwesomeIcon icon={faEdit} onClick={this.handleDialoge} /></i>
+                          <i><FontAwesomeIcon icon={faTrash} onClick={() => 
+                              {if (window.confirm(`Are you sure you want to delete "${this.props.module.title}"? `))
+                                  this.props.onDelete( this.props.module._id);
+                              }} />
+                           
+                          </i>
+                        </div>                                  
+                    </article>                
+            </div>        
         )
     }
 }
 export default Module
+
