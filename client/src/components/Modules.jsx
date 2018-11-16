@@ -23,16 +23,6 @@ class Modules extends Component {
     });
   }
 
-  // addModule = (module) => {
-  //   api.createModule(module).then((newModule) => {
-  //     this.setState(previousState => ({
-  //       newTitle: '',
-  //       modules: [...previousState.modules, newModule],
-  //       moduleFormShown: false
-  //     }));
-  //   });
-  // };
-
   addModule = e => {
     console.log(this.state.title)
     e.preventDefault();
@@ -43,7 +33,7 @@ class Modules extends Component {
         
       });
     });
-    api.createModule(this.state.explanation).then(newModule => {
+    api.createModule(this.state.text).then(newModule => {
         this.setState({
           modules: this.state.modules.concat(newModule),
           explanation: "",
@@ -69,52 +59,28 @@ class Modules extends Component {
           modules:this.state.modules.filter(mod => mod._id !== id)
         });
       });
+    } 
+
+    HandleDialoge=() =>{
+      this.setState({ show: !this.state.show });
     }
 
-    // deleteModule = (module) => {
-    //   api.deleteModule(module._id).then(() => {
-    //     this.setState((previousState) => {
-    //       const modules = [...previousState.modules].filter(mod => mod._id !== module._id);
-    //       return { modules };
-    //     });
-    //   });
-    // }
-   
-    showModuleFrom = () => {
-      this.setState({ moduleFormShown: true });
-    }
-  
-    hideModuleForm = () => {
-      this.setState({ moduleFormShown: false });
-    }
-  
-    
-
-  HandleDialoge=() =>{
-    this.setState({ show: !this.state.show });
-  }
-
-//   handlingChange = e => {
-//      this.setState({
-//       title: e.target.value
-//     });
-//   };
-//   handleTextChange= e => {
-//     this.setState({explanation:e})
-//   console.log(this.state.explanation);
-//  };
+    handleTextChange= e => {
+      this.setState({text:e})
+    console.log(this.state.text);
+  };
 
  
- setTitle = (e) => {
-  this.setState({ title: e.currentTarget.value });
-}
+  setTitle = (e) => {
+    this.setState({ title: e.currentTarget.value });
+  }
 
-onSubmit = (e) => {
-  e.preventDefault();
-  const { title } = this.state;
-  const { submit, module } = this.props;console.log(title);
-  module ? submit({ ...module, title }) : this.addModule({ title });
-}
+  onSubmit = (e) => {
+    e.preventDefault();
+    const { title } = this.state;
+    const { submit, module } = this.props;console.log(title);
+    module ? submit({ ...module, title }) : this.addModule({ title });
+  }
 
 
   render() {
@@ -131,7 +97,7 @@ onSubmit = (e) => {
     };
 
     const {  module } = this.props;
-    const { modules, title } = this.state;
+    const { modules, title, text } = this.state;
 
     return (
       <div className="container-module-container">
@@ -154,8 +120,15 @@ onSubmit = (e) => {
                 Title:
                 <input type="text" className="input" id="module-title" value={title} onChange={this.setTitle} />
               </label>
-              {/* <ReactQuill 
-              type="text" className="input" id="module-title" value={title} onChange={this.setTitle} placeholder="Contents"/>            */}
+              <ReactQuill 
+                  type="text" 
+                  className="input" 
+                  id="module-title" 
+                  value={text} 
+                  onChange={this.handleTextChange} 
+                  modules={editorOptions}
+                  placeholder="Contents"
+              />           
               <div className="module-form__actions">
                 <input type="submit" className="button"onClick={this.addModule} value={module ? 'Update module' : 'Add module'} />
               </div>
@@ -167,10 +140,20 @@ onSubmit = (e) => {
                 .sort((m1, m2) => m2.createdAt - m1.createdAt)
                 .map(module => (
                   <Module
+                    // key={module._id}
+                    // module={module}            
+                    // onDelete = {this.handleDelete}
+                    // onSave = { this.handeleSave}
+                    // handleTextChange={this.handleTextChange}
                     key={module._id}
-                    module={module}            
+                    module={module} 
+                    onSelect = {this.handleSelect} 
+                    selectedModule ={this.state.selectedModule}  
                     onDelete = {this.handleDelete}
+                    onChange = {this.handlechange} 
                     onSave = { this.handeleSave}
+                    onCancel = {this.handleCancel}
+                    editorOptions= {this.editorOptions}
                     handleTextChange={this.handleTextChange}                   
                   />
                 ))

@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import{ Button ,Modal} from 'react-bootstrap'
+import{Modal} from 'react-bootstrap'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEdit, faTrash } from '@fortawesome/free-solid-svg-icons'
 import ReactQuill from 'react-quill';
@@ -13,6 +13,7 @@ class Module extends Component{
         show:false,
         selectedModule:null,
         title:props.module.tilte,
+        text:props.module.text,        
         }
     }
     handleDialoge=(module)=>{
@@ -27,6 +28,7 @@ class Module extends Component{
         selectedModule[e.target.name]= e.target.value;
         this.setState({ selectedModule: selectedModule});
       };
+
     handleSelect = (module) =>{
           console.log(this.props.module)
           console.log(this.state.selectedModule)
@@ -37,7 +39,7 @@ class Module extends Component{
             this.setState({show:false})
         }
         handleTextChange= e => {
-            this.setState({explanation:e})
+            this.setState({text:e})
           console.log(this.state.explanation);
          };
         
@@ -73,12 +75,29 @@ class Module extends Component{
                             <form onSubmit={this.onSubmit}>
                               <label htmlFor="module-title">
                                 Title:
-                                <input type="text" className="input" id="module-title" value={this.props.module.title} onChange={this.handlechange} />
+                              
+                                <input 
+                                    type="text" 
+                                    className="input" 
+                                    id="module-title"
+                                    name='title'
+                                    value= {this.props.module.title}
+                                    placeholder = 'title'
+                                    onChange = {this.handlechange}
+                                />
                               </label>
-                              {/* <ReactQuill 
-                              type="text" className="input" id="module-title" value={this.props.module.title} onChange={this.setTitle} placeholder="Contents"/>            */}
+                              <ReactQuill 
+                                    name='title'
+                                    type="text" 
+                                    className="input" 
+                                    id="module-title" 
+                                    value={this.props.text} 
+                                    onChange={this.handleTextChange} 
+                                    modules={editorOptions}
+                                    placeholder="Contents"
+                                />   
                               <div className="module-form__actions">
-                                <input type="submit" className="button"onClick={this.addModule} value={module ? 'Update module' : 'Add module'} />
+                                <input type="submit" className="button"onClick={this.handleSave} value={module ? 'Update module' : 'Add module'} />
                               </div>
                             </form>
                           </Modal>                        
