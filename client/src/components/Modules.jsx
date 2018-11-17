@@ -193,7 +193,9 @@ handeleSave = (module) => {
               </div>
               {modules.length > 0 ? (             
                 <ul>            
-                  {modules.map(module =>
+                  { modules
+                  .sort((m1, m2) => m2.createdAt - m1.createdAt)
+                  .map(module =>
                     <Module 
                       key={module._id}
                       module={module} 
