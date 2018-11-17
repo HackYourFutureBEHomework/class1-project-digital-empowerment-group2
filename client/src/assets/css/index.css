@@ -1,4 +1,4 @@
- /* html {
+html {
   box-sizing: border-box;
   font-size: 62.5%;
 }
@@ -79,82 +79,6 @@ h3 {
 }
 .module:hover {
   background-color: yellowgreen;
-
-}  */
-
-
-html {
-  box-sizing: border-box;
-  font-size: 62.5%;
-}
-
-*, *:before, *:after {
-  box-sizing: inherit;
-}
-
-body {
-  width: 50%;
-  margin: 0 auto;
-  font-size: 1.6rem;
-}
-
-p {
-  line-height: 1.6;
-}
-
-h1 {
-  font-size: 3.2rem;
-}
-
-h2 {
-  font-size: 2.4rem;
-}
-
-h3 {
-  font-size: 1.9rem;
-} 
-
-.container{
-  border: 5px solid red;
-  width: 80%;
-  background-color: cornsilk;
-  display: block;
-  flex-direction: column;
-  justify-content: center;
-  padding: 3px;
-
-} 
-
-
-.container2{
-  
-  
-  display: flex;
-  flex-direction: rorw;
-  
-  justify-content: right
-  
-}
-
-
-
-  .delete-button{
-    float :right;
-    position: relative;
-  }
-
-.module{
-  background-color: rgb(197, 214, 214);
-  border: 2px solid rgb(116, 110, 110);
-   display: flex; 
-   justify-content: space-between;
-  margin: 20px
-
-}
-.module:hover {
-  background-color: yellowgreen;
-
-
 } 
 .modal-container {
   position: relative;
