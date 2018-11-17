@@ -16,6 +16,7 @@ class Modules extends Component {
       title: props.module ? props.module.title : '',
       modules: [],
       loading: false,
+      error:null
     };
   }
   componentDidMount() {
@@ -123,19 +124,20 @@ class Modules extends Component {
               <form onSubmit={this.onSubmit}>
                 <label htmlFor="module-title">
                   Title:
-                  <input type="text" className="input" id="module-title" value={title} onChange={this.setTitle} />
+                  <input type="text" className="input" id="module-title" value={title} onChange={this.setTitle} required/>
                 </label>
-                <ReactQuill 
+                <ReactQuill theme="snow"
                     type="text" 
                     className="input" 
                     id="module-title" 
-                    value={text} 
+                    value={this.state.editorHtml || ''}
+                    // value={text} 
                     onChange={this.handleTextChange} 
                     modules={editorOptions}
                     placeholder="Contents"
                 />           
                 <div className="module-form__actions">
-                  <input type="submit" className="button"onClick={this.addModule} value={module ? 'Update module' : 'Add module'} />
+                  <input type="submit" className="button"onClick={this.addModule} value={module ? 'Update module' : 'Add module'} required />
                 </div>
               </form>
             </Modal>

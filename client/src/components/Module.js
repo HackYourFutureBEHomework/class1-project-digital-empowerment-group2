@@ -86,12 +86,13 @@ class Module extends Component{
                                     onChange = {this.handlechange}
                                 />
                               </label>
-                              <ReactQuill 
+                              <ReactQuill theme="snow"
                                     name='title'
                                     type="text" 
                                     className="input" 
                                     id="module-title" 
-                                    value={this.props.text} 
+                                    // value={this.props.text} 
+                                    value={this.state.editorHtml || ''}
                                     onChange={this.handleTextChange} 
                                     modules={editorOptions}
                                     placeholder="Contents"
