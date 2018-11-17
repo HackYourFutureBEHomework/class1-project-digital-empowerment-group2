@@ -12,7 +12,12 @@ class Modules extends Component {
        title:'',
        modules: [],
        show:false,
-       explanation: ""
+        explanation:'',
+        exercise:'',
+        evaluation:'',
+        content:'',
+       flag:1
+       
    }
   HandleDialoge=() =>{
     this.setState({ show: !this.state.show });
@@ -29,29 +34,54 @@ class Modules extends Component {
       title: e.target.value
     });
   };
-  handleTextChange= e => {
+  handleTextChange=(e)=> {
+    switch(this.state.flag){
+    case 1: 
     this.setState({explanation:e})
-  console.log(this.state.explanation);
+    break;
+    case 2:
+    this.setState({exercise:e})
+    break;
+    case 3: 
+    this.setState({evaluation:e})
+    break;
+     
+    }
+    console.log(this.state.content);
  };
 
   addModule = e => {
     console.log(this.state.title)
     e.preventDefault();
-    createModule(this.state.title).then(newModule => {
+    createModule(this.state.title,this.state.explanation,this.state.exercise,this.state.evaluation).then(newModule => {
       this.setState({
         modules: this.state.modules.concat(newModule),
         title: "",
-        
       });
     });
-      createModule(this.state.explanation).then(newModule => {
-        this.setState({
-          modules: this.state.modules.concat(newModule),
-          explanation: "",
-        });
-      })
+    console.log(this.state.modules)
     };
 
+    handelContentEvaluation=(e)=> {
+      console.log('hiii')
+      console.log(this.state.flag)
+          if (e.target.innerHTML === 'Explanation') {
+            this.setState({
+              flag: 1
+            });
+            console.log(e.target.innerHTML)
+          }
+          if (e.target.innerHTML === 'Exercise') {
+            this.setState({
+              flag: 2
+            });
+          }
+          if (e.target.innerHTML === 'Evaluation') {
+            this.setState({
+              flag: 3
+            });
+        }
+      }
     handleDelete = (id)=>{ 
   deleteModule(id)
   this.setState({     
@@ -87,7 +117,7 @@ class Modules extends Component {
       <div>        
         <h2 >  Title of the active path </h2>          
         <fieldset className= ''>
-            <legend className='' >modules :</legend>
+         <legend className='' >modules :</legend>
             <div className = 'container2'>
               <div className="modal-container">
                   <Button 
@@ -121,9 +151,13 @@ class Modules extends Component {
                                 modules={editorOptions}                                
                                 placeholder="Contents"
                                 onChange={this.handleTextChange}
-                                value={this.state.explanation}
+                                // value={this.state.explanation}
                               />
-                             
+                              <div className = 'content for evaluation'> 
+                                <button id = 'saveExplanation' type='button' onClick ={this.handelContentEvaluation}>Explanation</button>
+                                <button id = 'saveExercise' type='button' onClick ={this.handelContentEvaluation}>Exercise</button>
+                                <button id = 'saveEvaluation' type='button'  onClick ={this.handelContentEvaluation}>Evaluation</button>
+                                </div>
                             </Modal.Body>
                             <Modal.Footer> 
                               <Button bsStyle="primary" onClick={this.addModule}>Add module</Button>
