@@ -2,8 +2,8 @@
 import React, { Component } from 'react';
 import{ Button ,Modal} from 'react-bootstrap';
 import ReactQuill from 'react-quill';
+import 'react-quill/dist/quill.snow.css';
 
-//Modal.setAppElement('#root');
 
 
 class Module extends Component{
@@ -11,12 +11,9 @@ class Module extends Component{
     super(props)
     this.state={
         show:false,
-        selectedModule:null,
-        title:props.module.tilte, 
-        //explanation: props.module.Explanation,
-        //exercise: props.module.Exercise,
-        //: props.module.Evaluation,
-        showMoreInfo:false,
+        selectedModule: null,
+        title:          props.module.tilte, 
+        showMoreInfo:   false,
         }
     }
     handleDialoge=(module)=>{
@@ -24,38 +21,39 @@ class Module extends Component{
         this.setState({show:!this.state.show})
         
     }
-    // handleCancel=()=>{
-    //     this.setState({show:false})
-    //     this.setState({title:this.props.module.title})
-    // }
+   
     handlechange = (e) =>{
-        console.log(this.state.selectedModule)
         let selectedModule = this.state.selectedModule;
         selectedModule[e.target.name]= e.target.value;
         this.setState({ selectedModule: selectedModule});
       };
+
     handleSelect = (module) =>{
-          console.log(this.props.module)
-          console.log(this.state.selectedModule)
-          this.setState({ selectedModule: module})
+        this.setState({ selectedModule: module})
         }
+
     handleSave=()=>{
             this.props.onSave({...this.props.module},this.state.title)
             this.setState({show:false})
         }
         
+    handleTextChange= e => {
+        this.setState({explanation:e})
+        
+        };
+
     openModule=(event)=>{
-        // event.stopPropagation();
         this.setState({
             showMoreInfo:true
         })
-        console.log('1')
+        
     }
     render(){
 
         const module=(<div className="module">
 
             <div className="title"> {this.props.module.title} </div>
+            
             {/* <div > 
             <div dangerouslySetInnerHTML={{ __html: this.props.module.Explanation }} />
 
@@ -110,7 +108,7 @@ class Module extends Component{
 
                         </Modal.Header>
 
-                            <h3>Contents for the '' step:</h3>
+                            <h3>Contents for the explanation step:</h3>
                            
 
                         <Modal.Body>
@@ -123,10 +121,8 @@ class Module extends Component{
 
                                 onChange={this.handleTextChange}
 
-                                // value={this.state.explanation}
-
                             />   
-                             <div className = 'content for evaluation'> 
+                            <div className = 'content for evaluation'> 
                                 <button id = 'saveExplanation' type='button'
                                 onChange={this.handlingChange}                   
                                 > Explanation</button>
@@ -166,11 +162,11 @@ class Module extends Component{
                 
                 </div>
                )
-               const contentsfor =(
+               const contents =(
                 <div>
-                <div> Explanation:  <div> </div> </div>
-                <div> Exercise:  <div> </div> </div>
-                <div> Evaluation:  <div> </div> </div>
+                <div> Explanation:  {this.props.module.explanation} </div>
+                <div> Exercise:  {this.props.module.exercise} </div>
+                <div> Evaluation:  {this.props.module.evaluation}</div>
                 </div>
                )
                 
@@ -186,9 +182,7 @@ class Module extends Component{
                 <div>
 
                     {module}
-                    {contentsfor}
-
-                    {/* <p>Other infooo</p> */}
+                    {contents}
 
                 </div>
 
@@ -206,75 +200,4 @@ class Module extends Component{
 
 }
 
-export default Module
-
-
-
-    
-// return(
-
-//     <li  className = 'module'>
-//     <div> {this.props.module.title} 
-//         <div dangerouslySetInnerHTML={{ __html: this.props.module.explanation }} />
-
-//         <div dangerouslySetInnerHTML={{ __html: this.props.module.exercise }} />
-
-//         <div dangerouslySetInnerHTML={{ __html: this.props.module.evaluation }} /> 
-//     </div>
-//         <form  className="edit">
-//             <button className="glyphicon glyphicon-edit"
-//                     onClick={this.handleDialoge}>
-//             </button>
-//             <Modal
-//                     show={this.state.show}
-//                     onHide={this.handleDialoge}
-//                     aria-labelledby="contained-modal-title">
-//                 <Modal.Header closeButton>
-//                 <Modal.Title id="contained-modal-title">
-//                             Edit Module 
-//                 </Modal.Title>
-//                 <input 
-//                         name='title'
-//                         value= {this.props.module.title}
-//                         placeholder = 'title'
-//                         onChange = {this.handlechange}/>
-//                 </Modal.Header>
-               
-//                 <Modal.Body>
-                    
-//                 </Modal.Body>
-//                 <Modal.Footer>
-                
-//                 <Button onClick = {this.handleSave}> Save </Button>
-//                 <Button onClick={this.handleDialoge}>Close</Button>
-//                 </Modal.Footer>
-//             </Modal>
-//             <button 
-//             className = 'glyphicon glyphicon-trash' 
-//             onClick={() => 
-//             {if (window.confirm(`Are you sure you want to delete?  `))
-//                 this.props.onDelete( this.props.module._id);
-//             }}>
-            
-//             </button>
-        
-//         </form>
-        
-// </li>
-
-// )
-// }
-
-// }
-// export default Module 
-
-
-
-
-
-
-
-
-
-
-
+export default Module 
