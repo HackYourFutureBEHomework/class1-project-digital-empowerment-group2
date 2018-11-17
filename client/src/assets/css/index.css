@@ -133,8 +133,8 @@ h3 {
   }
 
 .module{
-  background-color: rgb(197, 214, 214);
-  border: 2px solid rgb(116, 110, 110);
+  /* background-color: rgb(197, 214, 214); */
+  /* border: 2px solid rgb(116, 110, 110); */
    display: flex; 
    justify-content: space-between;
   margin: 20px

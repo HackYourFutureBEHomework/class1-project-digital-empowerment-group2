@@ -220,7 +220,7 @@ class Modules extends Component {
                           </Modal>
                     </div>
               </div>
-              {/* {modules.length > 0 ? ( */}
+             
                 <ul>            
                   {modules.map(module =>
                     <Module 
@@ -238,18 +238,7 @@ class Modules extends Component {
                   )}
                                       
                 </ul>
-              {/* ) : (
-                  <p>There are no modules yet</p>
-              )} */}
-                {/* <div className = 'editarea'> 
-                  <EditModule  
-                    selectedModule={this.state.selectedModule}
-                    onChange = {this.handleEditChange} 
-                    onSave = { this.updateModule}
-                    onCancel = {this.handleExt}
-                    onDelete = {this.deleteModule}
-                  />
-                </div> */}
+              
             </fieldset> 
             
             

@@ -13,6 +13,9 @@ class Module extends Component{
         show:false,
         selectedModule:null,
         title:props.module.tilte, 
+        //explanation: props.module.Explanation,
+        //exercise: props.module.Exercise,
+        //: props.module.Evaluation,
         showMoreInfo:false,
         }
     }
@@ -52,7 +55,16 @@ class Module extends Component{
 
         const module=(<div className="module">
 
-            <div className="title"> {this.props.module.title}  </div>
+            <div className="title"> {this.props.module.title} </div>
+            {/* <div > 
+            <div dangerouslySetInnerHTML={{ __html: this.props.module.Explanation }} />
+
+                <div dangerouslySetInnerHTML={{ __html: this.props.module.Exercise }} />
+
+                <div dangerouslySetInnerHTML={{ __html: this.props.module.Evaluation }} /> 
+
+            </div> */}
+           
 
                 <nav className="edit">
 
@@ -98,7 +110,7 @@ class Module extends Component{
 
                         </Modal.Header>
 
-                            <h3>Contents for the explanation step:</h3>
+                            <h3>Contents for the '' step:</h3>
                            
 
                         <Modal.Body>
@@ -151,8 +163,17 @@ class Module extends Component{
                     </Button>                
 
                 </nav> 
-
-                </div>)
+                
+                </div>
+               )
+               const contentsfor =(
+                <div>
+                <div> Explanation:  <div> </div> </div>
+                <div> Exercise:  <div> </div> </div>
+                <div> Evaluation:  <div> </div> </div>
+                </div>
+               )
+                
 
         return(
 
@@ -165,13 +186,9 @@ class Module extends Component{
                 <div>
 
                     {module}
+                    {contentsfor}
 
-                    <p>Other infooo</p>
-                    <div dangerouslySetInnerHTML={{ __html: this.props.module.Explanation }} />
-
-                    <div dangerouslySetInnerHTML={{ __html: this.props.module.Exercise }} />
-
-                    <div dangerouslySetInnerHTML={{ __html: this.props.module.Evaluation }} /> 
+                    {/* <p>Other infooo</p> */}
 
                 </div>
 
