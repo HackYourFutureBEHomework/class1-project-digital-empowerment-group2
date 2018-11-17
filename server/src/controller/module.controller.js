@@ -12,9 +12,10 @@ exports.findAll = (req, res) => {
 
 exports.create = (req, res) => {
   const newModule = new Module(req.body);
+  console.log(req.body)
   newModule
     .save()
-    .then((data) => { res.send(data); })
+    .then((data) => { res.send(data);console.log(data) })
     .catch((err) => {
       res.status(500).send({ message: err.message });
     });

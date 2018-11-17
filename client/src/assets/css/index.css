@@ -1,4 +1,20 @@
- html {
+
+.module{
+  /* background-color: rgb(197, 214, 214); */
+  border: 2px solid rgb(116, 110, 110); 
+  margin: 20px ;
+  border-radius: 0.8rem;
+  list-style: none;
+  padding: 0.5rem;
+
+}
+.module:hover {
+  background-color: yellowgreen;
+
+}  */
+
+
+html {
   box-sizing: border-box;
   font-size: 62.5%;
 }
@@ -68,6 +84,8 @@ h3 {
 }
 .module:hover {
   background-color: yellowgreen;
+
+
 } 
 .modal-container {
   position: relative;
