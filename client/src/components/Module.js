@@ -1,9 +1,5 @@
 
 import React from 'react';
-import{ Button ,Modal} from 'react-bootstrap'
-import { Component } from 'react';
-import ReactQuill from 'react-quill';
-import 'react-quill/dist/quill.snow.css';
 
 class Module extends Component{
     constructor(props){
@@ -114,5 +110,5 @@ class Module extends Component{
             </li>        
         )
     }
-}
+
 export default Module
