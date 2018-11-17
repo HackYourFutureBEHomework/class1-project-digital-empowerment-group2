@@ -151,3 +151,12 @@ h3 {
 .modal-container .modal, .modal-container .modal-backdrop {
   position: absolute;
 }
+/* .titleEditDelete{
+  display: flex; 
+  justify-content: space-between;
+} */
+.module-list{
+border: 2px solid red;
+list-style-type: none;
+margin: 4px; 
+}

@@ -6,15 +6,18 @@ const ModuleSchema = mongoose.Schema(
     title: {
       type: String,
       required: true
-    },
+          },
+
+    explanation: String,
+    exercise: String,
+    evaluation: String,
+
     // contents: {
     //   explanation: String,
     //   exercise: String,
     //   evaluation: String
     // }
-    explanation: String,
-    exercise: String,
-    evaluation: String
+
   },
   {
     timestamps: true

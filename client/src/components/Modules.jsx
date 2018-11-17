@@ -1,7 +1,7 @@
 import React, { Component} from 'react';
 
 import { getModules, createModule, deleteModule, updateModule } from '../api/modules';
-import EditModule from './EditModule'
+//import EditModule from './EditModule'
 import Module from './Module'
 import{ Button ,Modal} from 'react-bootstrap'
 import editorOptions from './editorOptions'
@@ -31,12 +31,19 @@ class Modules extends Component {
 
    componentDidMount() {
    getModules().then((modules) => {
-      this.setState({  modules });
+      this.setState({  modules: modules });
     });
   }
 
+  handlingChange = e => {
+    this.setState({
+     title: e.target.value
+   });
+ };
+
   createModule = module => {
        createModule(this.state.title).then(newModule => {
+
       this.setState({
         modules: this.state.modules.concat(newModule),
         // title: "",
@@ -57,6 +64,12 @@ class Modules extends Component {
     });
   };
 
+  // handeleSave = (module) => {
+  //   console.log(module)
+  //   updateModule(module).then((updatedModule) => {
+
+
+
   deleteModule =  id => { 
     deleteModule(id);
       this.setState({     
@@ -71,16 +84,19 @@ class Modules extends Component {
     this.setState({ show: !this.state.show });
   }
 
-  handlingChange = e => {
-     this.setState({
-      title: e.target.value
-    });
-  };
+ 
  
   handleEdit = (module) =>{
     console.log(this.state.selectedModule)
     this.setState({ selectedModule: module})
   }
+
+  // handleSelect = (module) =>{
+  //   this.setState({ selectedModule: module})
+
+
+  // }
+
 
   handleEditChange = (e) =>{
     //console.log(this.state.selectedModule)
@@ -97,10 +113,10 @@ class Modules extends Component {
   console.log(param);
     }
   
-    saveExplanation = ()=>{
-      var Explanation = ReactQuill.getContents();
-      console.log(Explanation)
-  }
+  //   saveExplanation = ()=>{
+  //     var Explanation = ReactQuill.getContents();
+  //     console.log(Explanation)
+  // }
 
 // this are the function of the three action: evalutaion, explanation and exercise
 
@@ -130,29 +146,6 @@ class Modules extends Component {
 
   render() {
     const { modules} = this.state;
-    //var quill = new Quill('#editor-container', 
-  //   const editorOptions= {
-  //     modules: {
-  //       toolbar: [
-  //         [{ header: [1,2,3,4,5,6, false] }],
-  //         ['bold', 'italic', 'underline', 'strike'],
-  //         [
-  //           { list: 'ordered' }, { list: 'bullet' }
-  //         ],
-  //         ['link', 'image', 'video'], 
-  //         [{'indent':'-1'},{'indent':' +1'}],
-  //         [{'size': ['small', false, 'large', 'huge']}],
-  //         [{'color': []}, {'background': []}],
-  //         [{'align':[]}], [{'font': []}]
-  //         ['clean']
-  //       ]
-  //     },
-  //     placeholder: 'Compose an epic...',
-      
-  //   }
-  // //);
-
-
     
     const editorOptions = [
         [{ header: [1,2,3,4,5,6, false] }],
@@ -168,18 +161,7 @@ class Modules extends Component {
         ['clean']
       ]
 
-      // var quill = new Quill('#content-evalution',{
-      //   module: {
-      //     toolbar:toolbarOption
-      //   }
-      // })
-      
-      // $('#saveExplanation').click(function (){
-      //     var Explanation = quill.getContents();
-      //      console.log(Explanation)
-      //    }), 
-
-    //};
+     
     // i think we creat a const handleSelectEvation and pass to the ReactQuill but am not sure
     // so look  at it
         //}
@@ -210,23 +192,25 @@ class Modules extends Component {
                                   <form>
                                   <h3> Contents for the evaluation</h3>
                                   <div className = 'content for evaluation'> 
-                                          <button id = 'saveExplanation' type='button'
-                                          onClick ={this.saveExplanation}                    
-                                          > Explanation</button>
-                                          <button id = 'saveExercise' type='button'>    Exercise</button>
-                                          <button id = 'saveEvaluation' type='button' > Evaluation</button>
-                                  </div>
+                                    <button id = 'saveExplanation' type='button'
+                                    // onClick ={this.saveExplanation} 
+                                    onChange={this.handlingChange}                   
+                                    > Explanation</button>
+                                    <button id = 'saveExercise' type='button'
+                                    onChange={this.handlingChange}>    Exercise</button>
+                                    <button id = 'saveEvaluation' type='button'
+                                    onChange={this.handlingChange} > Evaluation</button>
+                            </div>
                               </form>
                               <Modal.Body>
                               
                                 <ReactQuill
-                                  value={this.state.Text}
+                                  value={Text}
                                   key={module._id}
                                   onChange={this.handleTextChange}
                                   editorOptions={editorOptions}
                                 />
-                                {/* <div dangerouslySetInnerHTML={{ __html: module.explanation }} /> */}
-                                
+                                          
                                  
                               </Modal.Body>
                               </div>
@@ -236,7 +220,7 @@ class Modules extends Component {
                           </Modal>
                     </div>
               </div>
-              {modules.length > 0 ? (
+              {/* {modules.length > 0 ? ( */}
                 <ul>            
                   {modules.map(module =>
                     <Module 
@@ -246,13 +230,18 @@ class Modules extends Component {
                       selectedModule ={this.state.selectedModule}  
                       onDelete = {this.deleteModule}
                       handleTextChange={this.handleTextChange}
+                      // onChange = {this.handlechange} 
+                      onSave = { this.handeleSave}
+                      // onCancel = {this.handleCancel}
                     /> 
-                  )}                                    
+                    
+                  )}
+                                      
                 </ul>
-              ) : (
+              {/* ) : (
                   <p>There are no modules yet</p>
-              )}
-                <div className = 'editarea'> 
+              )} */}
+                {/* <div className = 'editarea'> 
                   <EditModule  
                     selectedModule={this.state.selectedModule}
                     onChange = {this.handleEditChange} 
@@ -260,7 +249,7 @@ class Modules extends Component {
                     onCancel = {this.handleExt}
                     onDelete = {this.deleteModule}
                   />
-                </div>
+                </div> */}
             </fieldset> 
             
             

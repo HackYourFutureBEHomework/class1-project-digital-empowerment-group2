@@ -12,10 +12,10 @@ exports.findAll = (req, res) => {
 
 exports.create = (req, res) => {
   const newModule = new Module(
-    { title: req.body.title, 
+    { title:        req.body.title, 
       explanation:  req.body.explanation,
       exercise:     req.body.exercise,
-      evaluation:   req.body.evaluation
+      evaluation:   req.body.evaluation,
     });
   newModule
     .save()
