@@ -50,20 +50,31 @@ h3 {
   justify-content: right
   
 }
+.titleEditDelete{
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.edit{
+  justify-content: flex-end
+}
+.title{
+  font-size: 2.1rem;
+  font-weight: 700
 
-
-
+}
   .delete-button{
     float :right;
     position: relative;
   }
 
 .module{
-  background-color: rgb(197, 214, 214);
-  border: 2px solid rgb(116, 110, 110);
-   display: flex; 
-   justify-content: space-between;
-  margin: 20px
+  /* background-color: rgb(197, 214, 214); */
+  border: 2px solid rgb(116, 110, 110); 
+  margin: 20px ;
+  border-radius: 0.8rem;
+  list-style: none;
+  padding: 0.5rem;
 
 }
 .module:hover {

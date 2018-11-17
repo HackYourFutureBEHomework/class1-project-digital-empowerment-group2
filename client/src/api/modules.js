@@ -9,11 +9,11 @@ export const getModules = () =>
   .then(response => 
     response.json()
     );
-    export const createModule = id => {
+    export const createModule = ( title, explanation,exercise,evaluation) => {
       return fetch(`${API_URL}/module`, {
         method: 'POST',
         headers,
-        body: JSON.stringify({ title: id })
+        body: JSON.stringify({title:title,explanation:explanation,exercise:exercise,evaluation:evaluation})
       }).then(response => response.json());
     };
     
