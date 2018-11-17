@@ -16,7 +16,7 @@ class Modules extends Component {
       exercise: '',
       evaluation: '',
       content: '',
-      flag: '',
+      flag: '1',
           };
 
   HandleDialoge=() =>{
@@ -72,13 +72,13 @@ createModule = e => {
       });
      
     }
-    else
+    
     if (e.target.innerHTML === 'Exercise') {
       this.setState({
         content:this.state.exercise,
         flag: 2
       });
-    } else
+    } 
     if (e.target.innerHTML === 'Evaluation') {
       this.setState({
         content:this.state.evaluation,

@@ -164,9 +164,9 @@ class Module extends Component{
                )
                const contents =(
                 <div>
-                <div> Explanation:  {this.props.module.explanation} </div>
-                <div> Exercise:  {this.props.module.exercise} </div>
-                <div> Evaluation:  {this.props.module.evaluation}</div>
+                <p> Explanation:    {this.props.module.explanation} </p>
+                <p> Exercise:       {this.props.module.exercise} </p>
+                <p> Evaluation:     {this.props.module.evaluation}</p>
                 </div>
                )
                 
