@@ -117,54 +117,6 @@ class Modules extends Component {
         ["clean"]
       ]
     };
-<<<<<<< HEAD
-    const { modules} = this.state;
-      return (
-        <div>
-          <h2 > Using a web browser</h2>
-            <fieldset className= ''>
-              <legend className='' >modules :</legend>
-                <div className = 'container2'>
-                  <div className="modal-container">
-                      <Button type="button"  bsStyle="primary" className="button" onClick={this.HandleDialoge}>Add module</Button> 
-                          <Modal
-                            show={this.state.show}
-                            onHide={this.HandleDialoge}
-                            aria-labelledby="contained-modal-title"
-                          >                         
-                              <Modal.Header closeButton>
-                                <Modal.Title id="contained-modal-title">
-                                    Add New Module
-                                </Modal.Title>
-                              </Modal.Header>
-                                  <input type='text' placeholder='Enter The title' onChange={this.handlingChange}></input>
-                                  <button onClick={this.createModule}>submit</button>
-                                  <div> 
-                              <Modal.Body>
-                                <h3> Contents for the evaluation</h3>
-                                <ReactQuill
-                                  value={Text}
-                                  key={module._id}
-                                  onChange={this.handleTextChange}
-                                  modules={editorOptions}
-                                />
-                                <div className = 'content for evaluation'
-                                  onClick ={()=> this.statte.handelContentEvaluation}> 
-                                <button className ='link' type='button'
-                                  onClick ={()=> this.statte.handelContentEvaluation}> Explanation</button>
-                                <button className ='link' type='button'
-                                  onClick ={()=> this.statte.handelContentEvaluation}> Exercise</button>
-                                <button className ='link' type='button' 
-                                  onClick ={()=> this.statte.handelContentEvaluation}> Evaluation</button>
-                                </div>
-                                 
-                              </Modal.Body>
-                              </div>
-                              <Modal.Footer>
-                                <Button onClick={this.HandleDialoge}>Close</Button>
-                              </Modal.Footer>
-                          </Modal>
-=======
 
     const { modules } = this.state;
       if (this.state.loading) {
@@ -213,7 +165,6 @@ class Modules extends Component {
                       <button id = 'saveExplanation' type='button' onClick ={this.handelContentEvaluation}>Explanation</button>
                       <button id = 'saveExercise' type='button' onClick ={this.handelContentEvaluation}>Exercise</button>
                       <button id = 'saveEvaluation' type='button'  onClick ={this.handelContentEvaluation}>Evaluation</button>
->>>>>>> cc9c4a7c8fdfdc2b4e644dae559e40a5dfa6c306
                     </div>
                   </Modal.Body>
                   <Modal.Footer>
