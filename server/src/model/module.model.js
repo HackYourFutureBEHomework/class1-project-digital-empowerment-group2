@@ -7,11 +7,6 @@ const ModuleSchema = mongoose.Schema(
       type: String,
       required: true
     },
-    // contents: {
-    //   explanation: String,
-    //   exercise: String,
-    //   evaluation: String
-    // }
     explanation: String,
     exercise: String,
     evaluation: String

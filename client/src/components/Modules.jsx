@@ -1,73 +1,34 @@
 import React, { Component} from 'react';
 
-import { getModules, createModule, deleteModule, updateModule } from '../api/modules';
-import EditModule from './EditModule'
+import * as api from '../api/modules';
 import Module from './Module'
-import{ Button ,Modal} from 'react-bootstrap'
-
+import{ Modal } from 'react-bootstrap'
 import ReactQuill from 'react-quill';
 import 'react-quill/dist/quill.snow.css';
 
 
-
-
-
-
 class Modules extends Component {
- state = {
-      title:'',
-      modules: [],
-      selectedModule: null,
-      show:false, 
-      Explanation: '',
-      Exercise: '',
-      Evaluation: '',
-          };
+  state = {
+    title:'',
+    modules: [],
+    show:false,
+    explanation:'',
+    exercise:'',
+    evaluation:'',
+    content:'',
+    flag:1,
+    loading: false,       
+   }
 
-    HandleDialoge=() =>{
-      this.setState({ show: !this.state.show });
-    }
-
-   componentDidMount() {
-   getModules().then((modules) => {
-      this.setState({  modules });
-    });
-  }
-
-  createModule = module => {
-       createModule(this.state.title).then(newModule => {
-      this.setState({
-        modules: this.state.modules.concat(newModule),
-        // title: "",
-        moduleFormShown: false
-      });
-    });
-  };
-
-  updateModule = (module) => {
-    const {selectedModule}=this.state
-    updateModule(selectedModule).then((updatedModule) => {
-      this.setState((previousState) => {
-        const modules = [...previousState.modules];
-        const index = modules.findIndex(mod => mod._id === selectedModule._id);
-        modules[index] = updatedModule;
-        return { modules ,selectedModule: null };
-      })
-    });
-  };
-
-  deleteModule =  id => { 
-    deleteModule(id);
-      this.setState({     
-        modules:this.state.modules.filter( mod => mod._id!== id )
-      });
-    };
-
-    showModuleFrom = () => {
-      this.setState({ moduleFormShown: true });
-    }
   HandleDialoge=() =>{
     this.setState({ show: !this.state.show });
+  }
+
+  componentDidMount() {
+    this.setState({ loading: true });
+    api.getModules().then((modules) => {
+      this.setState({ modules: modules,  loading: false  });
+    });
   }
 
   handlingChange = e => {
@@ -75,58 +36,88 @@ class Modules extends Component {
       title: e.target.value
     });
   };
- 
-  handleEdit = (module) =>{
-    console.log(this.state.selectedModule)
-    this.setState({ selectedModule: module})
-  }
+  handleTextChange=(e)=> {
+    switch(this.state.flag){
+      case 1:
+      this.setState({explanation:e,content:e})
+      break;
+      case 2:
+      this.setState({exercise:e,content:e})
+      break;
+      case 3: 
+      this.setState({evaluation:e,content:e})
+      break;     
+    }
+    console.log(this.state.content);
+ };
 
-  handleEditChange = (e) =>{
-    //console.log(this.state.selectedModule)
-    let selectedModule = this.state.selectedModule;
-    selectedModule[e.target.name]= e.target.value;
-    this.setState({ selectedModule: selectedModule});
+  addModule = e => {
+    e.preventDefault();
+    this.setState({ loading: true });
+    api.createModule(this.state.title,this.state.explanation,this.state.exercise,this.state.evaluation).then(newModule => {
+      this.setState({
+        modules: this.state.modules.concat(newModule),
+        title: "",
+        loading: false
+      });
+    });
+    console.log(this.state.modules)
   };
-  // ?????????????????????????????
-    handleCancel = () =>{
-    this.setState({ selectedModule: null,edit:!this.state.edit})
-  }
- // ?????????????????????????????
- handleTextChange = (param) => {
-  console.log(param);
-    }
-  
-  handelContentEvaluation(e) {
-    if (e.target.name == 'Explanation') {
-      this.setState({
-        Explanation: e.target.value
-      });
-    }
-    if (e.target.name == 'Exercise') {
-      this.setState({
-        Exercise: e.target.value
-      });
-    }
-    if (e.target.name == 'Evaluation') {
-      this.setState({
-        Evaluation: e.target.value
-      });
-  }
-}
 
+  handelContentEvaluation=(e)=> {
+    console.log(this.state.flag)
+      if (e.target.innerHTML === 'Explanation') {
+        this.setState({
+          content:this.state.explanation,
+          flag: 1
+        });
+      }
+      if (e.target.innerHTML === 'Exercise') {
+        this.setState({
+          content:this.state.exercise,
+          flag: 2
+        });
+      }
+      if (e.target.innerHTML === 'Evaluation') {
+        this.setState({
+          content:this.state.evaluation,
+          flag: 3
+        });
+      }
+  }
+
+  handleDelete = (id)=>{
+    api.deleteModule(id)
+    this.setState({
+      modules:this.state.modules.filter( module=>module._id!== id )
+    })
+  }
+
+  handeleSave = (module) => {
+    console.log(module)
+    api.updateModule(module).then((updatedModule) => {
+      this.setState((previousState) => {
+        const modules = [...previousState.modules];
+        const index = modules.findIndex(mod => mod._id === module._id);
+        modules[index] = updatedModule;
+        console.log(modules)
+        return { modules };        
+      })
+    });
+  };
 
   render() {
     const editorOptions = {
-      toolbar: [
-        [{ header: '1' }, { header: '2' }],
-        ['bold', 'italic', 'underline', 'strike'],
-        [
-          { list: 'ordered' }, { list: 'bullet' }
-        ],
-        ['link', 'image', 'video'],
-        ['clean']
+      toolbar:
+      [
+        [{ header: "1" }, { header: "2" }],
+        ["bold", "italic", "underline", "strike"],
+        [{ list: "ordered" }, { list: "bullet" }],
+        ["link", "image", "video"],
+        ["clean"]
       ]
     };
+<<<<<<< HEAD
     const { modules} = this.state;
       return (
         <div>
@@ -173,37 +164,92 @@ class Modules extends Component {
                                 <Button onClick={this.HandleDialoge}>Close</Button>
                               </Modal.Footer>
                           </Modal>
-                    </div>
-              </div>
-              {modules.length > 0 ? (
-                <ul>            
-                  {modules.map(module =>
-                    <Module 
-                      key={module._id}
-                      module={module} 
-                      onSelect = {this.handleEdit} 
-                      selectedModule ={this.state.selectedModule}  
-                      onDelete = {this.deleteModule}
-                      handleTextChange={this.handleTextChange}
-                    /> 
-                  )}                                    
-                </ul>
-              ) : (
-                  <p>There are no modules yet</p>
-              )}
-                <div className = 'editarea'> 
-                  <EditModule  
-                    selectedModule={this.state.selectedModule}
-                    onChange = {this.handleEditChange} 
-                    onSave = { this.updateModule}
-                    onCancel = {this.handleExt}
-                    onDelete = {this.deleteModule}
-                  />
-                </div>
-            </fieldset>            
-        </div>
-      )        
-  }    
-}
+=======
 
+    const { modules } = this.state;
+      if (this.state.loading) {
+        return <div id="loader-wrapper"><div id="loader"></div></div>;
+      } else {
+        return (
+          <div className="container1">        
+            <h2 >  Title of the active path </h2>          
+            <button
+              bsStyle="primary"
+              bsSize="large"
+              onClick={this.HandleDialoge}
+              >
+              Add module
+            </button>
+            <div className="modal-container">
+              <Modal
+                show={this.state.show}
+                onHide={this.HandleDialoge}
+                aria-labelledby="contained-modal-title"
+              >
+                <Modal.Header closebutton>
+                  <Modal.Title id="contained-modal-title">
+                    Add New Module
+                  </Modal.Title>
+                  <h3>Title:</h3>
+                  <input 
+                    required
+                    type='text' 
+                    placeholder='Enter The title' 
+                    onChange={this.handlingChange}
+                    value= {this.title}
+                  />
+                </Modal.Header>
+                <form onSubmit={this.addModule}>                  
+                  <Modal.Body>
+                    <h3> Contents for the evaluation</h3>
+                    <ReactQuill 
+                      required
+                      modules={editorOptions}                                
+                      placeholder="Contents"
+                      onChange={this.handleTextChange}
+                      value={this.state.content}
+                    />
+                    <div className = 'content for evaluation'> 
+                      <button id = 'saveExplanation' type='button' onClick ={this.handelContentEvaluation}>Explanation</button>
+                      <button id = 'saveExercise' type='button' onClick ={this.handelContentEvaluation}>Exercise</button>
+                      <button id = 'saveEvaluation' type='button'  onClick ={this.handelContentEvaluation}>Evaluation</button>
+>>>>>>> cc9c4a7c8fdfdc2b4e644dae559e40a5dfa6c306
+                    </div>
+                  </Modal.Body>
+                  <Modal.Footer>
+                    <button bsStyle="primary" onClick={this.addModule}>Add module</button>
+                    <button onClick={this.HandleDialoge}>Close</button>
+                  </Modal.Footer>
+                </form>
+              </Modal>
+            </div>       
+            {modules.length > 0 ? (
+              <div className="cont2">
+                  {modules.map(module =>{ 
+                    return (
+                      <Module 
+                        key={module._id}
+                        module={module} 
+                        onSelect = {this.handleSelect} 
+                        selectedModule ={this.state.selectedModule}  
+                        onDelete = {this.handleDelete}
+                        onChange = {this.handlechange} 
+                        onSave = { this.handeleSave}
+                        onCancel = {this.handleCancel}
+                        editorOptions= {this.editorOptions}
+                        handleTextChange={this.handleTextChange}
+                        handelContentEvaluation={this.handelContentEvaluation}
+                      />)
+                    })}  
+              </div>
+            ) : (
+              <p>There are no modules yet</p>
+            )}
+          </div> 
+                  
+          
+      );
+    }      
+  }  
+}
 export default Modules;
