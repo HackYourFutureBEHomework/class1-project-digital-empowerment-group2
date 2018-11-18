@@ -13,7 +13,11 @@ export const getModules = () =>
       return fetch(`${API_URL}/module`, {
         method: 'POST',
         headers,
-        body: JSON.stringify({ title:title,explanation:explanation,exercise:exercise,evaluation:evaluation})
+        body: JSON.stringify({ 
+          title:title,
+          explanation:explanation,
+          exercise:exercise,
+          evaluation:evaluation})
       }).then(response => response.json());
     };
     

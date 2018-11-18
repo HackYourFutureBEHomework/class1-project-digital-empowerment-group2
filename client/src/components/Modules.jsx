@@ -159,9 +159,7 @@ handeleSave = (module) => {
                             onChange={this.handlingChange}
                             value = {this.title}>
                           </input>
-                                  {/* <button onClick={this.addModule}
-                                  >submit</button> */}
-                                 
+                                                                   
                       <Modal.Body>
                         <h3> Contents for the evaluation</h3>
                         <ReactQuill
