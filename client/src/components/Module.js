@@ -3,7 +3,8 @@ import React, { Component } from 'react';
 import{ Button ,Modal} from 'react-bootstrap';
 import ReactQuill from 'react-quill';
 import 'react-quill/dist/quill.snow.css';
-
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faEdit, faTrash } from '@fortawesome/free-solid-svg-icons'
 
 
 class Module extends Component{
@@ -37,10 +38,10 @@ class Module extends Component{
             this.setState({show:false})
         }
         
-    handleTextChange= e => {
-        this.setState({explanation:e})
+    // handleTextChange= e => {
+    //     this.setState({explanation:e})
         
-        };
+    //     };
 
     openModule=(event)=>{
         this.setState({
@@ -54,16 +55,6 @@ class Module extends Component{
 
             <div className="title"> {this.props.module.title} </div>
             
-            {/* <div > 
-            <div dangerouslySetInnerHTML={{ __html: this.props.module.Explanation }} />
-
-                <div dangerouslySetInnerHTML={{ __html: this.props.module.Exercise }} />
-
-                <div dangerouslySetInnerHTML={{ __html: this.props.module.Evaluation }} /> 
-
-            </div> */}
-           
-
                 <nav className="edit">
 
                     <Button className="glyphicon glyphicon-edit"
@@ -119,17 +110,17 @@ class Module extends Component{
 
                                 placeholder="Contents"
 
-                                onChange={this.handleTextChange}
+                                // onChange={this.handleTextChange}
 
                             />   
                             <div className = 'content for evaluation'> 
                                 <button id = 'saveExplanation' type='button'
-                                onChange={this.handlingChange}                   
+                                onChange={this.props.handelContentEvaluation}                   
                                 > Explanation</button>
                                 <button id = 'saveExercise' type='button'
-                                onChange={this.handlingChange}>    Exercise</button>
+                                onChange={this.props.handelContentEvaluation}>    Exercise</button>
                                 <button id = 'saveEvaluation' type='button'
-                                onChange={this.handlingChange} > Evaluation</button>
+                                onChange={this.props.handelContentEvaluation} > Evaluation</button>
                             </div>
 
                         </Modal.Body>
@@ -162,13 +153,13 @@ class Module extends Component{
                 
                 </div>
                )
-               const contents =(
-                <div>
-                <p> Explanation:    {this.props.module.explanation} </p>
-                <p> Exercise:       {this.props.module.exercise} </p>
-                <p> Evaluation:     {this.props.module.evaluation}</p>
-                </div>
-               )
+            //    const contents =(
+            //     <div>
+            //     <p> Explanation:    {this.props.module.explanation} </p>
+            //     <p> Exercise:       {this.props.module.exercise} </p>
+            //     <p> Evaluation:     {this.props.module.evaluation}</p>
+            //     </div>
+             //  )
                 
 
         return(
@@ -182,9 +173,33 @@ class Module extends Component{
                 <div>
 
                     {module}
-                    {contents}
+                    <div>
+                        <div>
+                            Explanation: 
+                            <div 
+                            className="module__contents__stage" 
+                            dangerouslySetInnerHTML={{ __html: this.props.module.explanation}} 
+                            />
+                        </div>
+                        <div>
+                            Exercise: 
+                            <div 
+                                className="module__contents__stage" 
+                                dangerouslySetInnerHTML={{ __html: this.props.module.exercise}}
+                            />
+                        </div>
+                        <div>
+                            Evaluation: 
+                            <div 
+                            className="module__contents__stage" 
+                            dangerouslySetInnerHTML={{ __html:this.props.module.evaluation}}
+                            />
+                        </div>
+                </div>
 
                 </div>
+               
+
 
                 : module
 
