@@ -12,12 +12,7 @@ const ModuleSchema = mongoose.Schema(
     exercise: String,
     evaluation: String,
 
-    // contents: {
-    //   explanation: String,
-    //   exercise: String,
-    //   evaluation: String
-    // }
-
+   
   },
   {
     timestamps: true

@@ -91,7 +91,7 @@ createModule = e => {
 }
 
 
-deleteModule =  id => { 
+handleDelete =  id => { 
   deleteModule(id);
     this.setState({     
       modules:this.state.modules.filter( mod => mod._id!== id )

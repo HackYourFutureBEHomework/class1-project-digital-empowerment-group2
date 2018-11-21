@@ -11,12 +11,7 @@ exports.findAll = (req, res) => {
 };
 
 exports.create = (req, res) => {
-  const newModule = new Module(
-    { title:        req.body.title, 
-      explanation:  req.body.explanation,
-      exercise:     req.body.exercise,
-      evaluation:   req.body.evaluation,
-    });
+  const newModule = new Module(req.body);
   newModule
     .save()
     .then((data) => { res.send(data); })
