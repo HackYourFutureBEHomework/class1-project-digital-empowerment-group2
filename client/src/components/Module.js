@@ -153,13 +153,31 @@ class Module extends Component{
                 
                 </div>
                )
-            //    const contents =(
-            //     <div>
-            //     <p> Explanation:    {this.props.module.explanation} </p>
-            //     <p> Exercise:       {this.props.module.exercise} </p>
-            //     <p> Evaluation:     {this.props.module.evaluation}</p>
-            //     </div>
-             //  )
+            const contents =(
+             <div>
+                <div>
+                Explanation: 
+                <div 
+                className="module__contents__stage" 
+                dangerouslySetInnerHTML={{ __html: this.props.module.explanation}} 
+                />
+                </div>
+                <div>
+                Exercise: 
+                <div 
+                    className="module__contents__stage" 
+                    dangerouslySetInnerHTML={{ __html: this.props.module.exercise}}
+                />
+                </div>
+                <div>
+                Evaluation: 
+                <div 
+                className="module__contents__stage" 
+                dangerouslySetInnerHTML={{ __html:this.props.module.evaluation}}
+                />
+                </div>
+        </div>
+              )
                 
 
         return(
@@ -173,29 +191,7 @@ class Module extends Component{
                 <div>
 
                     {module}
-                    <div>
-                        <div>
-                            Explanation: 
-                            <div 
-                            className="module__contents__stage" 
-                            dangerouslySetInnerHTML={{ __html: this.props.module.explanation}} 
-                            />
-                        </div>
-                        <div>
-                            Exercise: 
-                            <div 
-                                className="module__contents__stage" 
-                                dangerouslySetInnerHTML={{ __html: this.props.module.exercise}}
-                            />
-                        </div>
-                        <div>
-                            Evaluation: 
-                            <div 
-                            className="module__contents__stage" 
-                            dangerouslySetInnerHTML={{ __html:this.props.module.evaluation}}
-                            />
-                        </div>
-                </div>
+                    {contents}
 
                 </div>
                

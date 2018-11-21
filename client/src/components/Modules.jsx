@@ -1,5 +1,5 @@
 import React, { Component} from 'react';
-
+//import * as api from '../api/modules';
 import { getModules, createModule, deleteModule, updateModule } from '../api/modules';
 import Module from './Module'
 import{ Button ,Modal} from 'react-bootstrap'
@@ -17,6 +17,7 @@ class Modules extends Component {
       evaluation: '',
       content: '',
       flag: '1',
+      loading: false,
           };
 
   HandleDialoge=() =>{
@@ -24,8 +25,9 @@ class Modules extends Component {
     }
 
    componentDidMount() {
+    this.setState({ loading: true });
    getModules().then((modules) => {
-      this.setState({  modules: modules });
+      this.setState({  modules: modules,loading: false });
     });
   }
 
@@ -58,6 +60,7 @@ createModule = e => {
       this.setState({
         modules: this.state.modules.concat(newModule),
         title: "",
+        loading: false
         
       });
     });
@@ -108,7 +111,6 @@ handeleSave = (module) => {
 
   
   render() {
-    const { modules} = this.state;
     
     const editorOptions = {
         toolbar : [
@@ -126,11 +128,14 @@ handeleSave = (module) => {
       ]
     };
 
-     
+    const { modules} = this.state;
+      if (this.state.loading) {
+      return <div id="loader-wrapper"><div id="loader"></div></div>;
+      } else {
     
       return (
         <div>
-          <h2 > Using a web browser</h2>
+          <h2 > Title of the active path </h2>
           
             <fieldset className= ''>
               <legend className='' >modules :</legend>
@@ -141,7 +146,8 @@ handeleSave = (module) => {
                         bsStyle="primary" 
                         className="button" 
                         onClick={this.HandleDialoge}
-                        >Add module</Button> 
+                        >Add module
+                        </Button> 
                       <Modal
                         show={this.state.show}
                         onHide={this.HandleDialoge}
@@ -155,6 +161,7 @@ handeleSave = (module) => {
                       <form onSubmit={this.createModule}>
                         <h3>Title:</h3>
                           <input type='text' 
+                            required
                             placeholder='Enter The title' 
                             onChange={this.handlingChange}
                             value = {this.title}>
@@ -167,6 +174,7 @@ handeleSave = (module) => {
                           modules={editorOptions}
                           onChange={this.handleTextChange}
                           placeholder="Contents"
+                          value={this.state.content}
                         />
                         <div className = 'content for evaluation'> 
                             <button id = 'saveExplanation' type='button'
@@ -205,6 +213,7 @@ handeleSave = (module) => {
                       onCancel = {this.handleCancel}
                       editorOptions= {this.editorOptions}
                       handleTextChange={this.handleTextChange}
+                      handelContentEvaluation={this.handelContentEvaluation}
                  
                     /> 
                     
@@ -220,6 +229,7 @@ handeleSave = (module) => {
         </div>
       )        
   }    
+}
 }
 
 export default Modules;
