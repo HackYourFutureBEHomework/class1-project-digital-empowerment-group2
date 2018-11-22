@@ -1,8 +1,14 @@
 import React, { Component } from 'react';
 import { Button, Modal } from 'react-bootstrap'
+import classNames from 'classnames';
 
 import ReactQuill from 'react-quill';
 import 'react-quill/dist/quill.snow.css';
+
+
+const SETP_EXPLANATION ='explanation';
+const SETP_EXERCISE ='exercise';
+const SETP_EVALUATION ='evaluation';
 
     class Module extends Component{
     constructor(props){
@@ -12,7 +18,7 @@ import 'react-quill/dist/quill.snow.css';
             selectedModule:null,
             title:props.module.tilte,
             showMoreInfo:false,
-           // content:this.props.explanation
+            activeStep: SETP_EXPLANATION,
         }
     }
     
@@ -46,6 +52,45 @@ import 'react-quill/dist/quill.snow.css';
             showMoreInfo: true
         })
     }
+// ********************************************
+    _renderStep = (title, className, body, expended) => {console.log(body)
+        const stepBodyClass = classNames('module__step-body', className, { expended })
+        return (
+            <div  className="module__step">
+                <h3>{title}</h3>
+                <div className={stepBodyClass}>
+                <div dangerouslySetInnerHTML={{__html: body }}/> 
+                 
+                <button onClick={this.onNextStep}>Next Step</button>
+                </div>
+            </div>
+        );
+    };
+
+    onNextStep = () => {
+        const {activeStep } = this.state;
+        if (activeStep === SETP_EXPLANATION)  {
+            this.setState({ activeStep: SETP_EXERCISE})
+        }else if (activeStep === SETP_EXERCISE)  {
+            this.setState({ activeStep: SETP_EVALUATION})
+        } else if (activeStep === SETP_EVALUATION) {
+            this.onNextModule();
+        }
+    };
+
+    onNextModule = () => {
+        const { modules, activeModuleId } = this.state;
+        const moduleIndex = modules.findIndex(module => module._id === activeModuleId);
+        const nextModule = modules[moduleIndex + 1];
+        let newModuleId;
+        if (nextModule) {
+            newModuleId = nextModule._id;
+        }
+        this.setState({activeModuleId: newModuleId , activeStep:SETP_EXPLANATION});
+    };
+// ********************************************
+
+
     render() {
         const module = (<div className="titleEditDelete">
             <div className="title"> {this.props.module.title} </div>
@@ -103,10 +148,16 @@ import 'react-quill/dist/quill.snow.css';
                 {(this.state.showMoreInfo) ?
                     <div>
                         {module}
-                        <div>
+                        {/* <div>
                             <div>Explanation: <div className="module__contents__stage"   dangerouslySetInnerHTML={{ __html: this.props.module.explanation }} /></div>
                             <div>Exercise: <div className="module__contents__stage" dangerouslySetInnerHTML={{ __html: this.props.module.exercise }} /></div>
                             <div>Evaluation: <div className="module__contents__stage" dangerouslySetInnerHTML={{ __html: this.props.module.evaluation }} /></div>
+                        </div> */}
+                        
+                        <div className="module__body">
+                            {this._renderStep('Explanation', 'module__explanation', this.props.module.explanation , this.state === SETP_EXPLANATION)}
+                            {this._renderStep('Exercise', 'module__exercise', this.props.module.exercise,  this.state === SETP_EXERCISE)}
+                            {this._renderStep('Evaluation', 'module__evaluation', this.props.module.evaluation,  this.state === SETP_EVALUATION)}
                         </div>
                     </div>
                     : module

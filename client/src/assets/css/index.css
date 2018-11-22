@@ -188,3 +188,38 @@ button:hover{
         transform: rotate(360deg);  /* Firefox 16+, IE 10+, Opera */
     }
 }
+
+
+
+
+
+/* .module-list {
+  margin-top: 20px;
+} */
+/* .module {
+  margin: 0 20px 20px 20px;
+  box-shadow: 0 4px 4px rgba(0, 0, 0, 0.15);
+} */
+/* .module__title{
+background-color: #ccc;
+padding: 10px 20px;
+border-top-right-radius: 5px;
+border-top-left-radius: 5px;
+} */
+
+/* .module__title h2 {
+  margin: 0;
+} */
+.module__body {
+  padding: 10px 20px;
+  border-bottom-right-radius: 5px;
+  border-bottom-left-radius: 5px;
+  
+}
+
+.module__step-body {
+display: none;  
+}
+/* .module__step-body.expended {
+  display: block;
+} */
