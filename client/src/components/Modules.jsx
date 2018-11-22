@@ -5,7 +5,7 @@ import Module from './Module'
 import { Button, Modal } from 'react-bootstrap'
 import ReactQuill from 'react-quill';
 import 'react-quill/dist/quill.snow.css';
-// // import renderHTML from 'react-render-html';
+
 
 class Modules extends Component {
   state = {
@@ -25,7 +25,7 @@ class Modules extends Component {
 
   componentDidMount() {
     getModules().then((modules) => {
-      this.setState({ modules: modules });
+      this.setState({ modules: modules,  loading: false  });
     });
   }
 
@@ -59,12 +59,13 @@ class Modules extends Component {
         explanation: '',
         exercise: '',
         evaluation: '',
+        show:false
       });
     });
     //console.log(this.state.modules)
   };
 
-  handelContentEvaluation = (e) => {
+  handelContent = (e) => {
     console.log(this.state.flag)
     console.log(this.state.content);
     if (e.target.innerHTML === 'Explanation') {
@@ -95,14 +96,14 @@ class Modules extends Component {
   }
 
   handeleSave = (module) => {
-    console.log(module)
-    updateModule(module).then((updatedModule) => {
+    const {explanation,exercise,evaluation}=this.state
+    console.log(this.state.explanation)
+    updateModule(module,explanation,exercise,evaluation).then((updatedModule) => {
       this.setState((previousState) => {
         const modules = [...previousState.modules];
         const index = modules.findIndex(mod => mod._id === module._id);
         modules[index] = updatedModule;
         console.log(modules)
-
         return { modules };
 
       })
@@ -111,12 +112,16 @@ class Modules extends Component {
 
   render() {
     const editorOptions = {
-      toolbar: [
-        [{ header: '1' }, { header: '2' }, { font: [] }],
-        [{ size: [] }],
-        ['bold', 'italic', 'underline', 'strike', 'blockquote']
+      toolbar:
+      [
+        [{ header: "1" }, { header: "2" }],
+        ["bold", "italic", "underline", "strike"],
+        [{ list: "ordered" }, { list: "bullet" }],
+        ["link", "image", "video"],
+        ["clean"]
       ]
     };
+
     const { modules } = this.state;
     return (
       <div>
@@ -159,9 +164,9 @@ class Modules extends Component {
                       value={this.state.content}
                     />
                     <div className='content for evaluation'>
-                      <button id='saveExplanation' type='button' onClick={this.handelContentEvaluation}>Explanation</button>
-                      <button id='saveExercise' type='button' onClick={this.handelContentEvaluation}>Exercise</button>
-                      <button id='saveEvaluation' type='button' onClick={this.handelContentEvaluation}>Evaluation</button>
+                      <button id='saveExplanation' type='button' onClick={this.handelContent}>Explanation</button>
+                      <button id='saveExercise' type='button' onClick={this.handelContent}>Exercise</button>
+                      <button id='saveEvaluation' type='button' onClick={this.handelContent}>Evaluation</button>
                     </div>
                   </Modal.Body>
                   <Modal.Footer>
@@ -187,7 +192,7 @@ class Modules extends Component {
                     onCancel={this.handleCancel}
                     editorOptions={this.editorOptions}
                     handleTextChange={this.handleTextChange}
-                    handelContentEvaluation={this.handelContentEvaluation}
+                    handelContent={this.handelContent}
                     content={this.state.content}
                   />)
               })}

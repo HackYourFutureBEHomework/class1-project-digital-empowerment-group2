@@ -1,49 +1,49 @@
-
-import React from 'react';
+import React, { Component } from 'react';
 import { Button, Modal } from 'react-bootstrap'
-import { Component } from 'react';
+
 import ReactQuill from 'react-quill';
 import 'react-quill/dist/quill.snow.css';
 
-class Module extends Component {
-    constructor(props) {
+    class Module extends Component{
+    constructor(props){
         super(props)
-        this.state = {
-            show: false,
-            selectedModule: null,
-            title: props.module.tilte,
-            showMoreInfo: false,
+        this.state={
+            show:false,
+            selectedModule:null,
+            title:props.module.tilte,
+            showMoreInfo:false,
+           // content:this.props.explanation
         }
     }
-    handleDialoge = (module) => {
+    
+    
+    handleDialoge=(module)=>{
         this.handleSelect(this.props.module)
-        this.setState({ show: !this.state.show })
+        this.setState({show:!this.state.show})
     }
-    handlechange = (e) => {
+    handlechange = (e) =>{
         console.log(this.state.selectedModule)
-        let selectedModule = this.state.selectedModule;
-        selectedModule[e.target.name] = e.target.value;
-        this.setState({ selectedModule: selectedModule });
+        let selectedModule = this.state.selectedModule;        
+        selectedModule[e.target.name]= e.target.value;
+        this.setState({ selectedModule: selectedModule});
     };
-    handleSelect = (module) => {
+    handleSelect = (module) =>{
         console.log(this.props.module)
         console.log(this.state.selectedModule)
-        this.setState({ selectedModule: module })
+        this.setState({ selectedModule: module})
     }
-    handleSave = () => {
-        console.log(this.props.module.evaluation
-            )
-        this.props.onSave({ ...this.props.module }, this.state.title)
-        this.setState({ show: false })
+    handleSave=()=>{
+        this.props.onSave({...this.props.module})
+        this.setState({show:false})
     }
     // handleTextChange= e => {
     // this.setState({explanation:e})
     // console.log(this.state.explanation);
     // };
     openModule = (event) => {
-        // event.stopPropagation();
+        const previuosState=this.state.showMoreInfo
         this.setState({
-            showMoreInfo: !this.state.showMoreInfo
+            showMoreInfo: true
         })
     }
     render() {
@@ -76,12 +76,12 @@ class Module extends Component {
                             modules={this.props.editorOptions}
                             placeholder="Contents"
                             onChange={this.props.handleTextChange}
-                             value={this.props.content}
+                           // value={this.props.explanation}
                         />
                         <div className='content for evaluation'>
-                            <button id='saveExplanation' type='button' onClick={this.props.handelContentEvaluation}>Explanation</button>
-                            <button id='saveExercise' type='button' onClick={this.props.handelContentEvaluation}>Exercise</button>
-                            <button id='saveEvaluation' type='button' onClick={this.props.handelContentEvaluation}>Evaluation</button>
+                            <button id='saveExplanation' type='button' onClick={this.props.handelContent}>Explanation</button>
+                            <button id='saveExercise' type='button' onClick={this.props.handelContent}>Exercise</button>
+                            <button id='saveEvaluation' type='button' onClick={this.props.handelContent}>Evaluation</button>
                         </div>
                     </Modal.Body>
                     <Modal.Footer>
@@ -117,4 +117,3 @@ class Module extends Component {
     }
 }
 export default Module
-
