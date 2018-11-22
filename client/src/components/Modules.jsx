@@ -9,6 +9,7 @@ import 'react-quill/dist/quill.snow.css';
 
 class Modules extends Component {
   state = {
+
     title:'',
     modules: [],
     show:false,
@@ -25,7 +26,6 @@ class Modules extends Component {
   }
 
   componentDidMount() {
-    this.setState({ loading: true });
     api.getModules().then((modules) => {
       this.setState({ modules: modules,  loading: false  });
     });
@@ -54,6 +54,7 @@ class Modules extends Component {
   addModule = e => {
     e.preventDefault();
     this.setState({ loading: true });
+
     api.createModule(this.state.title,this.state.explanation,this.state.exercise,this.state.evaluation).then(newModule => {
       this.setState({
         modules: this.state.modules.concat(newModule),
@@ -119,6 +120,7 @@ class Modules extends Component {
     };
 
     const { modules } = this.state;
+
       if (this.state.loading) {
         return <div id="loader-wrapper"><div id="loader"></div></div>;
       } else {
@@ -200,6 +202,7 @@ class Modules extends Component {
                   
           
       );
+
     }      
   }  
 }
