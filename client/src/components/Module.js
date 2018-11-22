@@ -76,7 +76,7 @@ import 'react-quill/dist/quill.snow.css';
                             modules={this.props.editorOptions}
                             placeholder="Contents"
                             onChange={this.props.handleTextChange}
-                           // value={this.props.explanation}
+                            value={this.props.content}
                         />
                         <div className='content for evaluation'>
                             <button id='saveExplanation' type='button' onClick={this.props.handelContent}>Explanation</button>
