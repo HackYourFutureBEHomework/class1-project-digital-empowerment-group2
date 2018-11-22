@@ -52,13 +52,15 @@ class Modules extends Component {
 
   addModule = e => {
     e.preventDefault();
-    createModule(this.state.title, this.state.explanation, this.state.exercise, this.state.evaluation).then(newModule => {
-      this.setState({
-        modules: this.state.modules.concat(newModule),
-        title: "",
+    this.setState({
+      title: "",
         explanation: '',
         exercise: '',
         evaluation: '',
+    })
+    createModule(this.state.title, this.state.explanation, this.state.exercise, this.state.evaluation).then(newModule => {
+      this.setState({
+        modules: this.state.modules.concat(newModule),
         show:false
       });
     });

@@ -1,3 +1,4 @@
+
 html {
   box-sizing: border-box;
   font-size: 62.5%;
@@ -9,8 +10,9 @@ html {
 
 body {
   width: 50%;
-  margin: 0 auto;
+  margin: 20px auto;
   font-size: 1.6rem;
+  font-family: Montserrat,Arial,Helvetica,sans-serif;
 }
 
 p {
@@ -28,61 +30,83 @@ h2 {
 h3 {
   font-size: 1.9rem;
 } 
-
-.container{
-  border: 5px solid red;
-  width: 80%;
-  background-color: cornsilk;
+input {
+  height: 3.5rem;
+  padding: 0 1.5rem;
+  outline: 0;
+  cursor: pointer;
   display: block;
-  flex-direction: column;
-  justify-content: center;
-  padding: 3px;
-
-} 
-
-
-.container2{
-  
-  
-  display: flex;
-  flex-direction: rorw;
-  
-  justify-content: right
-  
+  width: 50%;
 }
-.titleEditDelete{
+button {
+  height: 3.5rem;
+  padding: 0 1.5rem;
+  outline: 0;
+  cursor: pointer;
+  margin: 15px 15px 0 0;
+  border-radius: 5px;
+  border: 0;
+}
+
+button:hover{
+  background-color: rgba(150, 148, 148, 0.596);  
+}
+
+.module__actions {
+  min-width: 5rem;
+  font-size: 1.7rem;
   display: flex;
-  align-items: center;
   justify-content: space-between;
 }
-.edit{
-  justify-content: flex-end
-}
-.title{
-  font-size: 2.1rem;
-  font-weight: 700
 
+.module__actions i:hover {
+  color: #CC0000;
+  cursor: pointer;
 }
-  .delete-button{
-    float :right;
-    position: relative;
-  }
-
+.module__contents__stage {
+  margin-bottom: 5rem;
+}
 .module{
-  /* background-color: rgb(197, 214, 214); */
-  border: 2px solid rgb(116, 110, 110); 
-  margin: 20px ;
-  border-radius: 0.8rem;
-  list-style: none;
-  padding: 0.5rem;
-
+  background-color: rgba(250, 250, 250, 0.596);
+  border: 1px solid black;
+   display: flex; 
+   justify-content: space-between;
+  margin: 20px;
+  padding: 20px;
+  text-align:center;
 }
+
 .module:hover {
-  background-color: yellowgreen;
+  background-color: rgba(238, 236, 236, 0.76);
 } 
+
 .modal-container {
   position: relative;
 }
+
 .modal-container .modal, .modal-container .modal-backdrop {
   position: absolute;
 }
+
+
+.module__contents__stage strong {
+  font-weight: bold;
+}
+
+.module__contents__stage em {
+  font-style: italic;
+}
+
+.module__contents__stage u {
+  text-decoration: underline;
+}
+
+.module__contents__stage img {
+  max-width: 100%;
+}
+
+.module__contents__stage iframe {
+  width: 100%;
+  height: 48rem;
+}
+

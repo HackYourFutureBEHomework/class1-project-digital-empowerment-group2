@@ -19,12 +19,10 @@ exports.create = (req, res) => {
     .catch((err) => {
       res.status(500).send({ message: err.message });
     });
-
 };
 
 
 exports.update = (req, res) => {
-  // const {id} = new Module(req.body);
   const {title}= req.body
    const {id}=req.params
     Module.findOneAndUpdate({_id:id}, req.body, {new: true})
