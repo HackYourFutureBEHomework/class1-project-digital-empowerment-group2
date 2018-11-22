@@ -16,16 +16,17 @@ class Modules extends Component {
         exercise:'',
         evaluation:'',
         content:'',
-       flag:1
-       
+       flag:1,
+       loading: false       
    }
   HandleDialoge=() =>{
     this.setState({ show: !this.state.show });
   }
 
   componentDidMount() {
+    this.setState({ loading: true });
     getModules().then((modules) => {
-      this.setState({ modules: modules });
+      this.setState({ modules: modules, loading: false });
     });
   }
 
@@ -52,10 +53,12 @@ class Modules extends Component {
 
   addModule = e => {
     e.preventDefault();
+    this.setState({ loading: true });
     createModule(this.state.title,this.state.explanation,this.state.exercise,this.state.evaluation).then(newModule => {
       this.setState({
         modules: this.state.modules.concat(newModule),
         title: "",
+        loading: false
       });
     });
     console.log(this.state.modules)
@@ -112,6 +115,9 @@ class Modules extends Component {
       ]
     };
     const { modules } = this.state;
+    if (this.state.loading) {
+      return <div id="loader-wrapper"><div id="loader"></div></div>;
+    } else {
     return (
       <div>        
         <h2 >  Title of the active path </h2>          
@@ -191,7 +197,8 @@ class Modules extends Component {
         </fieldset> 
                 
         </div>
-      )      
+      ); 
+    }      
   }  
 }
 export default Modules;
