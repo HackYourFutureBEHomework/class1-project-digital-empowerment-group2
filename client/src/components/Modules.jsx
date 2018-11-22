@@ -20,9 +20,6 @@ class Modules extends Component {
     loading: false,       
    }
 
-  HandleDialoge=() =>{
-    this.setState({ show: !this.state.show });
-  }
 
   componentDidMount() {
     this.setState({ loading: true });
@@ -30,12 +27,36 @@ class Modules extends Component {
       this.setState({ modules: modules,  loading: false  });
     });
   }
+  addModule = e => {
+    e.preventDefault();
+    this.setState({ loading: true });
+    api.createModule(this.state.title,this.state.explanation,this.state.exercise,this.state.evaluation).then(newModule => {
+      this.setState({
+        modules: this.state.modules.concat(newModule),
+        title: "",
+        loading: false
+      });
+    });
+    console.log(this.state.modules)
+  };
 
-  handlingChange = e => {
-     this.setState({
-      title: e.target.value
+  handleDelete = (id)=>{
+    api.deleteModule(id)
+    this.setState({
+      modules:this.state.modules.filter( module=>module._id!== id )
     });
   };
+  handlingChange = e => {
+    this.setState({
+     title: e.target.value
+   });
+ };
+
+  HandleDialoge=() =>{
+    this.setState({ show: !this.state.show });
+  };
+
+  
   handleTextChange=(e)=> {
     switch(this.state.flag){
       case 1:
@@ -51,18 +72,8 @@ class Modules extends Component {
     console.log(this.state.content);
  };
 
-  addModule = e => {
-    e.preventDefault();
-    this.setState({ loading: true });
-    api.createModule(this.state.title,this.state.explanation,this.state.exercise,this.state.evaluation).then(newModule => {
-      this.setState({
-        modules: this.state.modules.concat(newModule),
-        title: "",
-        loading: false
-      });
-    });
-    console.log(this.state.modules)
-  };
+  
+
 
   handelContentEvaluation=(e)=> {
     console.log(this.state.flag)
@@ -83,16 +94,10 @@ class Modules extends Component {
           content:this.state.evaluation,
           flag: 3
         });
-      }
-  }
+      };
+  };
 
-  handleDelete = (id)=>{
-    api.deleteModule(id)
-    this.setState({
-      modules:this.state.modules.filter( module=>module._id!== id )
-    })
-  }
-
+  
   handeleSave = (module) => {
     console.log(module)
     api.updateModule(module).then((updatedModule) => {
