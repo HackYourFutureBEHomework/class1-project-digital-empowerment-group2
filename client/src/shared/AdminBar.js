@@ -12,7 +12,7 @@ export default class AdminBar extends React.Component {
         const {title, handler } = action;
         return( 
             <button key={title} className="admin-bar__button" onClick={handler}>
-            {title}
+                {title}
             </button>
         );
     }

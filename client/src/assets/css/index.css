@@ -1,6 +1,13 @@
+*,
+*:before,
+*:aftere {
+  box-sizing:border-box;
+}
 
-
-
+body{
+  width: 50%;
+  margin: 20px auto;
+}
 .module-list {
   margin-top: 20px;
 }
