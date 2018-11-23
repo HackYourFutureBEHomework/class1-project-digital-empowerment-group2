@@ -6,7 +6,7 @@ import 'react-quill/dist/quill.snow.css';
 import ModuleForm from './ModuleForm';
 import AppHader from '../shared/AppHeader';
 import Loader from '../shared/Loader';
-import Model from 'react-model';
+import Model from 'react-modal';
 import AdminBar from '../shared/AdminBar';
 import classNames from 'classnames';
 
@@ -40,7 +40,7 @@ export default class Modules extends React.Component{
         if (isLoding) {
             return <Loader fullscreen={true}/>;
         }
-        
+
         const moduleComponents = modules.map(this._renderModule);
         return (
             <div>
@@ -55,12 +55,12 @@ export default class Modules extends React.Component{
     }
 
   _renderModule = module =>{
-    const {activeModuleId, activeStep }= this.state; 
+    const {activeModuleId, activeStep }= this.state;
     const isActive = module._id === activeModuleId;
    return (
         <div className="module" key={module._id}>
             <div className="module__title">
-               <h2>{module.title}</h2> 
+               <h2>{module.title}</h2>
             </div>
             {isActive && (
                  <div className="module__body">
@@ -74,12 +74,12 @@ export default class Modules extends React.Component{
 };
 
 _renderModule = module =>{
-  const {activeModuleId, activeStep }= this.state; 
+  const {activeModuleId, activeStep }= this.state;
   const isActive = module._id === activeModuleId;
  return (
       <div className="module" key={module._id}>
           <div className="module__title">
-             <h2>{module.title}</h2> 
+             <h2>{module.title}</h2>
           </div>
           {isActive && (
                <div className="module__body">
@@ -97,7 +97,7 @@ _renderStep = (title, className, body, expended) => {
       <div  className="module__step">
           <h3>{title}</h3>
           <div className={stepBodyClass}>
-          <div dangerouslySetInnerHTML={{__html: body}}/>        
+          <div dangerouslySetInnerHTML={{__html: body}}/>
           <button onClick={this.onNextStep}>Next Step</button>
           </div>
       </div>
@@ -136,18 +136,18 @@ onAddMoudle = () => {
 }
 _renderAddMoudleForm = () => {
   return <Model isOpen={true} ariaHideApp={false}>
-      <ModuleForm 
+      <ModuleForm
           onCancel={() => this.setState({isAddingModule: false})}
-          onSubmit={module => this.onAddMoudle(module)}
+          onSubmit={module => this.addModule(module)}
           />
   </Model>
 }
-onAddMoudle = async module => {
+addModule = async module => {
   console.log(module);
+//   debugger;
   const newModule = await api.createModule(module);
-  this.setState(state => ({ modules: [...state.module, newModule],
-  isAddingModule: false
-}));
+  console.log('NEW', newModule);
+  this.setState(state => ({ modules: [...state.modules, newModule], isAddingModule: false}));
 };
 
 }

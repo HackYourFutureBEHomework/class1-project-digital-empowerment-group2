@@ -13,11 +13,11 @@ export default class ModuleForm extends React.Component{
             const { title, explanation, exercise,  evaluation}= this.state;
             return (
             <form className='module-form'>
-                <hader className="module-from__header">Add module</hader>
+                <header className="module-from__header">Add module</header>
                 <div className="module-form__rew">
                     <label className="module-form__label">Module title</label>
                     <input className="module-form__text" type='text' value={title} onChange={e => this.setState ({title: e.target.value})}/>
-                </div>                
+                </div>
                 {this._renderTextarea('explanation','Explanation',explanation)}
                 {this._renderTextarea('exercise','Exercise',exercise)}
                 {this._renderTextarea('evaluation','Evaluation',evaluation)}
@@ -30,7 +30,7 @@ export default class ModuleForm extends React.Component{
             )
         }
 
-      _renderTextarea = (property, title, value) => {    
+      _renderTextarea = (property, title, value) => {
         return(
              <div className="module-form__rew">
                 <label className="module-form__label">{title}</label>
@@ -38,16 +38,16 @@ export default class ModuleForm extends React.Component{
             </div>
         );
       };
-      
+
       onCancel = (e) => {
-          e.preventDefult();
+          e.preventDefault();
           this.props.onCancel();
       }
 
       onSubmit = (e) => {
-        e.preventDefult();
+        e.preventDefault();
         const { title, explanation, exercise,  evaluation}= this.state;
-        this.onSubmit({ title, explanation, exercise,  evaluation});
+        this.props.onSubmit({ title, explanation, exercise,  evaluation});
     }
 
 }
