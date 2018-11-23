@@ -1,6 +1,7 @@
 import React from 'react';
 
 import * as api from '../api/modules';
+
 import 'react-quill/dist/quill.snow.css';
 import ModuleForm from './ModuleForm';
 import AppHader from '../shared/AppHeader';
@@ -21,7 +22,7 @@ export default class Modules extends React.Component{
     activeStep: SETP_EXPLANATION,
     isLoding: true,
     isAdmin: true,
-    isAddingModule: true
+    // isAddingModule: true
   }
 
   async componentDidMount() {
