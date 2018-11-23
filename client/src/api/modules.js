@@ -12,7 +12,8 @@ export const getModules = () =>
     response.json()
     );
 
-export const createModule = ( title, explanation,exercise,evaluation) => {
+export const createModule = ( module) => {
+  const {title, explanation,exercise,evaluation} = module;
       return fetch(`${API_URL}/module`, {
         method: 'POST',
         headers,
@@ -25,15 +26,11 @@ export const createModule = ( title, explanation,exercise,evaluation) => {
     };
     
 
-export const updateModule = (module, explanation, exercise, evaluation) => (
+export const updateModule = (module) => (
   fetch(`${API_URL}/module/${module._id}`, {
     method: 'PATCH',
     headers,
-    body: JSON.stringify({
-      module:module,
-      explanation:explanation,
-      exercise:exercise,
-      evaluation:evaluation})
+    body: JSON.stringify(module)
   }).then(response => response.json())
 );
 

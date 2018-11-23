@@ -3,8 +3,12 @@ import React, { Component } from 'react';
 import{ Button ,Modal} from 'react-bootstrap';
 import ReactQuill from 'react-quill';
 import 'react-quill/dist/quill.snow.css';
+import classNames from 'classnames';
 
 
+const SETP_EXPLANATION ='explanation';
+const SETP_EXERCISE ='exercise';
+const SETP_EVALUATION ='evaluation';
 
 class Module extends Component{
     constructor(props){
@@ -14,6 +18,7 @@ class Module extends Component{
         selectedModule: null,
         title:          props.module.tilte, 
         showMoreInfo:   false,
+        activeStep: SETP_EXPLANATION,
         }
     }
 
@@ -47,6 +52,45 @@ class Module extends Component{
         })
         
     }
+
+
+    // ********************************************
+    _renderStep = (title, className, body, expended) => {console.log(body)
+        const stepBodyClass = classNames('module__step-body', className, { expended })
+        return (
+            <div  className="module__step">
+                <h3>{title}</h3>
+                <div className={stepBodyClass}>
+                <div dangerouslySetInnerHTML={{__html: body }}/> 
+                 
+                <button onClick={this.onNextStep}>Next Step</button>
+                </div>
+            </div>
+        );
+    };
+
+    onNextStep = () => {
+        const {activeStep } = this.state;
+        if (activeStep === SETP_EXPLANATION)  {
+            this.setState({ activeStep: SETP_EXERCISE})
+        }else if (activeStep === SETP_EXERCISE)  {
+            this.setState({ activeStep: SETP_EVALUATION})
+        } else if (activeStep === SETP_EVALUATION) {
+            this.onNextModule();
+        }
+    };
+
+    onNextModule = () => {
+        const { modules, activeModuleId } = this.state;
+        const moduleIndex = modules.findIndex(module => module._id === activeModuleId);
+        const nextModule = modules[moduleIndex + 1];
+        let newModuleId;
+        if (nextModule) {
+            newModuleId = nextModule._id;
+        }
+        this.setState({activeModuleId: newModuleId , activeStep:SETP_EXPLANATION});
+};
+
     render(){
 
         const module=(<div className="module">
