@@ -214,12 +214,28 @@ border-top-left-radius: 5px;
   padding: 10px 20px;
   border-bottom-right-radius: 5px;
   border-bottom-left-radius: 5px;
+  width: 100%;
+}
+
+/* .module__step-body {
+display: none;  
+} */
+/* .module__step-body.expended {
+  display: block;
+} */
+.module__title h2 {
+  margin: 0;
+}
+.module__body {
+  padding: 10px 20px;
+  border-bottom-right-radius: 5px;
+  border-bottom-left-radius: 5px;
   
 }
 
 .module__step-body {
 display: none;  
 }
-/* .module__step-body.expended {
+.module__step-body.expended {
   display: block;
-} */
+}

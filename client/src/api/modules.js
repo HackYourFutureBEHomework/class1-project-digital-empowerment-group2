@@ -12,7 +12,8 @@ export const createModule = (title,  explanation, exercise, evaluation) => {
      body: JSON.stringify({title: title, explanation : explanation, exercise: exercise, evaluation: evaluation })
   }).then(response => response.json());
 };
-    
+
+
 
 export const updateModule = ( module) => (
     fetch(`${API_URL}/module/${module._id}`, {

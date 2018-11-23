@@ -10,7 +10,7 @@ const SETP_EXPLANATION ='explanation';
 const SETP_EXERCISE ='exercise';
 const SETP_EVALUATION ='evaluation';
 
-    class Module extends Component{
+export default class ModuleList extends React.Component{
     constructor(props){
         super(props)
         this.state={
@@ -143,11 +143,15 @@ const SETP_EVALUATION ='evaluation';
                 </Button>
             </nav>
         </div>)
+        
         return (
+            
             <li className='module' onClick={this.openModule}>
                 {(this.state.showMoreInfo) ?
                     <div>
+                        
                         {module}
+                        
                         {/* <div>
                             <div>Explanation: <div className="module__contents__stage"   dangerouslySetInnerHTML={{ __html: this.props.module.explanation }} /></div>
                             <div>Exercise: <div className="module__contents__stage" dangerouslySetInnerHTML={{ __html: this.props.module.exercise }} /></div>
@@ -167,4 +171,3 @@ const SETP_EVALUATION ='evaluation';
         )
     }
 }
-export default Module

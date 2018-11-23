@@ -15,7 +15,7 @@ exports.create = (req, res) => {
   console.log(req.body)
   newModule
     .save()
-    .then((data) => { res.send(data);console.log(data) })
+    .then((data) => { res.send(data);})
     .catch((err) => {
       res.status(500).send({ message: err.message });
     });
