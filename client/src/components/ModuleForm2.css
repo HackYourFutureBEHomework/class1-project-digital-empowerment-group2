@@ -1,0 +1,60 @@
+.module-form {
+
+}
+
+.module-form__header {
+    font-size: 18px;
+    margin-bottom: 20px;
+}
+.module-form__row {
+    margin-bottom: 15px;
+}
+
+.module-form__label {
+    display: block;
+    text-transform: uppercase;
+    font-size: 12px;
+    padding: 0 10px;
+}
+
+.module-form__text {
+    box-sizing: border-box;
+    width: 100%;
+    padding: 5px 10px;
+    outline: none;
+    border: 1px solid #999;
+}
+
+.module-form__text:focus 
+.module-form__textarea:focus {
+    border-color: blue;
+}
+.module-form__textarea {
+    width: 100%;
+    height: 100px;
+    resize:none;
+    font: inherit;
+    padding: 5px 10px;
+    outline: none;
+    border: 1px solid #999;
+}
+
+.moudel-fro__action {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+}
+
+
+.module-from__button {
+    background: inherit;
+    font: inherit;
+    border: 1px solid #999;
+    color: #333;
+    padding: 3px 5px;
+    border-radius: 4px;
+    margin: 0 10px;
+}
+.module-from__button:last-child {
+    margin-right: 0;
+}
