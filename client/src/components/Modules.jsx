@@ -5,18 +5,34 @@ import Module from './Module'
 import{ Button ,Modal} from 'react-bootstrap'
 import ReactQuill from 'react-quill';
 import 'react-quill/dist/quill.snow.css';
+import ModuleForm from './ModuleForm';
+import AppHader from '../shared/AppHeader';
+import Loader from '../shared/Loader';
+import Model from 'react-modal';
+import AdminBar from '../shared/AdminBar';
+import classNames from 'classnames';
+
+
+
+const SETP_EXPLANATION ='explanation';
+const SETP_EXERCISE ='exercise';
+const SETP_EVALUATION ='evaluation';
 
 
 class Modules extends Component {
  state = {
       title:'',
       modules: [],
-      show:false, 
-      explanation: '',
-      exercise: '',
-      evaluation: '',
-      content: '',
-      flag: '1',
+      activeModuleId: undefined,
+      activeStep: SETP_EXPLANATION,
+      isLoding: true,
+      isAdmin: true,
+      // show:false, 
+      // explanation: '',
+      // exercise: '',
+      // evaluation: '',
+      // content: '',
+      // flag: '1',
      
           };
 
@@ -25,32 +41,27 @@ class Modules extends Component {
 componentDidMount() {
  // this.setState({ loading: true });
    getModules().then((modules) => {
-      this.setState({  modules: modules });
+    let activeModuleId;
+    if (modules.length > 0) {
+      activeModuleId = modules[0]._id;
+    }
+      this.setState({  modules, activeModuleId, isLoding: false });
       //,loading: false
     });
   }
 
 
 
-createModule = e => {
+  addModule = e => {
     e.preventDefault();
-    this.setState({
-        title: "",
-        explanation: '',
-        exercise: '',
-        evaluation: '',
-    })
+   
     createModule(
       this.state.title, 
       this.state.explanation,
       this.state.exercise,
       this.state.evaluation)
     .then(newModule => {
-      this.setState({
-        modules: this.state.modules.concat(newModule),
-        show: false
-        
-      });
+      this.setState(state => ({ modules: [...state.modules, newModule], isAddingModule: false}));
     });
   };
 
@@ -129,126 +140,114 @@ HandleDialoge=() =>{
 
   
   render() {
-    
-    const editorOptions = {
-        toolbar : [
-        [{ header: [1,2,3,4,5,6, false] }],
-        ['bold', 'italic', 'underline', 'strike'],
-        [
-          { list: 'ordered' }, { list: 'bullet' }
-        ],
-        ['link', 'image', 'video'], 
-        [{'indent':'-1'},{'indent':' +1'}],
-        [{'size': ['small', false, 'large', 'huge']}],
-        [{'color': []}, {'background': []}],
-        [{'align':[]}], [{'font': []}],
-        ['clean'], ['code-block']
-      ]
-    };
+    const { isLoding, modules, isAdmin, isAddingModule } = this.state
 
-    const { modules} = this.state;
-      // if (this.state.loading) {
-      // return <div id="loader-wrapper"><div id="loader"></div></div>;
-      // } else {
-    
-      return (
+    if (isLoding) {
+        return <Loader fullscreen={true}/>;
+    }
+
+    const moduleComponents = modules.map(this._renderModule);
+    return (
         <div>
-          <h2 > Title of the active path </h2>
-          
-            <fieldset className= ''>
-              <legend className='' >modules :</legend>
-                <div className = 'container2'>
-                  <div className="modal-container">
-                      <Button 
-                        type="button"  
-                        bsStyle="primary" 
-                        className="button" 
-                        onClick={this.HandleDialoge}
-                        >Add module
-                        </Button> 
-                      <Modal
-                        show={this.state.show}
-                        onHide={this.HandleDialoge}
-                        aria-labelledby="contained-modal-title"
-                      >                         
-                      <Modal.Header closeButton>
-                        <Modal.Title id="contained-modal-title">
-                            Add New Module
-                        </Modal.Title>
-                      </Modal.Header>
-                      <form onSubmit={this.createModule}>
-                        <h3>Title:</h3>
-                          <input type='text' 
-                            //required
-                            placeholder='Enter The title' 
-                            onChange={this.handlingChange}
-                            value = {this.title}>
-                          </input>
-                                                                   
-                      <Modal.Body>
-                        <h3> Contents for the evaluation</h3>
-                        <ReactQuill
-                          // key={module._id}
-                          modules={editorOptions}
-                          onChange={this.handleTextChange}
-                          placeholder="Contents"
-                          value={this.state.content}
-                        />
-                        <div className = 'content for evaluation'> 
-                            <button id = 'saveExplanation' type='button'
-                             onClick={this.handelContentEvaluation}                   
-                            > Explanation</button>
-                            <button id = 'saveExercise' type='button'
-                            onClick={this.handelContentEvaluation}
-                            > Exercise</button>
-                            <button id = 'saveEvaluation' type='button'
-                            onClick={this.handelContentEvaluation} 
-                            > Evaluation</button>
-                        </div>
-                      </Modal.Body>
-                      <Modal.Footer>
-                        <Button bsStyle="primary" onClick={this.createModule}>Add module</Button>
-                        <Button onClick={this.HandleDialoge}>Close</Button>
-                      </Modal.Footer>
-                      </form>
-                      </Modal>
-                          
-                    </div>
-              </div>
-              {modules.length > 0 ? (             
-                <ul>            
-                  { modules
-                  //.sort((m1, m2) => m2.createdAt - m1.createdAt)
-                  .map(module =>
-                    <Module 
-                      key={module._id}
-                      module={module} 
-                      onSelect = {this.handleSelect} 
-                      selectedModule ={this.state.selectedModule}  
-                      onDelete = {this.handleDelete}
-                      onChange = {this.handlechange} 
-                      onSave = { this.handeleSave}
-                      onCancel = {this.handleCancel}
-                      editorOptions= {this.editorOptions}
-                      handleTextChange={this.handleTextChange}
-                      handelContentEvaluation={this.handelContentEvaluation}
-                      content={this.state.content}
-                 
-                    /> 
-                    
-                  )}
-                                      
-                </ul>
-              ) : (
-                <p>There are no modules yet</p>
-                )}
-            </fieldset> 
-            
-            
+            <AppHader/>
+            {isAdmin && this._renderAdminBar()}
+            {isAddingModule && this._renderAddMoudleForm()}
+            <div className="module-list">
+            {moduleComponents}
+            </div>
         </div>
-      )        
-  //}    
+    );
 }
+
+_renderModule = module =>{
+const {activeModuleId, activeStep }= this.state;
+const isActive = module._id === activeModuleId;
+return (
+    <div className="module" key={module._id}>
+        <div className="module__title">
+           <h2>{module.title}</h2>
+        </div>
+        {isActive && (
+             <div className="module__body">
+                {this._renderStep('Explanation', 'module__explanation', module.explanation, activeStep === SETP_EXPLANATION)}
+                {this._renderStep('Exercise', 'module__exercise', module.exercise,  activeStep === SETP_EXERCISE)}
+                {this._renderStep('Evaluation', 'module__evaluation', module.evaluation,  activeStep === SETP_EVALUATION)}
+            </div>
+        )}
+    </div>
+);
+};
+
+_renderModule = module =>{
+const {activeModuleId, activeStep }= this.state;
+const isActive = module._id === activeModuleId;
+return (
+  <div className="module" key={module._id}>
+      <div className="module__title">
+         <h2>{module.title}</h2>
+      </div>
+      {isActive && (
+           <div className="module__body">
+              {this._renderStep('Explanation', 'module__explanation', module.explanation, activeStep === SETP_EXPLANATION)}
+              {this._renderStep('Exercise', 'module__exercise', module.exercise,  activeStep === SETP_EXERCISE)}
+              {this._renderStep('Evaluation', 'module__evaluation', module.evaluation,  activeStep === SETP_EVALUATION)}
+          </div>
+      )}
+  </div>
+);
+};
+_renderStep = (title, className, body, expended) => {
+const stepBodyClass = classNames('module__step-body', className, { expended })
+return (
+  <div  className="module__step">
+      <h3>{title}</h3>
+      <div className={stepBodyClass}>
+      <div dangerouslySetInnerHTML={{__html: body}}/>
+      <button onClick={this.onNextStep}>Next Step</button>
+      </div>
+  </div>
+);
+};
+
+onNextStep = () => {
+const {activeStep } = this.state;
+if (activeStep === SETP_EXPLANATION)  {
+  this.setState({ activeStep: SETP_EXERCISE})
+}else if (activeStep === SETP_EXERCISE)  {
+  this.setState({ activeStep: SETP_EVALUATION})
+} else if (activeStep === SETP_EVALUATION) {
+  this.onNextModule();
+}
+};
+
+onNextModule = () => {
+const { modules, activeModuleId } = this.state;
+const moduleIndex = modules.findIndex(module => module._id === activeModuleId);
+const nextModule = modules[moduleIndex + 1];
+let newModuleId;
+if (nextModule) {
+  newModuleId = nextModule._id;
+}
+this.setState({activeModuleId: newModuleId , activeStep:SETP_EXPLANATION});
+};
+
+_renderAdminBar = () => {
+const actions = [{title: ' Add Module', handler:this.onAddMoudle}];
+return <AdminBar actions={actions}/>;
+};
+
+onAddMoudle = () => {
+this.setState({isAddingModule: true})
+}
+_renderAddMoudleForm = () => {
+return <Model isOpen={true} ariaHideApp={false}>
+  <ModuleForm
+      onCancel={() => this.setState({isAddingModule: false})}
+      onSubmit={module => this.addModule(module)}
+      />
+</Model>
+}
+
 }
 
 export default Modules;
