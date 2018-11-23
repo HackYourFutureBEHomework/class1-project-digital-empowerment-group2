@@ -233,9 +233,23 @@ display: none;
   
 }
 
-.module__step-body {
+/* .module__step-body {
 display: none;  
+<<<<<<< HEAD
 }
 .module__step-body.expended {
-  display: block;
+||||||| merged common ancestors
 }
+/* .module__step-body.expended {
+=======
+} */
+/* .module__step-body.expended {
+>>>>>>> 26480296474684d001030386118f16ab801741b1
+  display: block;
+<<<<<<< HEAD
+}
+||||||| merged common ancestors
+} */
+=======
+} */
+>>>>>>> 26480296474684d001030386118f16ab801741b1
