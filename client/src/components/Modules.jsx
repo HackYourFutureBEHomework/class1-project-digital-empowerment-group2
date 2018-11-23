@@ -17,25 +17,61 @@ class Modules extends Component {
       evaluation: '',
       content: '',
       flag: '1',
-      loading: false,
+     
           };
 
-  HandleDialoge=() =>{
-      this.setState({ show: !this.state.show });
-    }
+ 
 
-   componentDidMount() {
-    this.setState({ loading: true });
+componentDidMount() {
+ // this.setState({ loading: true });
    getModules().then((modules) => {
-      this.setState({  modules: modules,loading: false });
+      this.setState({  modules: modules });
+      //,loading: false
     });
   }
 
-  handlingChange = e => {
+
+
+createModule = e => {
+    e.preventDefault();
     this.setState({
-     title: e.target.value
-   });
- };
+        title: "",
+        explanation: '',
+        exercise: '',
+        evaluation: '',
+    })
+    createModule(
+      this.state.title, 
+      this.state.explanation,
+      this.state.exercise,
+      this.state.evaluation)
+    .then(newModule => {
+      this.setState({
+        modules: this.state.modules.concat(newModule),
+        show: false
+        
+      });
+    });
+  };
+
+  handeleSave = (module) => {
+    const {explanation,exercise,evaluation}=this.state
+    updateModule(module,explanation,exercise,evaluation).then((updatedModule) => {
+      this.setState((previousState) => {
+        const modules = [...previousState.modules];
+        const index = modules.findIndex(mod => mod._id === module._id);
+        modules[index] = updatedModule;
+        return { modules  };
+      })
+    });
+  };
+
+  handleDelete =  id => { 
+    deleteModule(id);
+      this.setState({     
+        modules:this.state.modules.filter( mod => mod._id!== id )
+      });
+    };
 
   handleTextChange=(e)=> {
     switch(this.state.flag){
@@ -53,21 +89,7 @@ class Modules extends Component {
   
 };
 
-createModule = e => {
-    e.preventDefault();
-    createModule(this.state.title, this.state.explanation,this.state.exercise,this.state.evaluation)
-    .then(newModule => {
-      this.setState({
-        modules: this.state.modules.concat(newModule),
-        title: "",
-        loading: false
-        
-      });
-    });
-  };
-
-
-  handelContentEvaluation=(e)=> {
+handelContentEvaluation=(e)=> {
     if (e.target.innerHTML === 'Explanation') {
       this.setState({
         content:this.state.explanation,
@@ -90,24 +112,20 @@ createModule = e => {
   }
 }
 
+HandleDialoge=() =>{
+  this.setState({ show: !this.state.show });
+}
 
-handleDelete =  id => { 
-  deleteModule(id);
-    this.setState({     
-      modules:this.state.modules.filter( mod => mod._id!== id )
-    });
-  };
 
-handeleSave = (module) => {
-    updateModule(module).then((updatedModule) => {
-      this.setState((previousState) => {
-        const modules = [...previousState.modules];
-        const index = modules.findIndex(mod => mod._id === module._id);
-        modules[index] = updatedModule;
-        return { modules ,selectedModule: null };
-      })
-    });
-  };
+
+
+
+  handlingChange = e => {
+    this.setState({
+     title: e.target.value
+   });
+ };
+
 
   
   render() {
@@ -129,9 +147,9 @@ handeleSave = (module) => {
     };
 
     const { modules} = this.state;
-      if (this.state.loading) {
-      return <div id="loader-wrapper"><div id="loader"></div></div>;
-      } else {
+      // if (this.state.loading) {
+      // return <div id="loader-wrapper"><div id="loader"></div></div>;
+      // } else {
     
       return (
         <div>
@@ -161,7 +179,7 @@ handeleSave = (module) => {
                       <form onSubmit={this.createModule}>
                         <h3>Title:</h3>
                           <input type='text' 
-                            required
+                            //required
                             placeholder='Enter The title' 
                             onChange={this.handlingChange}
                             value = {this.title}>
@@ -170,7 +188,7 @@ handeleSave = (module) => {
                       <Modal.Body>
                         <h3> Contents for the evaluation</h3>
                         <ReactQuill
-                          key={module._id}
+                          // key={module._id}
                           modules={editorOptions}
                           onChange={this.handleTextChange}
                           placeholder="Contents"
@@ -200,7 +218,7 @@ handeleSave = (module) => {
               {modules.length > 0 ? (             
                 <ul>            
                   { modules
-                  .sort((m1, m2) => m2.createdAt - m1.createdAt)
+                  //.sort((m1, m2) => m2.createdAt - m1.createdAt)
                   .map(module =>
                     <Module 
                       key={module._id}
@@ -214,6 +232,7 @@ handeleSave = (module) => {
                       editorOptions= {this.editorOptions}
                       handleTextChange={this.handleTextChange}
                       handelContentEvaluation={this.handelContentEvaluation}
+                      content={this.state.content}
                  
                     /> 
                     
@@ -228,7 +247,7 @@ handeleSave = (module) => {
             
         </div>
       )        
-  }    
+  //}    
 }
 }
 

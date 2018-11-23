@@ -3,8 +3,7 @@ import React, { Component } from 'react';
 import{ Button ,Modal} from 'react-bootstrap';
 import ReactQuill from 'react-quill';
 import 'react-quill/dist/quill.snow.css';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faEdit, faTrash } from '@fortawesome/free-solid-svg-icons'
+
 
 
 class Module extends Component{
@@ -17,6 +16,7 @@ class Module extends Component{
         showMoreInfo:   false,
         }
     }
+
     handleDialoge=(module)=>{
         this.handleSelect(this.props.module)
         this.setState({show:!this.state.show})
@@ -24,6 +24,7 @@ class Module extends Component{
     }
    
     handlechange = (e) =>{
+        
         let selectedModule = this.state.selectedModule;
         selectedModule[e.target.name]= e.target.value;
         this.setState({ selectedModule: selectedModule});
@@ -34,14 +35,11 @@ class Module extends Component{
         }
 
     handleSave=()=>{
-            this.props.onSave({...this.props.module},this.state.title)
+            this.props.onSave({...this.props.module})
             this.setState({show:false})
         }
         
-    // handleTextChange= e => {
-    //     this.setState({explanation:e})
-        
-    //     };
+
 
     openModule=(event)=>{
         this.setState({
@@ -52,11 +50,17 @@ class Module extends Component{
     render(){
 
         const module=(<div className="module">
+             {/* <input
+                        className="checkbox"
+                        type="checkbox"
+                        // onChange={this.resetSteps}
+                        // checked={module.completed ? "checked" : ""}
+                /> */}
 
             <div className="title"> {this.props.module.title} </div>
             
                 <nav className="edit">
-
+                    
                     <Button className="glyphicon glyphicon-edit"
 
                             onClick={this.handleDialoge}>
@@ -106,21 +110,20 @@ class Module extends Component{
 
                             <ReactQuill 
 
-                                modules={this.props.editorOptions}                                
-
+                                modules={this.props.editorOptions}
                                 placeholder="Contents"
-
-                                // onChange={this.handleTextChange}
+                                onChange={this.props.handleTextChange}
+                                value={this.props.content}
 
                             />   
                             <div className = 'content for evaluation'> 
                                 <button id = 'saveExplanation' type='button'
-                                onChange={this.props.handelContentEvaluation}                   
+                                onClick={this.props.handelContentEvaluation}                   
                                 > Explanation</button>
                                 <button id = 'saveExercise' type='button'
-                                onChange={this.props.handelContentEvaluation}>    Exercise</button>
+                                onClick={this.props.handelContentEvaluation}>    Exercise</button>
                                 <button id = 'saveEvaluation' type='button'
-                                onChange={this.props.handelContentEvaluation} > Evaluation</button>
+                                onClick={this.props.handelContentEvaluation} > Evaluation</button>
                             </div>
 
                         </Modal.Body>
@@ -141,9 +144,10 @@ class Module extends Component{
 
                     onClick={() => 
 
-                    {if (window.confirm(`Are you sure you want to delete? "${this.props.module.title}"?  `))
+                    {if (window.confirm(`Are you sure you want to delete? "  `))
 
                         this.props.onDelete( this.props.module._id);
+                       
 
                     }}>                    
 
@@ -153,7 +157,7 @@ class Module extends Component{
                 
                 </div>
                )
-            const contents =(
+            const mod =(
              <div>
                 <div>
                 Explanation: 
@@ -191,7 +195,7 @@ class Module extends Component{
                 <div>
 
                     {module}
-                    {contents}
+                    {mod}
 
                 </div>
                

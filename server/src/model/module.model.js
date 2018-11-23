@@ -11,6 +11,10 @@ const ModuleSchema = mongoose.Schema(
     explanation: String,
     exercise: String,
     evaluation: String,
+    // completed: {
+    //   type: Boolean,
+    //   default: false
+    //         }
 
    
   },

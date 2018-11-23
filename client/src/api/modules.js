@@ -1,7 +1,9 @@
 const API_URL = process.env.REACT_APP_API_URL || 'http://localhost:4000';
 
 const headers = new Headers({
-  'Content-Type': 'application/json'
+  'Content-Type': 'application/json',
+  // 'Accept': 'application/json',
+  // 'Access-Control-Allow-Origin': window.location.origin
 });
 
 export const getModules = () => 
@@ -9,7 +11,8 @@ export const getModules = () =>
   .then(response => 
     response.json()
     );
-    export const createModule = ( title, explanation,exercise,evaluation) => {
+
+export const createModule = ( title, explanation,exercise,evaluation) => {
       return fetch(`${API_URL}/module`, {
         method: 'POST',
         headers,
@@ -22,25 +25,34 @@ export const getModules = () =>
     };
     
 
-export const updateModule = (id, title, explanation, exercise, evaluation) => (
+export const updateModule = (module, explanation, exercise, evaluation) => (
   fetch(`${API_URL}/module/${module._id}`, {
     method: 'PATCH',
     headers,
-    body: JSON.stringify({title:title,
+    body: JSON.stringify({
+      module:module,
       explanation:explanation,
       exercise:exercise,
       evaluation:evaluation})
   }).then(response => response.json())
 );
 
-export const deleteModule = id => 
+export const deleteModule = id => {
   fetch(`${API_URL}/module/${id}`, { 
-    method: 'DELETE', 
+    method: 'DELETE',
     headers 
-  });
+   }).then(response => response.json());
+  };
 
 
 
-
-
+  // export const completedModule = (id, completed) => {
+  //   return fetch(`${API_URL}/module/${id}`, {
+  //     method: 'PUT',
+  //     headers: headers,
+  //     body: JSON.stringify({
+  //       completed: completed
+  //     })
+  //   }).then(response => response.json());
+  // };
 
