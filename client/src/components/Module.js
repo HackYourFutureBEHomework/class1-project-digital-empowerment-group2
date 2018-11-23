@@ -54,8 +54,7 @@ class Module extends Component{
     }
 
 
-    // ********************************************
-    _renderStep = (title, className, body, expended) => {console.log(body)
+        _renderStep = (title, className, body, expended) => {console.log(body)
         const stepBodyClass = classNames('module__step-body', className, { expended })
         return (
             <div  className="module__step">
@@ -202,30 +201,12 @@ class Module extends Component{
                 </div>
                )
             const mod =(
-             <div>
-                <div>
-                Explanation: 
-                <div 
-                className="module__contents__stage" 
-                dangerouslySetInnerHTML={{ __html: this.props.module.explanation}} 
-                />
+                <div className="module__body">
+                {this._renderStep('Explanation', 'module__explanation', this.props.module.explanation , this.state === SETP_EXPLANATION)}
+                {this._renderStep('Exercise', 'module__exercise', this.props.module.exercise,  this.state === SETP_EXERCISE)}
+                {this._renderStep('Evaluation', 'module__evaluation', this.props.module.evaluation,  this.state === SETP_EVALUATION)}
                 </div>
-                <div>
-                Exercise: 
-                <div 
-                    className="module__contents__stage" 
-                    dangerouslySetInnerHTML={{ __html: this.props.module.exercise}}
-                />
-                </div>
-                <div>
-                Evaluation: 
-                <div 
-                className="module__contents__stage" 
-                dangerouslySetInnerHTML={{ __html:this.props.module.evaluation}}
-                />
-                </div>
-        </div>
-              )
+                    )
                 
 
         return(
