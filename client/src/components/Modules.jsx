@@ -1,11 +1,12 @@
 import React, { Component} from 'react';
 //import * as api from '../api/modules';
 import { getModules, createModule, deleteModule, updateModule } from '../api/modules';
-import Module from './Module'
+//import Module from './Module'
 import{ Button ,Modal} from 'react-bootstrap'
 import ReactQuill from 'react-quill';
 import 'react-quill/dist/quill.snow.css';
 import ModuleForm from './ModuleForm';
+import ModuleEdit from './ModuleEdit';
 import AppHader from '../shared/AppHeader';
 import Loader from '../shared/Loader';
 import Model from 'react-modal';
@@ -27,9 +28,9 @@ class Modules extends Component {
       activeStep: SETP_EXPLANATION,
       isLoding: true,
       isAdmin: true,
-      show:false, 
+      show:true, 
       edit: false,
-
+      isEditingModule: true,
       newTitle: "",
       newExplanation: "",
       newExercise: "",
@@ -123,7 +124,7 @@ handleSelect = (module) =>{
 
 
 
-  handlingChange = e => {
+  handleEditing = e => {
     this.setState({
      title: e.target.value
    });
@@ -132,7 +133,7 @@ handleSelect = (module) =>{
 
   
   render() {
-    const { isLoding, modules, isAdmin, isAddingModule } = this.state
+    const { isLoding, modules, isAdmin, isAddingModule, isEditingModule } = this.state
 
     if (isLoding) {
         return <Loader fullscreen={true}/>;
@@ -144,6 +145,7 @@ handleSelect = (module) =>{
             <AppHader/>
             {isAdmin && this._renderAdminBar()}
             {isAddingModule && this._renderAddMoudleForm()}
+            {isEditingModule && this._renderEditMoudleForm()}
             <div className="module-list">
             {moduleComponents}
             </div>
@@ -187,8 +189,9 @@ return (
          <h2>{module.title}</h2>
         
          <div> {<Button className="glyphicon glyphicon-edit"
+         
 
-        onClick={() => this.handleContentEdit(module._id)}> </Button>} </div>
+        onClick={this._renderEditMoudleForm}> </Button>} </div>
         
         <div>{<Button  className = 'glyphicon glyphicon-trash'  onClick={() => 
 
@@ -258,6 +261,21 @@ return <Model isOpen={true} ariaHideApp={false}>
       />
 </Model>
 }
+
+
+onEditMoudle = () => {
+  const {isEditingModule} = this.state
+  this.setState({isEditingModule: !isEditingModule})
+  }
+_renderEditMoudleForm = () => {
+
+  return <Model isOpen={true} ariaHideApp={false}>
+    <ModuleEdit
+        onCancel={() => this.setState({isAddingModule: false})}
+        onSubmit={module => this.handleContentEdit(module)}
+        /> 
+  </Model>
+  }
 
 }
 

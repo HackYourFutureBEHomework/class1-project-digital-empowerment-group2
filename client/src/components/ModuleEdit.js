@@ -3,7 +3,7 @@ import './ModuleForm.css';
 import ReactQuill from 'react-quill';
 import 'react-quill/dist/quill.snow.css';
 
-export default class ModuleForm extends React.Component{
+export default class ModuleEdit extends React.Component{
     state={
         title:'',
         explanation:'',
@@ -30,7 +30,7 @@ export default class ModuleForm extends React.Component{
             const { title, explanation, exercise,  evaluation}= this.state;
             return (
             <form className='module-form'>
-                <header className="module-from__header">Add module</header>
+                <header className="module-from__header">Edit module</header>
                 {/* <ReactQuill
                           key={module._id}
                           modules={editorOptions}
@@ -46,11 +46,10 @@ export default class ModuleForm extends React.Component{
                 {this._renderTextarea('evaluation','Evaluation',evaluation)}
                 <div className="module-form__rew module-form__actions">
                 <button className="module-form__buttom" onClick={this.onCancel}>Cancel</button>
-                <button className="module-form__buttom" onClick={this.onSubmit}>Add Module</button>
+                <button className="module-form__buttom" onClick={this.onSubmit}>Edit Module</button>
 
                 </div>
             </form>
-            
             )
         }
 
