@@ -21,10 +21,12 @@ background-color: #0096874f;
 padding: 10px 20px;
 border-top-right-radius: 5px;
 border-top-left-radius: 5px;
+overflow: hidden;
 }
 
 .module__title h2 {
   margin: 0;
+  width: 75%;
 }
 .module__body {
   padding: 10px 20px;
@@ -57,9 +59,11 @@ display: none;
   color: #343736;
 }
 
-.module__actions{
+/* .module__actions{
   float: right;
 }
 .module__actions button{
   margin: 5px;
-}
+} */
+
+

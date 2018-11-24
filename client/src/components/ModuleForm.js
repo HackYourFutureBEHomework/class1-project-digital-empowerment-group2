@@ -34,6 +34,12 @@ export default class ModuleForm extends React.Component{
         return(
              <div className="module-form__rew">
                 <label className="module-form__label">{title}</label>
+                {/* <ReactQuill
+                            modules={this.editorOptions}
+                            placeholder="Contents"
+                            value={value}
+                            onChange={e => this.setState ({[property]: e.target.value})}                        
+                        /> */}
                 <textarea className="module-form__textarea" value={value} onChange={e => this.setState ({[property]: e.target.value})}/>
             </div>
         );

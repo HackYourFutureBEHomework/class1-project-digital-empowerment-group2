@@ -10,7 +10,7 @@ export default class Loader extends React.Component{
         const loaderClass = classNames('loader', { fullscreen })
         return  <div className={loaderClass}>
                     < img className="loader__image" src={spinner} alt='Loading....'/>
-                    <h5>Loading</h5>
+                    <h5>Loading....</h5>
                 </div>
    } 
 }

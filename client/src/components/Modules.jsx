@@ -8,6 +8,9 @@ import Loader from '../shared/Loader';
 import Model from 'react-modal';
 import AdminBar from '../shared/AdminBar';
 import classNames from 'classnames';
+import ModuleUpdate from './ModuleUpdate';
+import EditButton from '../shared/EditButton';
+
 
 
 const SETP_EXPLANATION ='explanation';
@@ -23,7 +26,8 @@ export default class Modules extends React.Component{
         activeStep: SETP_EXPLANATION,
         isLoding: true,
         isAdmin: true,
-        // isAddingModule: true
+        isUpdate: true,
+        
     }
   
     async componentDidMount() {
@@ -36,7 +40,7 @@ export default class Modules extends React.Component{
     }
     
     render() {
-        const { isLoding, modules, isAdmin, isAddingModule } = this.state
+        const { isLoding, modules, isAdmin, isAddingModule} = this.state
         if (isLoding) {
             return <Loader fullscreen={true}/>;
         }        
@@ -44,8 +48,9 @@ export default class Modules extends React.Component{
             return (
                 <div>
                     <AppHader/>
-                    {isAdmin && this._renderAdminBar()}
+                    {isAdmin && this._renderAdminBar()}                    
                     {isAddingModule && this._renderAddMoudleForm()}
+                    
                     <div className="module-list">
                     {moduleComponents}
                     </div>
@@ -73,12 +78,26 @@ export default class Modules extends React.Component{
     };
 
     _renderModule = module =>{
-        const {activeModuleId, activeStep }= this.state;
+        const {activeModuleId, activeStep, isUpdate , isUpdatingModule }= this.state;
         const isActive = module._id === activeModuleId;
         return (
             <div className="module" key={module._id}>
                 <div className="module__title">
                     <h2>{module.title}</h2>
+{/* ***************************************** */}
+                    <div className="module__actions">
+                    {isUpdate && this._renderEditButton()}
+                    {isUpdatingModule && this._renderUpdateMoudleForm()}
+                    <button  className="edit-delete__button" 
+                            onClick={() => 
+                              {if (window.confirm(`Are you sure you want to delete "${module.title}"? `))
+                                console.log(module._id)
+                                const moduleId = module._id
+                                // console.log(moduleId)
+                                this.deleteModule(moduleId);
+                              }} >Delete</button>                    
+                    </div>
+ {/* ***************************************** */}
                 </div>
                 {isActive && (
                     <div className="module__body">
@@ -142,6 +161,24 @@ export default class Modules extends React.Component{
                 </Model>
     };
 
+// *******************************************************
+    _renderEditButton = () => {
+        const actions = [{title: 'Edit', handler:this.onUpdateModule}];
+            return <EditButton actions={actions}/>;
+    };
+    
+    onUpdateModule = () => {this.setState({isUpdatingModule: true})}
+
+    _renderUpdateMoudleForm = () => { console.log('hiiiiii')
+        return <Model isOpen={true} ariaHideApp={false}>
+                    <ModuleUpdate
+                        onCancel={() => this.setState({isUpdatingModule: false})}
+                        onSubmit={module => this.updateModule( module)}
+                    />
+                </Model>
+    };
+ // *******************************************************
+
     addModule = async module => {
         console.log(module);
         const newModule = await api.createModule(module);
@@ -149,21 +186,21 @@ export default class Modules extends React.Component{
         this.setState(state => ({ modules: [...state.modules, newModule], isAddingModule: false}));
     };
 
-   deleteModule = (module) => {
-    api.deleteModule(module._id).then(() => {
+
+   deleteModule = (moduleId) => {
+    api.deleteModule(moduleId).then(() => {
       this.setState((previousState) => {
-        const modules = [...previousState.modules].filter(mod => mod._id !== module._id);
+        const modules = [...previousState.modules].filter(mod => mod._id !== moduleId);
         return { modules };
       });
     });
   }
 
+//    {/* ***************************************** */}
 
   updateModule = (id, module) => {
     api.updateModule(id, module).then((updatedModule) => {
-      this.setState((previousState) => {
-        const modules = [...previousState.modules];
-        const index = modules.findIndex(mod => mod._id === id);
+      this.setState((previousState) => { const modules = [...previousState.modules]; const index = modules.findIndex(mod => mod._id === id);
         modules[index] = updatedModule;
         return { modules };
       });
