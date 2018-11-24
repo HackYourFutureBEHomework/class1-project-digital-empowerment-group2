@@ -28,3 +28,15 @@ display: none;
 .module__step-body.expended {
   display: block;
 }
+.module__title div {
+  display: inline-block;
+  justify-content: space-between;
+  
+  
+
+
+}
+.module__title{
+  display: flex;
+  flex-direction: row
+}

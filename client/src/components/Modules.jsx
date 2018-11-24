@@ -27,6 +27,13 @@ class Modules extends Component {
       activeStep: SETP_EXPLANATION,
       isLoding: true,
       isAdmin: true,
+      show:false, 
+      edit: false,
+
+      newTitle: "",
+      newExplanation: "",
+      newExercise: "",
+      newEvaluation: "",
 
      
           };
@@ -47,7 +54,7 @@ componentDidMount() {
 
 
 
-  addModule = async module => {
+addModule = async module => {
     console.log(module);
   //   debugger;
     const newModule = await createModule(module);
@@ -55,70 +62,63 @@ componentDidMount() {
     this.setState(state => ({ modules: [...state.modules, newModule], isAddingModule: false}));
   };
   
-  
-
-  handeleSave = (module) => {
-    const {explanation,exercise,evaluation}=this.state
-    updateModule(module,explanation,exercise,evaluation).then((updatedModule) => {
-      this.setState((previousState) => {
-        const modules = [...previousState.modules];
-        const index = modules.findIndex(mod => mod._id === module._id);
-        modules[index] = updatedModule;
-        return { modules  };
-      })
-    });
-  };
-
-  handleDelete =  id => { 
+handleDelete =  id => { 
     deleteModule(id);
       this.setState({     
         modules:this.state.modules.filter( mod => mod._id!== id )
       });
     };
 
-  handleTextChange=(e)=> {
-    switch(this.state.flag){
-      case 1: 
-      this.setState({explanation:e,content:e})
-      break;
-      case 2:
-      this.setState({exercise:e,content:e})
-      break;
-      case 3: 
-      this.setState({evaluation:e,content:e})
-      break;
-   
-  }
+
+handeleSave = (module) => {
+      const {explanation,exercise,evaluation}=this.state
+      updateModule(module,explanation,exercise,evaluation).then((updatedModule) => {
+        this.setState((previousState) => {
+          const modules = [...previousState.modules];
+          const index = modules.findIndex(mod => mod._id === module._id);
+          modules[index] = updatedModule;
+          return { modules  };
+        })
+      });
+    };
+
+
+// handleEdit = id => {
+//       this.setState({
+//         //active: id,
+//         edit: !this.state.edit
+//       });
+//   };
+
+handleContentEdit = module => {
+  const { newTitle, newExplanation, newExercise, newEvaluation } = this.state;
   
+    updateModule(
+      module,
+      newTitle,
+      newExplanation,
+      newExercise,
+      newEvaluation
+    )
+    .then(updatedModule => {
+      const modules = [...this.state.modules];
+      const index = modules.findIndex(mod => mod._id === module._id);
+      modules[index] = updatedModule;
+      this.setState({
+        modules,
+        edit: false
+      });
+    });
 };
 
-handelContentEvaluation=(e)=> {
-    if (e.target.innerHTML === 'Explanation') {
-      this.setState({
-        content:this.state.explanation,
-        flag: 1
-      });
-     
-    }
-    
-    if (e.target.innerHTML === 'Exercise') {
-      this.setState({
-        content:this.state.exercise,
-        flag: 2
-      });
-    } 
-    if (e.target.innerHTML === 'Evaluation') {
-      this.setState({
-        content:this.state.evaluation,
-        flag: 3
-      });
-  }
+handleDialoge=(module)=>{
+  this.handleSelect(module)
+  this.setState({show:!this.state.show})
+  
 }
-
-HandleDialoge=() =>{
-  this.setState({ show: !this.state.show });
+handleSelect = (module) =>{
+  this.setState({ selectedModule: module})
 }
-
 
 
 
@@ -188,7 +188,7 @@ return (
         
          <div> {<Button className="glyphicon glyphicon-edit"
 
-        onClick={this.handleDialoge}> </Button>} </div>
+        onClick={() => this.handleContentEdit(module._id)}> </Button>} </div>
         
         <div>{<Button  className = 'glyphicon glyphicon-trash'  onClick={() => 
 
