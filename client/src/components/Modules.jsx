@@ -59,7 +59,7 @@ export default class Modules extends React.Component{
         return (
             <div className="module" key={module._id}>
                 <div className="module__title">
-                    <h2>{module.title}</h2>
+                    <h2>{module.title}</h2>               
                 </div>
                 {isActive && (
                     <div className="module__body">
@@ -148,5 +148,26 @@ export default class Modules extends React.Component{
         console.log('NEW', newModule);
         this.setState(state => ({ modules: [...state.modules, newModule], isAddingModule: false}));
     };
+
+   deleteModule = (module) => {
+    api.deleteModule(module._id).then(() => {
+      this.setState((previousState) => {
+        const modules = [...previousState.modules].filter(mod => mod._id !== module._id);
+        return { modules };
+      });
+    });
+  }
+
+
+  updateModule = (id, module) => {
+    api.updateModule(id, module).then((updatedModule) => {
+      this.setState((previousState) => {
+        const modules = [...previousState.modules];
+        const index = modules.findIndex(mod => mod._id === id);
+        modules[index] = updatedModule;
+        return { modules };
+      });
+    });
+  };
 
 };

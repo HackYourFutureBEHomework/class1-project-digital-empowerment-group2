@@ -1,5 +1,6 @@
 import React from 'react';
 import './ModuuleForm.css';
+import ReactQuill from 'react-quill';
 
 export default class ModuleForm extends React.Component{
     state={

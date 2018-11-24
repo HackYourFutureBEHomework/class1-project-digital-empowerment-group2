@@ -1,17 +1,27 @@
 .admin-bar {
     padding: 10px 10px;
-    background: #666;
-    color: #999;
-    border-top: 2px solid hsl(0, 0%, 27%);
-    border-bottom: 2px solid #888;
+    background: #57A6A8;
+    color: #eee;
+    border-top: 2px solid #3437364d;
+    border-bottom: 2px solid #3437364d;
+    height: 60px;
 }
 
-.admin-bar__botton {
+.admin-bar__button {
     background: inherit;
     font: inherit;
-    border: 1px solid #999;
+    border: 1px solid #3437364d;
     color: #eee;
     padding: 3px 5px;
     border-radius: 4px;
+    float: right;
+    transition: transform .2s;
+    margin-right: 10px;  
+    box-shadow:0 5px 10px 0 rgba(46, 61, 73, 0.12);
 }
 
+.admin-bar__button:hover {
+    transform: scale(1.2);
+    border: 1px solid #eee;
+    color: #343736;
+}
