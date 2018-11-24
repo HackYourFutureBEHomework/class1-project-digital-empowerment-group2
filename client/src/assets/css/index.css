@@ -30,7 +30,7 @@ display: none;
 }
 .module__title div {
   display: inline-block;
-  justify-content: space-between;
+  justify-content: flex-end;
   
   
 
@@ -38,5 +38,6 @@ display: none;
 }
 .module__title{
   display: flex;
-  flex-direction: row
+  flex-direction: row;
+  
 }

@@ -46,7 +46,7 @@ export default class ModuleEdit extends React.Component{
                 {this._renderTextarea('evaluation','Evaluation',evaluation)}
                 <div className="module-form__rew module-form__actions">
                 <button className="module-form__buttom" onClick={this.onCancel}>Cancel</button>
-                <button className="module-form__buttom" onClick={this.onSubmit}>Edit Module</button>
+                <button className="module-form__buttom" onClick={this.onSubmit}>Update Module</button>
 
                 </div>
             </form>

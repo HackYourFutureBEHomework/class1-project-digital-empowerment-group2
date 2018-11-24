@@ -30,7 +30,7 @@ class Modules extends Component {
       isAdmin: true,
       show:true, 
       edit: false,
-      isEditingModule: true,
+      //isEditingModule: true,
       newTitle: "",
       newExplanation: "",
       newExercise: "",
@@ -91,26 +91,26 @@ handeleSave = (module) => {
 //       });
 //   };
 
-handleContentEdit = module => {
-  const { newTitle, newExplanation, newExercise, newEvaluation } = this.state;
+// handleContentEdit = module => {
+//   const { newTitle, newExplanation, newExercise, newEvaluation } = this.state;
   
-    updateModule(
-      module,
-      newTitle,
-      newExplanation,
-      newExercise,
-      newEvaluation
-    )
-    .then(updatedModule => {
-      const modules = [...this.state.modules];
-      const index = modules.findIndex(mod => mod._id === module._id);
-      modules[index] = updatedModule;
-      this.setState({
-        modules,
-        edit: false
-      });
-    });
-};
+//     updateModule(
+//       module._id,
+//       newTitle,
+//       newExplanation,
+//       newExercise,
+//       newEvaluation
+//     )
+//     .then(updatedModule => {
+//       const modules = [...this.state.modules];
+//       const index = modules.findIndex(mod => mod._id === module._id);
+//       modules[index] = updatedModule;
+//       this.setState({
+//         modules,
+//         edit: false
+//       });
+//     });
+// };
 
 handleDialoge=(module)=>{
   this.handleSelect(module)
@@ -124,11 +124,11 @@ handleSelect = (module) =>{
 
 
 
-  handleEditing = e => {
-    this.setState({
-     title: e.target.value
-   });
- };
+//   handleEditing = e => {
+//     this.setState({
+//      title: e.target.value
+//    });
+//  };
 
 
   
@@ -145,7 +145,7 @@ handleSelect = (module) =>{
             <AppHader/>
             {isAdmin && this._renderAdminBar()}
             {isAddingModule && this._renderAddMoudleForm()}
-            {isEditingModule && this._renderEditMoudleForm()}
+            {/* {isEditingModule && this._renderEditMoudleForm()} */}
             <div className="module-list">
             {moduleComponents}
             </div>
@@ -153,32 +153,7 @@ handleSelect = (module) =>{
     );
 }
 
-_renderModule = module =>{
-const {activeModuleId, activeStep }= this.state;
-const isActive = module._id === activeModuleId;
-return (
-    <div className="module" key={module._id}>
-        <div className="module__title">
-           <h2>{module.title}</h2>
-           
-        </div>
-        {isActive && (
-             <div className="module__body">
-                {this._renderStep('Explanation', 'module__explanation', module.explanation, activeStep === SETP_EXPLANATION)}
-                {this._renderStep('Exercise', 'module__exercise', module.exercise,  activeStep === SETP_EXERCISE)}
-                {this._renderStep('Evaluation', 'module__evaluation', module.evaluation,  activeStep === SETP_EVALUATION)}
-            </div>
-        )}
-        <div> 
-        <Button className="glyphicon glyphicon-edit"
 
-        onClick={this.handleDialoge}>
-
-        </Button>
-        </div>
-    </div>
-);
-};
 
 _renderModule = module =>{
 const {activeModuleId, activeStep }= this.state;
@@ -191,7 +166,7 @@ return (
          <div> {<Button className="glyphicon glyphicon-edit"
          
 
-        onClick={this._renderEditMoudleForm}> </Button>} </div>
+        onClick={this.handleContentEdit}> </Button>} </div>
         
         <div>{<Button  className = 'glyphicon glyphicon-trash'  onClick={() => 
 
@@ -264,15 +239,15 @@ return <Model isOpen={true} ariaHideApp={false}>
 
 
 onEditMoudle = () => {
-  const {isEditingModule} = this.state
-  this.setState({isEditingModule: !isEditingModule})
+  
+  this.setState({isEditingModule: true})
   }
 _renderEditMoudleForm = () => {
 
   return <Model isOpen={true} ariaHideApp={false}>
     <ModuleEdit
         onCancel={() => this.setState({isAddingModule: false})}
-        onSubmit={module => this.handleContentEdit(module)}
+        onSubmit={module => this.handeleSave(module)}
         /> 
   </Model>
   }
