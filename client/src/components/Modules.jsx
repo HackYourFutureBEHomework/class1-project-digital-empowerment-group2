@@ -27,12 +27,7 @@ class Modules extends Component {
       activeStep: SETP_EXPLANATION,
       isLoding: true,
       isAdmin: true,
-      // show:false, 
-      // explanation: '',
-      // exercise: '',
-      // evaluation: '',
-      // content: '',
-      // flag: '1',
+
      
           };
 
@@ -52,18 +47,15 @@ componentDidMount() {
 
 
 
-  addModule = e => {
-    e.preventDefault();
-   
-    createModule(
-      this.state.title, 
-      this.state.explanation,
-      this.state.exercise,
-      this.state.evaluation)
-    .then(newModule => {
-      this.setState(state => ({ modules: [...state.modules, newModule], isAddingModule: false}));
-    });
+  addModule = async module => {
+    console.log(module);
+  //   debugger;
+    const newModule = await createModule(module);
+    console.log('NEW', newModule);
+    this.setState(state => ({ modules: [...state.modules, newModule], isAddingModule: false}));
   };
+  
+  
 
   handeleSave = (module) => {
     const {explanation,exercise,evaluation}=this.state
@@ -166,6 +158,7 @@ return (
     <div className="module" key={module._id}>
         <div className="module__title">
            <h2>{module.title}</h2>
+           
         </div>
         {isActive && (
              <div className="module__body">
@@ -174,6 +167,13 @@ return (
                 {this._renderStep('Evaluation', 'module__evaluation', module.evaluation,  activeStep === SETP_EVALUATION)}
             </div>
         )}
+        <div> 
+        <Button className="glyphicon glyphicon-edit"
+
+        onClick={this.handleDialoge}>
+
+        </Button>
+        </div>
     </div>
 );
 };
@@ -185,6 +185,17 @@ return (
   <div className="module" key={module._id}>
       <div className="module__title">
          <h2>{module.title}</h2>
+        
+         <div> {<Button className="glyphicon glyphicon-edit"
+
+        onClick={this.handleDialoge}> </Button>} </div>
+        
+        <div>{<Button  className = 'glyphicon glyphicon-trash'  onClick={() => 
+
+        {if (window.confirm(`Are you sure you want to delete? `)) this.handleDelete( module._id);
+
+        }}>    </Button> } </div>
+        
       </div>
       {isActive && (
            <div className="module__body">
