@@ -164,7 +164,7 @@ return (
   <div className="module" key={module._id}>
       <div className="module__title">
          <h2>{module.title}</h2>
-        
+        {module.completed && <span> Completed</span>}
          <div> {<Button className="glyphicon glyphicon-edit"
          
 
@@ -213,6 +213,8 @@ if (activeStep === SETP_EXPLANATION)  {
 
 onNextModule = () => {
 const { modules, activeModuleId } = this.state;
+const module = modules.find(module =>module._id === activeModuleId);
+module.completed = true;
 const moduleIndex = modules.findIndex(module => module._id === activeModuleId);
 const nextModule = modules[moduleIndex + 1];
 let newModuleId;
