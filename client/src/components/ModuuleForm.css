@@ -1,0 +1,80 @@
+.module-form {
+
+}
+.ReactModal__Content{
+    width: 40%;
+    margin: 0 auto;
+}
+
+.module-from__header {
+    font-size: 20px;
+    margin-bottom: 20px;
+    color:#57A6A8;
+}
+.module-form__row {
+    margin-bottom: 15px;
+}
+
+.module-form__label {
+    display: block;
+    text-transform: uppercase;
+    font-size: 12px;
+    padding: 0 10px;
+    margin-top: 10px;
+}
+
+.module-form__text {
+    box-sizing: border-box;
+    width: 100%;
+    padding: 5px 10px;
+    outline: none;
+    border: 1px solid #61ACAD;
+    box-shadow:0 5px 10px 0 rgba(46, 61, 73, 0.12);
+}
+
+.module-form__text:focus, 
+.module-form__textarea:focus {
+    box-shadow:0 5px 10px 0 rgba(25, 95, 63, 0.383);
+}
+.module-form__textarea {
+    width: 100%;
+    resize:none;
+    font: inherit;
+    padding: 5px 10px;
+    outline: none;
+    border: 1px solid #61ACAD;
+    box-shadow:0 5px 10px 0 rgba(46, 61, 73, 0.12);
+}
+
+.moudel-from__action {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+}
+
+
+.module-form__buttom,
+.edit-delete__button {
+    background: inherit;
+    font: inherit;
+    border: 1px solid #61ACAD;
+    color: #eee;
+    padding: 3px 5px;
+    border-radius: 4px;
+    margin: 20px 10px;
+    transition: transform .2s;
+    box-shadow:0 5px 10px 0 rgba(46, 61, 73, 0.12);
+    background-color: #57A6A8;
+}
+.module-form__buttom:last-child {
+    margin-right: 0;
+}
+.module-form__buttom:hover,
+.edit-delete__button:hover {
+    transform: scale(1.2);
+    color: #343736;   
+}
+.edit-delete__button{
+    float: right;
+    margin-top: 0;
+}

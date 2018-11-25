@@ -7,12 +7,15 @@ const headers = new Headers({
 
 export const getModules = () => fetch(`${API_URL}/module`).then(response => response.json());
 
-export const createModule = (title,  explanation, exercise, evaluation) => {
+export const createModule = (module) => {
+  console.log('createModule', module);
+  const {title,  explanation, exercise, evaluation} = module;
   return fetch(`${API_URL}/module`, {method: 'POST', headers: headers,
      body: JSON.stringify({title: title, explanation : explanation, exercise: exercise, evaluation: evaluation })
   }).then(response => response.json());
 };
-    
+
+
 
 export const updateModule = ( module) => (
     fetch(`${API_URL}/module/${module._id}`, {
@@ -20,11 +23,7 @@ export const updateModule = ( module) => (
       headers,
       body: JSON.stringify(module)
     }).then(response => response.json())
-  ); 
-  
+  );
+
 
 export const deleteModule = id => fetch(`${API_URL}/module/${id}`, { method: 'DELETE', headers });
-
-
-
-
