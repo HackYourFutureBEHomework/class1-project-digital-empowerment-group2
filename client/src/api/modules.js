@@ -26,18 +26,20 @@ export const createModule = ( module) => {
     };
     
 
-export const updateModule = (id, title, explanation, exercise, evaluation) => (
-  fetch(`${API_URL}/module/${module._id}`, {
+export const updateModule = (module) => {
+  const {title, explanation,exercise,evaluation} = module;
+
+  return fetch(`${API_URL}/module/${module._id}`, {
     method: 'PATCH',
     headers,
     body: JSON.stringify({
-      title: title, 
-      explanation: explanation, 
-      exercise: exercise, 
-      evaluation: evaluation
+      title, 
+      explanation, 
+      exercise, 
+      evaluation
     })
   }).then(response => response.json())
-);
+};
 
 export const deleteModule = id => {
   fetch(`${API_URL}/module/${id}`, { 

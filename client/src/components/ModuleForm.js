@@ -11,31 +11,25 @@ export default class ModuleForm extends React.Component{
         evaluation:'',
         }
 
+        componentDidMount() {
+
+            if (this.props.module) {
+                const { title, explanation, exercise, evaluation} = this.props.module;
+                this.setState({
+                    title, explanation, exercise, evaluation
+                })
+
+            }
+        }
+
         render() {
-            // const editorOptions = {
-            //     toolbar : [
-            //     [{ header: [1,2,3,4,5,6, false] }],
-            //     ['bold', 'italic', 'underline', 'strike'],
-            //     [
-            //       { list: 'ordered' }, { list: 'bullet' }
-            //     ],
-            //     ['link', 'image', 'video'], 
-            //     [{'indent':'-1'},{'indent':' +1'}],
-            //     [{'size': ['small', false, 'large', 'huge']}],
-            //     [{'color': []}, {'background': []}],
-            //     [{'align':[]}], [{'font': []}],
-            //     ['clean'], ['code-block']
-            //   ]
-            //     };
+            console.log('ModulEofmr', this.props.module)
+            
             const { title, explanation, exercise,  evaluation}= this.state;
             return (
             <form className='module-form'>
                 <header className="module-from__header">Add module</header>
-                {/* <ReactQuill
-                          key={module._id}
-                          modules={editorOptions}
-                          
-                /> */}
+                
                 <div className="module-form__rew">
                     <label className="module-form__label">Module title</label>
                     <input className="module-form__text" type='text' 
@@ -46,7 +40,7 @@ export default class ModuleForm extends React.Component{
                 {this._renderTextarea('evaluation','Evaluation',evaluation)}
                 <div className="module-form__rew module-form__actions">
                 <button className="module-form__buttom" onClick={this.onCancel}>Cancel</button>
-                <button className="module-form__buttom" onClick={this.onSubmit}>Add Module</button>
+                <button className="module-form__buttom" onClick={this.onSubmit}>{this.props.buttonTitle}</button>
 
                 </div>
             </form>
@@ -55,11 +49,33 @@ export default class ModuleForm extends React.Component{
         }
 
       _renderTextarea = (property, title, value) => {
+        const editorOptions = {
+            toolbar : [
+            [{ header: [1,2,3,4,5,6, false] }],
+            ['bold', 'italic', 'underline', 'strike'],
+            [
+              { list: 'ordered' }, { list: 'bullet' }
+            ],
+            ['link', 'image', 'video'], 
+            [{'indent':'-1'},{'indent':' +1'}],
+            [{'size': ['small', false, 'large', 'huge']}],
+            [{'color': []}, {'background': []}],
+            [{'align':[]}], [{'font': []}],
+            ['clean'], ['code-block']
+          ]
+            };
         return(
              <div className="module-form__rew">
                 <label className="module-form__label">{title}</label>
-                <textarea className="module-form__textarea" 
-                value={value} onChange={e => this.setState ({[property]: e.target.value})}/>
+                {/* <textarea className="module-form__textarea"  */}
+                {/* value={value} onChange={e => this.setState ({[property]: e.target.value})}/> */}
+            <ReactQuill
+                          key={module._id}
+                          modules={editorOptions}
+                          value={value} onChange={val => this.setState ({[property]: val})} />
+
+                          
+            
             </div>
         );
       };
@@ -72,7 +88,12 @@ export default class ModuleForm extends React.Component{
       onSubmit = (e) => {
         e.preventDefault();
         const { title, explanation, exercise,  evaluation}= this.state;
-        this.props.onSubmit({ title, explanation, exercise,  evaluation});
+        let module = { title, explanation, exercise,  evaluation};
+        if (this.props.module) {
+            module = Object.assign({}, this.props.module, module);
+        }
+        console.log(module);
+        this.props.onSubmit(module);
     }
 
 }

@@ -54,11 +54,31 @@ export default class ModuleEdit extends React.Component{
         }
 
       _renderTextarea = (property, title, value) => {
+
+        const editorOptions = {
+            toolbar : [
+            [{ header: [1,2,3,4,5,6, false] }],
+            ['bold', 'italic', 'underline', 'strike'],
+            [
+              { list: 'ordered' }, { list: 'bullet' }
+            ],
+            ['link', 'image', 'video'], 
+            [{'indent':'-1'},{'indent':' +1'}],
+            [{'size': ['small', false, 'large', 'huge']}],
+            [{'color': []}, {'background': []}],
+            [{'align':[]}], [{'font': []}],
+            ['clean'], ['code-block']
+          ]
+            };
         return(
              <div className="module-form__rew">
                 <label className="module-form__label">{title}</label>
-                <textarea className="module-form__textarea" 
-                value={value} onChange={e => this.setState ({[property]: e.target.value})}/>
+                {/* <textarea className="module-form__textarea" 
+                value={value} onChange={e => this.setState ({[property]: e.target.value})}/> */}
+                 <ReactQuill
+                          key={module._id}
+                          modules={editorOptions}
+                          value={value} onChange={val => this.setState ({[property]: val})} />
             </div>
         );
       };

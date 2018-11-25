@@ -2,14 +2,14 @@ import React, { Component} from 'react';
 //import * as api from '../api/modules';
 import { getModules, createModule, deleteModule, updateModule } from '../api/modules';
 //import Module from './Module'
-import{ Button ,Modal} from 'react-bootstrap'
+import{ Button} from 'react-bootstrap'
 import ReactQuill from 'react-quill';
 import 'react-quill/dist/quill.snow.css';
 import ModuleForm from './ModuleForm';
-import ModuleEdit from './ModuleEdit';
+//import ModuleEdit from './ModuleEdit';
 import AppHader from '../shared/AppHeader';
 import Loader from '../shared/Loader';
-import Model from 'react-modal';
+import Modal from 'react-modal';
 import AdminBar from '../shared/AdminBar';
 import classNames from 'classnames';
 
@@ -30,7 +30,9 @@ class Modules extends Component {
       isAdmin: true,
       show:true, 
       edit: false,
-      //isEditingModule: true,
+      isAddingModule:false,
+      isEditingModule:false,
+      editingModule: null,
       newTitle: "",
       newExplanation: "",
       newExercise: "",
@@ -71,16 +73,16 @@ handleDelete =  id => {
     };
 
 
-handeleSave = (module) => {
-      const {explanation,exercise,evaluation}=this.state
-      updateModule(module,explanation,exercise,evaluation).then((updatedModule) => {
+handleSave = async (module) => {
+      // const {explanation,exercise,evaluation}=this.state
+      const updatedModule = await updateModule(module);
         this.setState((previousState) => {
           const modules = [...previousState.modules];
           const index = modules.findIndex(mod => mod._id === module._id);
           modules[index] = updatedModule;
-          return { modules  };
+          console.log(modules);
+          return { modules, isEditingModule: false, editingModule: null  };
         })
-      });
     };
 
 
@@ -133,7 +135,7 @@ handleSelect = (module) =>{
 
   
   render() {
-    const { isLoding, modules, isAdmin, isAddingModule, isEditingModule } = this.state
+    const { isLoding, modules, isAdmin, isAddingModule, isEditingModule, editingModule } = this.state
 
     if (isLoding) {
         return <Loader fullscreen={true}/>;
@@ -145,7 +147,7 @@ handleSelect = (module) =>{
             <AppHader/>
             {isAdmin && this._renderAdminBar()}
             {isAddingModule && this._renderAddMoudleForm()}
-            {/* {isEditingModule && this._renderEditMoudleForm()} */}
+            {isEditingModule && this._renderEditMoudleForm(editingModule)}
             <div className="module-list">
             {moduleComponents}
             </div>
@@ -166,7 +168,7 @@ return (
          <div> {<Button className="glyphicon glyphicon-edit"
          
 
-        onClick={this.handleContentEdit}> </Button>} </div>
+        onClick={() =>this.onEditMoudle(module)}> </Button>} </div>
         
         <div>{<Button  className = 'glyphicon glyphicon-trash'  onClick={() => 
 
@@ -229,27 +231,31 @@ onAddMoudle = () => {
 this.setState({isAddingModule: true})
 }
 _renderAddMoudleForm = () => {
-return <Model isOpen={true} ariaHideApp={false}>
+return <Modal isOpen={true} ariaHideApp={false}>
   <ModuleForm
       onCancel={() => this.setState({isAddingModule: false})}
       onSubmit={module => this.addModule(module)}
+      buttonTitle="Add Module"
       />
-</Model>
+</Modal>
 }
 
 
-onEditMoudle = () => {
+onEditMoudle = (module) => {
   
-  this.setState({isEditingModule: true})
+  this.setState({isEditingModule: true,  editingModule: module})
   }
-_renderEditMoudleForm = () => {
+_renderEditMoudleForm = (module) => {
 
-  return <Model isOpen={true} ariaHideApp={false}>
-    <ModuleEdit
-        onCancel={() => this.setState({isAddingModule: false})}
-        onSubmit={module => this.handeleSave(module)}
-        /> 
-  </Model>
+  return <Modal isOpen={true} ariaHideApp={false}>
+   <ModuleForm
+      module={module}
+      onCancel={() => this.setState({isEditingModule: false, editingModule: null})}
+      onSubmit={module => this.handleSave(module)}
+      buttonTitle="Edit Module"
+      />
+   
+  </Modal>
   }
 
 }
