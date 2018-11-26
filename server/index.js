@@ -26,15 +26,10 @@ app.get('/', (req, res) => {
 });
 
 require('./src/route/module.route')(app);
+//require('./src/route/paths.route')(app);
 
 
-// if (process.env.NODE_ENV === 'production') {
-//   const buildPath = path.join(`${__dirname}`, '../client/build');
-//   app.use(express.static(buildPath));
-//   app.get('*', (req, res) => {
-//     res.sendFile(path.join(`${buildPath}/index.html`));
-//   });
-// }
+
 
 const port = process.env.PORT || 4000;
 app.listen(port, () => {

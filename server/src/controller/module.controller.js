@@ -21,17 +21,6 @@ exports.create = (req, res) => {
 
 };
 
-// exports.create = (req, res) => {
-//   const newModule = new Module(req.body);
-//   newModule
-//     .save()
-//     .then((data) => { res.send(data); })
-//     .catch((err) => {
-//       res.status(500).send({ message: err.message });
-//     });
-
-// };
-
 
 exports.update = (req, res) => {
   // const {id} = new Module(req.body);

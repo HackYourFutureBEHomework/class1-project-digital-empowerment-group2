@@ -2,8 +2,7 @@ const API_URL = process.env.REACT_APP_API_URL || 'http://localhost:4000';
 
 const headers = new Headers({
   'Content-Type': 'application/json',
-  // 'Accept': 'application/json',
-  // 'Access-Control-Allow-Origin': window.location.origin
+
 });
 
 export const getModules = () => 
@@ -50,13 +49,5 @@ export const deleteModule = id => {
 
 
 
-  // export const completedModule = (id, completed) => {
-  //   return fetch(`${API_URL}/module/${id}`, {
-  //     method: 'PUT',
-  //     headers: headers,
-  //     body: JSON.stringify({
-  //       completed: completed
-  //     })
-  //   }).then(response => response.json());
-  // };
+
 
