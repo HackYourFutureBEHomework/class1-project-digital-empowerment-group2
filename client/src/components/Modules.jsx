@@ -1,12 +1,10 @@
 import React, { Component} from 'react';
-//import * as api from '../api/modules';
+
 import { getModules, createModule, deleteModule, updateModule } from '../api/modules';
-//import Module from './Module'
 import{ Button} from 'react-bootstrap'
 import ReactQuill from 'react-quill';
 import 'react-quill/dist/quill.snow.css';
 import ModuleForm from './ModuleForm';
-//import ModuleEdit from './ModuleEdit';
 import AppHader from '../shared/AppHeader';
 import Loader from '../shared/Loader';
 import Modal from 'react-modal';
@@ -44,14 +42,13 @@ class Modules extends Component {
  
 
 componentDidMount() {
- // this.setState({ loading: true });
-   getModules().then((modules) => {
+  getModules().then((modules) => {
     let activeModuleId;
     if (modules.length > 0) {
       activeModuleId = modules[0]._id;
     }
       this.setState({  modules, activeModuleId, isLoding: false });
-      //,loading: false
+ 
     });
   }
 
@@ -59,7 +56,7 @@ componentDidMount() {
 
 addModule = async module => {
     console.log(module);
-  //   debugger;
+  
     const newModule = await createModule(module);
     console.log('NEW', newModule);
     this.setState(state => ({ modules: [...state.modules, newModule], isAddingModule: false}));
@@ -74,7 +71,7 @@ handleDelete =  id => {
 
 
 handleSave = async (module) => {
-      // const {explanation,exercise,evaluation}=this.state
+      
       const updatedModule = await updateModule(module);
         this.setState((previousState) => {
           const modules = [...previousState.modules];
@@ -86,51 +83,9 @@ handleSave = async (module) => {
     };
 
 
-// handleEdit = id => {
-//       this.setState({
-//         //active: id,
-//         edit: !this.state.edit
-//       });
-//   };
-
-// handleContentEdit = module => {
-//   const { newTitle, newExplanation, newExercise, newEvaluation } = this.state;
-  
-//     updateModule(
-//       module._id,
-//       newTitle,
-//       newExplanation,
-//       newExercise,
-//       newEvaluation
-//     )
-//     .then(updatedModule => {
-//       const modules = [...this.state.modules];
-//       const index = modules.findIndex(mod => mod._id === module._id);
-//       modules[index] = updatedModule;
-//       this.setState({
-//         modules,
-//         edit: false
-//       });
-//     });
-// };
-
-handleDialoge=(module)=>{
-  this.handleSelect(module)
-  this.setState({show:!this.state.show})
-  
-}
-handleSelect = (module) =>{
-  this.setState({ selectedModule: module})
-}
 
 
 
-
-//   handleEditing = e => {
-//     this.setState({
-//      title: e.target.value
-//    });
-//  };
 
 
   
