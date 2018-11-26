@@ -11,8 +11,8 @@ exports.findAll = (req, res) => {
 };
 
 exports.create = (req, res) => {
-  const newModule = new Module(req.body);
-  newModule
+  const newPath = new Path(req.body);
+  newPath
     .save()
     .then((data) => { res.send(data); })
     .catch((err) => {
