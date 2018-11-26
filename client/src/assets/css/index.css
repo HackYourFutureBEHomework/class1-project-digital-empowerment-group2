@@ -16,18 +16,26 @@ body{
   margin: 0 20px 20px 20px;
   box-shadow: 0 4px 4px rgba(0, 0, 0, 0.15);
 }
+
 .module__title{
-background-color: #0096874f;
-padding: 10px 20px;
-border-top-right-radius: 5px;
-border-top-left-radius: 5px;
-overflow: hidden;
+  background-color: #0096874f;
+  padding: 10px 20px;
+  border-top-right-radius: 5px;
+  border-top-left-radius: 5px;
+  color: #343736;  
 }
 
 .module__title h2 {
   margin: 0;
-  width: 75%;
 }
+
+.module__title span {
+  margin: -28px 150px 10px 0px;
+  font-size: 18px;
+  float: right;
+  color: rgb(67, 123, 124);
+}
+
 .module__body {
   padding: 10px 20px;
   border-bottom-right-radius: 5px;
@@ -40,8 +48,13 @@ overflow: hidden;
 display: none;  
 }
 .module__step-body.expended {
+  background-color: rgba(160, 214, 208, 0.205);
   display: block;
+  border-radius: 5px;
+  padding:10px;
+  font-size: 16px 
 }
+
 .module__step-body button {
   background: inherit;
     font: inherit;
@@ -49,7 +62,7 @@ display: none;
     color: #eee;
     padding: 3px 5px;
     border-radius: 4px;
-    margin: 20px 10px;
+    margin-top:10px;
     transition: transform .2s;
     box-shadow:0 5px 10px 0 rgba(46, 61, 73, 0.12);
     background-color: #57A6A8;
