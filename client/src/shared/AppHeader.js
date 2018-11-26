@@ -5,7 +5,7 @@ export default class AppHeader extends React.Component{
     render(){
             return(
                 <div className= "app-header">
-                    <div className="app-header__logo">HOBO VZW.</div>
+                    <div className="app-header__logo">HOBO VZW.  (Group 2)</div>
                 </div>
             )
     }
