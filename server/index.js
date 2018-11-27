@@ -26,7 +26,7 @@ app.get('/', (req, res) => {
 });
 
 require('./src/route/module.route')(app);
-//require('./src/route/paths.route')(app);
+require('./src/route/path.route')(app);
 
 
 

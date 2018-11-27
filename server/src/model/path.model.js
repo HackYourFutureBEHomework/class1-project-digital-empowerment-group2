@@ -1,21 +1,18 @@
 const mongoose = require('mongoose');
 
 
-const PathsSchema = mongoose.Schema(
+const PathSchema = mongoose.Schema(
   {
-    title: {
-      type: String,
-      required: true
-          },
-
-    Modules: String,
-    
-   
-   
+    title: { type: String, required: true },
+    modules: [{
+      type: mongoose.Schema.Types.ObjectId,
+      ref: 'Module',
+    }]
   },
   {
     timestamps: true
   }
+
 );
 
-paths.exports = mongoose.model('Paths', PathsSchema);
+module.exports = mongoose.model('Path', PathSchema);
