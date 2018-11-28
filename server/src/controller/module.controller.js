@@ -15,7 +15,7 @@ exports.create = (req, res) => {
   console.log(req.body)
   newModule
     .save()
-    .then((data) => { res.send(data);console.log(data) })
+    .then((data) => { res.send(data);})
     .catch((err) => {
       res.status(500).send({ message: err.message });
     });
@@ -25,7 +25,7 @@ exports.create = (req, res) => {
 exports.update = (req, res) => {
   const {title}= req.body
    const {id}=req.params
-    Module.findOneAndUpdate({_id:id}, {title}, {new: true})
+    Module.findOneAndUpdate({_id:id}, req.body, {new: true})
     .then((data) => { res.send(data); })
     .catch((err) => {
       res.status(500).send({
