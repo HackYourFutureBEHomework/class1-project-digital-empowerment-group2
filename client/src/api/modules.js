@@ -11,9 +11,9 @@ export const getModules = () =>
     response.json()
     );
 
-export const createModule = ( module) => {
+export const createModule = ( pathId, module) => {
   const {title, explanation,exercise,evaluation} = module;
-      return fetch(`${API_URL}/module`, {
+      return fetch(`${API_URL}/path/${pathId}/module`, {
         method: 'POST',
         headers,
         body: JSON.stringify({ 

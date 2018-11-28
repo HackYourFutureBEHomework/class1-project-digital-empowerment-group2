@@ -5,45 +5,44 @@ const headers = new Headers({
 
 });
 
-export const getPaths = () => 
+export const getPath = () => 
   fetch(`${API_URL}/path`)
   .then(response => 
     response.json()
     );
+export const getPath = (id) => 
+fetch(`${API_URL}/path/${id}`)
+.then(response => 
+  response.json()
+  );
 
-export const createModule = ( path) => {
+export const createPath = ( title) => {
   const {title, module} = path;
       return fetch(`${API_URL}/path`, {
         method: 'POST',
         headers,
         body: JSON.stringify({ 
-          title:title,
-          module:module})
+          title})
       }).then(response => response.json());
     };
     
 
-// export const updateModule = (path) => {
-//   const {title, explanation,exercise,evaluation} =  module;
+export const updatePath = (id,path) => {
+  const {title, module} = path;
 
-//   return fetch(`${API_URL}/module/${module._id}`, {
-//     method: 'PATCH',
-//     headers,
-//     body: JSON.stringify({
-//       title, 
-//       explanation, 
-//       exercise, 
-//       evaluation
-//     })
-//   }).then(response => response.json())
-// };
+  return fetch(`${API_URL}/path/${id}`, {
+    method: 'PATCH',
+    headers,
+    body: JSON.stringify(path)
+  }).then(response => response.json())
+};
 
-// export const deleteModule = id => {
-//   fetch(`${API_URL}/module/${id}`, { 
-//     method: 'DELETE',
-//     headers 
-//    }).then(response => response.json());
-//   };
+export const deletePath = id => {
+  fetch(`${API_URL}/path/${id}`, { 
+    method: 'DELETE',
+    headers 
+   }).then(response => response.json());
+  };
 
 
 
