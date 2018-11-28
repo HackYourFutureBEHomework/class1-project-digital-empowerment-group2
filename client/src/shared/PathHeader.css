@@ -1,12 +1,13 @@
 .path-header {
-    margin-top: 20px;
-    height: 40px;
+    height: 60px;
     line-height: 40px;
     display: flex;
     flex-direction: row;
-    background-color:  #e90505;
+    border-top: 2px solid #3437364d;
+    border-bottom: 2px solid #3437364d;
+    background-color:  #57A6A8;
     color: #eee;
-    padding: 0 10px;
+    padding: 10px 10px;
 }
 
 .path-header__logo {
@@ -23,9 +24,8 @@
     border-radius: 4px;
     float: right;
     transition: transform .2s;
-    margin-right: 10px;  
     box-shadow:0 5px 10px 0 rgba(46, 61, 73, 0.12);
-
+    margin: -45px 10px 10px 0px;
 }
 
 .Path__button:hover{
@@ -33,7 +33,17 @@
     border: 1px solid #eee;
     color: #343736;
 }
-.path-bar{
-    float:right;
-    width: 100%;
+
+.Path__input{
+    font: inherit;
+    border: 1px solid #3437364d;   
+    padding: 3px 5px;
+    border-radius: 4px;
+    float: right;
+    transition: transform .2s;
+    box-shadow:0 5px 10px 0 rgba(46, 61, 73, 0.12);
+    margin: -45px 100px 10px 0px; 
+}
+.Path__input:focus {
+    box-shadow:0 5px 10px 0 rgba(29, 138, 211, 0.719);
 }

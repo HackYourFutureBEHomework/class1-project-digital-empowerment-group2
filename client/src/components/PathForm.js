@@ -1,91 +1,59 @@
 import React from 'react';
-import './ModuleForm.css';
-import ReactQuill from 'react-quill';
+import './PathForm.css';
 import 'react-quill/dist/quill.snow.css';
+import * as api from '../api/paths';
 
 export default class PathForm extends React.Component{
     state={
         title:'',
-        explanation:'',
-        exercise:'',
-        evaluation:'',
-        }
+        paths: [],
+    }
 
-        componentDidMount() {
-            if (this.props.module) {
-                const { title, explanation, exercise, evaluation} = this.props.module;
-                this.setState({
-                    title, explanation, exercise, evaluation
-                })
-            }
+    componentDidMount() {
+        if (this.props.path) {
+            const { title} = this.props.path;
+            this.setState({title})
         }
-
-        render() {
-            console.log('ModulEofmr', this.props.module)
-            
-            const { title, explanation, exercise,  evaluation}= this.state;
-            return (
+    }
+    
+    render() {        
+        const { title}= this.state;
+        return (
             <form className='module-form'>
-                <header className="module-from__header">Add module</header>
-                
+                <header className="module-from__header">Add Path</header>                
                 <div className="module-form__rew">
-                    <label className="module-form__label">Module title</label>
+                    <label className="module-form__label">Path title</label>
                     <input className="module-form__text" type='text' 
                     value={title} onChange={e => this.setState ({title: e.target.value})}/>
                 </div>
-                {this._renderTextarea('explanation','Explanation',explanation)}
-                {this._renderTextarea('exercise','Exercise',exercise)}
-                {this._renderTextarea('evaluation','Evaluation',evaluation)}
-                <div className="module-form__rew module-form__actions">
-                <button className="module-form__buttom" onClick={this.onCancel}>Cancel</button>
-                <button className="module-form__buttom" onClick={this.onSubmit}>{this.props.buttonTitle}</button>
+                <div className="module-form__rew path-form__actions">
+                    <button className="module-form__buttom" onClick={this.onCancel}>Cancel</button>
+                    <button className="module-form__buttom" onClick={this.addPath}>{this.props.buttonTitle}</button>
                 </div>
             </form>            
-            )
-        }
-
-    _renderTextarea = (property, title, value) => {
-        const editorOptions = {
-            toolbar : [
-            [{ header: [1,2,3,4,5,6, false] }],
-            ['bold', 'italic', 'underline', 'strike'],
-            [
-              { list: 'ordered' }, { list: 'bullet' }
-            ],
-            ['link', 'image', 'video'], 
-            [{'indent':'-1'},{'indent':' +1'}],
-            [{'size': ['small', false, 'large', 'huge']}],
-            [{'color': []}, {'background': []}],
-            [{'align':[]}], [{'font': []}],
-            ['clean'], ['code-block']
-          ]
-            };
-        return(
-            <div className="module-form__rew">
-                <label className="module-form__label">{title}</label>
-                <ReactQuill
-                    key={module._id}
-                    modules={editorOptions}
-                    value={value} onChange={val => this.setState ({[property]: val})} 
-                />
-            </div>
-        );
+        )
     };
 
     onCancel = (e) => {
         e.preventDefault();
         this.props.onCancel();
     }
+   
+    // onSubmit = (e) => {console.log(e);
+    //     e.preventDefault();
+    //     const { title }= this.state;console.log(title);
+    //     let path = { title};console.log(path);
+    //         if (this.props.path) {
+    //             path = Object.assign({}, this.props.path, path);console.log(path);
+    //         }
+    //         console.log(path);
+    //         this.props.onSubmit(path);
+    // }
 
-    onSubmit = (e) => {
-        e.preventDefault();
-        const { title, explanation, exercise,  evaluation}= this.state;
-        let module = { title, explanation, exercise,  evaluation};
-            if (this.props.module) {
-                module = Object.assign({}, this.props.module, module);
-            }
-            console.log(module);
-            this.props.onSubmit(module);
-    }
 
-}
+
+    addPath = async path => {
+        const newPath = await api.createPath(this.state.title);
+        this.setState(state => ({ paths: [...state.paths, newPath],title:"", isAddingPath: false}));
+      };
+};
