@@ -44,11 +44,6 @@ export default class ModuleUpdate extends React.Component{
         return(
              <div className="module-form__rew">
                 <label className="module-form__label">{title}</label>
-                {/* <ReactQuill                           
-                            placeholder="Contents"
-                            onChange={this.props.handleTextChange}
-                            value={this.props.content}
-                        /> */}
                 <textarea className="module-form__textarea" value={value} onChange={e => this.setState ({[property]: e.target.value})}/>
             </div>
         );
@@ -71,15 +66,5 @@ export default class ModuleUpdate extends React.Component{
         selectedModule[e.target.name]= e.target.value;
         this.setState({ selectedModule: selectedModule});
     };
-    // handeleSave = (module) => {
-    //     api.updateModule(module).then((updatedModule) => {
-    //       this.setState((previousState) => {
-    //         const modules = [...previousState.modules];
-    //         const index = modules.findIndex(mod => mod._id === module._id);
-    //         modules[index] = updatedModule;
-    //         return { modules };
-    //       });
-    //     });
-    //   };
-
+    
 }
