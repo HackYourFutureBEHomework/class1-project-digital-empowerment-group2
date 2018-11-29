@@ -19,7 +19,7 @@ import PathHeader from '../shared/PathHeader';
       editingPath: null,
       searchString : '',
     }
-    
+
     componentDidMount() {
       api.getPaths().then((paths) => {
         let activePathId;
@@ -31,13 +31,13 @@ import PathHeader from '../shared/PathHeader';
     }
 
     addPath = async path => {
-      const newPath = await api.createPath(this.state.title);
+      const newPath = await api.createPath(path);
       this.setState(state => ({ paths: [...state.paths, newPath],title:"", isAddingPath: false}));
     };
-  
-    handleDelete =  id => { 
+
+    handleDelete =  id => {
       api.deletePath(id);
-        this.setState({     
+        this.setState({
           paths:this.state.paths.filter( pat => pat._id!== id )
       });
     };
@@ -56,7 +56,7 @@ import PathHeader from '../shared/PathHeader';
     searchItem = (event) => {
       const searchString = event.target.value
       this.setState({searchString : searchString})
-    }  
+    }
 
   render() {
     const { isLoding, paths, isAdmin, isAddingPath, isEditingPath, editingPath } = this.state
@@ -118,7 +118,7 @@ import PathHeader from '../shared/PathHeader';
     </Modal>
   }
 
-  onEditPath = (path) => {  
+  onEditPath = (path) => {
     this.setState({isEditingPath: true,  editingPath: path})
   }
 
@@ -129,7 +129,7 @@ import PathHeader from '../shared/PathHeader';
           onCancel={() => this.setState({isEditingPath: false, editingPath: null})}
           onSubmit={path => this.updatePath(path)}
           buttonTitle="Edit path"
-      />   
+      />
       </Modal>
     }
   }

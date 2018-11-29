@@ -5,8 +5,7 @@ import * as api from '../api/paths';
 
 export default class PathForm extends React.Component{
     state={
-        title:'',
-        paths: [],
+        title:''
     }
 
     componentDidMount() {
@@ -15,22 +14,29 @@ export default class PathForm extends React.Component{
             this.setState({title})
         }
     }
-    
-    render() {        
-        const { title}= this.state;
+
+    addPath = (e) => {
+      e.preventDefault();
+      const { onSubmit } = this.props;
+      onSubmit({ title: this.state.title });
+    }
+
+    render() {
+        const { title }= this.state;
+
         return (
-            <form className='module-form'>
-                <header className="module-from__header">Add Path</header>                
+            <form className='module-form' onSubmit={this.addPath}>
+                <header className="module-from__header">Add Path</header>
                 <div className="module-form__rew">
                     <label className="module-form__label">Path title</label>
-                    <input className="module-form__text" type='text' 
+                    <input className="module-form__text" type='text'
                     value={title} onChange={e => this.setState ({title: e.target.value})}/>
                 </div>
                 <div className="module-form__rew path-form__actions">
-                    <button className="module-form__buttom" onClick={this.onCancel}>Cancel</button>
-                    <button className="module-form__buttom" onClick={this.addPath}>{this.props.buttonTitle}</button>
+                    <button type="button" className="module-form__buttom" onClick={this.onCancel}>Cancel</button>
+                    <button type="submit" className="module-form__buttom">{this.props.buttonTitle}</button>
                 </div>
-            </form>            
+            </form>
         )
     };
 
@@ -38,7 +44,7 @@ export default class PathForm extends React.Component{
         e.preventDefault();
         this.props.onCancel();
     }
-   
+
     // onSubmit = (e) => {console.log(e);
     //     e.preventDefault();
     //     const { title }= this.state;console.log(title);
@@ -49,11 +55,4 @@ export default class PathForm extends React.Component{
     //         console.log(path);
     //         this.props.onSubmit(path);
     // }
-
-
-
-    addPath = async path => {
-        const newPath = await api.createPath(this.state.title);
-        this.setState(state => ({ paths: [...state.paths, newPath],title:"", isAddingPath: false}));
-      };
 };

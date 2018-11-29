@@ -11,12 +11,12 @@ export const getPaths = () => {
 export const getPath = id => {
   return fetch(`${API_URL}/path/${id}`).then(response => response.json());
   };
-  
-export const createPath = title => {
+
+export const createPath = path => {
   return fetch(`${API_URL}/path`, {
     method: 'POST',
     headers,
-    body: JSON.stringify({title})
+    body: JSON.stringify(path)
   }).then(response => response.json());
 };
 
