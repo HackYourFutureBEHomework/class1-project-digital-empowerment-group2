@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import * as api from '../api/paths';
-
+import {Link } from "react-router-dom";
 import PathForm from './PathForm';
 import AppHader from '../shared/AppHeader';
 import Loader from '../shared/Loader';
@@ -19,7 +19,7 @@ import PathHeader from '../shared/PathHeader';
       editingPath: null,
       searchString : '',
     }
-    
+
     componentDidMount() {
       api.getPaths().then((paths) => {
         let activePathId;
@@ -31,70 +31,33 @@ import PathHeader from '../shared/PathHeader';
     }
 
     addPath = async path => {
-      const newPath = await api.createPath(this.state.title);
+      const newPath = await api.createPath(path);
       this.setState(state => ({ paths: [...state.paths, newPath],title:"", isAddingPath: false}));
     };
-  
-    handleDelete =  id => { 
+
+    handleDelete =  id => {
       api.deletePath(id);
-        this.setState({     
+        this.setState({
           paths:this.state.paths.filter( pat => pat._id!== id )
       });
     };
 
-    updatePath = async (module) => {
-      const updatedModule = await api.updatePath(module);
+    updatePath = async (id,path) => {
+      console.log(id)
+      const updatedPath = await api.updatePath(id,path);
       this.setState((previousState) => {
-        const modules = [...previousState.modules];
-        const index = modules.findIndex(mod => mod._id === module._id);
-        modules[index] = updatedModule;
-        console.log(modules);
-        return { modules, isEditingModule: false, editingModule: null  };
+        const paths = [...previousState.paths];
+        const index = paths.findIndex(p => p._id === id);
+        paths[index] = updatedPath;
+        console.log(paths);
+        return { paths, isEditingPath: false, editingPath: null  };
       })
     };
-// ****************
     searchItem = (event) => {
       const searchString = event.target.value
       this.setState({searchString : searchString})
-      console.log(searchString);
+      console.log(this.state.searchString)
     }  
-// ****************
-
-// // ****************
-//     handleChange(e) {
-//       console.log(e);
-//       // Variable to hold the original version of the list
-//   let currentList = [];
-//       // Variable to hold the filtered list before putting into state
-//   let newList = [];
-      
-//       // If the search bar isn't empty
-//   if (e.target.value !== "") {
-//           // Assign the original list to currentList
-//     currentList = this.props.paths;
-          
-//           // Use .filter() to determine which items should be displayed
-//           // based on the search terms
-//     newList = currentList.filter(path => {
-//               // change current item to lowercase
-//       const lc = path.toLowerCase();
-//               // change search term to lowercase
-//       const filter = e.target.value.toLowerCase();
-//               // check to see if the current list item includes the search term
-//               // If it does, it will be added to newList. Using lowercase eliminates
-//               // issues with capitalization in search terms and search content
-//       return lc.includes(filter);
-//     });
-//   } else {
-//           // If the search bar is empty, set newList to original task list
-//     newList = this.props.paths;
-//   }
-//       // Set the filtered state based on what our rules added to newList
-//   this.setState({
-//     filtered: newList
-//   });
-// }
-// //****************
   
   render() {
     const { isLoding, paths, isAdmin, isAddingPath, isEditingPath, editingPath } = this.state
@@ -102,14 +65,15 @@ import PathHeader from '../shared/PathHeader';
     if (isLoding) {
         return <Loader fullscreen={true}/>;
     }
-    const pathComponents = paths.map(this._renderpath);
-
-// ****************
-    const filterItems = this.state.paths.filter((path) => { 
+    
+    const filterPaths = this.state.paths.filter((path) => {
       const regex = new RegExp(this.state.searchString, 'g')
+      console.log(filterPaths)
         return regex.test(path.title)
       })
-// ****************
+    const pathComponents = filterPaths.map(this._renderpath);
+
+    
 
     return (
         <div>
@@ -129,16 +93,18 @@ import PathHeader from '../shared/PathHeader';
 
   _renderpath = path =>{
     return (
-      <div className="path" key={path._id}>
-        <div className="path__title">
-          <h2>{path.title}</h2>
-            {path.completed && <span class='glyphicon glyphicon-ok'> Completed</span>}
-            <button  className="Path-edit-delete__button"  onClick={() =>this.onEditPath(path)}> Copy </button>
-            <button  className="Path-edit-delete__button"  onClick={() =>this.onEditPath(path)}> Edit </button>
-            <button className = 'Path-edit-delete__button' onClick={() =>
-              {if (window.confirm(`Are you sure you want to delete "${path.title}"? `)) this.handleDelete( path._id);}}> Delete </button>
+      <Link to={`/path/${path._id}`} key={path._id}>
+        <div className="path" >
+          <div className="path__title">
+            <h2>{path.title}</h2>
+              {path.completed && <span class='glyphicon glyphicon-ok'> Completed</span>}
+              <button  className="Path-edit-delete__button"  onClick={() =>this.onEditPath(path)}> Copy </button>
+              <button  className="Path-edit-delete__button"  onClick={() =>this.onEditPath(path)}> Edit </button>
+              <button className = 'Path-edit-delete__button' onClick={() =>
+                {if (window.confirm(`Are you sure you want to delete "${path.title}"? `)) this.handleDelete( path._id);}}> Delete </button>
+          </div>
         </div>
-      </div>
+     </Link>
     );
   };
 
@@ -161,7 +127,7 @@ import PathHeader from '../shared/PathHeader';
     </Modal>
   }
 
-  onEditPath = (path) => {  
+  onEditPath = (path) => {
     this.setState({isEditingPath: true,  editingPath: path})
   }
 
@@ -170,9 +136,9 @@ import PathHeader from '../shared/PathHeader';
       <PathForm
           path={path}
           onCancel={() => this.setState({isEditingPath: false, editingPath: null})}
-          onSubmit={path => this.updatePath(path)}
+          onSubmit={(id,path) => this.updatePath(id,path)} 
           buttonTitle="Edit path"
-      />   
+      />
       </Modal>
     }
   }
