@@ -52,27 +52,70 @@ import PathHeader from '../shared/PathHeader';
         return { modules, isEditingModule: false, editingModule: null  };
       })
     };
-
+// ****************
     searchItem = (event) => {
       const searchString = event.target.value
       this.setState({searchString : searchString})
+      console.log(searchString);
     }  
+// ****************
 
+// // ****************
+//     handleChange(e) {
+//       console.log(e);
+//       // Variable to hold the original version of the list
+//   let currentList = [];
+//       // Variable to hold the filtered list before putting into state
+//   let newList = [];
+      
+//       // If the search bar isn't empty
+//   if (e.target.value !== "") {
+//           // Assign the original list to currentList
+//     currentList = this.props.paths;
+          
+//           // Use .filter() to determine which items should be displayed
+//           // based on the search terms
+//     newList = currentList.filter(path => {
+//               // change current item to lowercase
+//       const lc = path.toLowerCase();
+//               // change search term to lowercase
+//       const filter = e.target.value.toLowerCase();
+//               // check to see if the current list item includes the search term
+//               // If it does, it will be added to newList. Using lowercase eliminates
+//               // issues with capitalization in search terms and search content
+//       return lc.includes(filter);
+//     });
+//   } else {
+//           // If the search bar is empty, set newList to original task list
+//     newList = this.props.paths;
+//   }
+//       // Set the filtered state based on what our rules added to newList
+//   this.setState({
+//     filtered: newList
+//   });
+// }
+// //****************
+  
   render() {
     const { isLoding, paths, isAdmin, isAddingPath, isEditingPath, editingPath } = this.state
-    // const filterPaths = this.state.Data.filter((paths) => {
-    //   const regex = new RegExp(this.state.searchString, 'g')
-    //     return regex.test(paths.paths)
-    //   })
+
     if (isLoding) {
         return <Loader fullscreen={true}/>;
     }
     const pathComponents = paths.map(this._renderpath);
+
+// ****************
+    const filterItems = this.state.paths.filter((path) => { 
+      const regex = new RegExp(this.state.searchString, 'g')
+        return regex.test(path.title)
+      })
+// ****************
+
     return (
         <div>
             <AppHader/>
             <PathHeader/>
-            <input className="Path__input" type='search' placeholder='Search Path' onChange={this.searchItem}/>
+            <input type='text' className="Path__input" onChange={this.searchItem} placeholder='Search Path....'/>
             <button  className="Path__button"  onClick={() =>this.onAddPath(paths)}> Add Path </button>
             {isAdmin && this._renderAdminBar()}
             {isAddingPath && this._renderAddPathForm()}
