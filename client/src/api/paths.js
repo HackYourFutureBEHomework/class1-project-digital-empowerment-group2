@@ -10,6 +10,7 @@ export const getPaths = () =>
   .then(response => 
     response.json()
     );
+
 export const getPath = (id) => 
 fetch(`${API_URL}/path/${id}`)
 .then(response => 
@@ -17,7 +18,7 @@ fetch(`${API_URL}/path/${id}`)
   );
 
 export const createPath = ( path) => {
-  const {title, module} = path;
+  //const {title, module} = path;
       return fetch(`${API_URL}/path`, {
         method: 'POST',
         headers,
@@ -28,7 +29,7 @@ export const createPath = ( path) => {
     
 
 export const updatePath = (id,path) => {
-  const {title, module} = path;
+  //const {title, module} = path;
 
   return fetch(`${API_URL}/path/${id}`, {
     method: 'PATCH',
