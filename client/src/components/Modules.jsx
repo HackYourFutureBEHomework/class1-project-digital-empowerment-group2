@@ -1,7 +1,7 @@
 import React, { Component} from 'react';
 
-import * as api from '../api/modules';
-// import { getModules, createModule, deleteModule, updateModule } from '../api/modules';
+import * as apiMod from '../api/modules';
+import * as apiPath from '../api/paths';
 import 'react-quill/dist/quill.snow.css';
 import ModuleForm from './ModuleForm';
 import AppHader from '../shared/AppHeader';
@@ -19,6 +19,7 @@ const SETP_EVALUATION ='evaluation';
 class Modules extends Component {
   state = {
     title:'',
+    path: null,
     modules: [],
     activeModuleId: undefined,
     activeStep: SETP_EXPLANATION,
@@ -36,31 +37,37 @@ class Modules extends Component {
   }; 
 
   componentDidMount() {
-    api.getModules().then((modules) => {
+
+    const { pathId } = this.props.match.params;
+     apiPath.getPath(pathId).then((path) => {
+      const { modules } = path;
       let activeModuleId;
       if (modules.length > 0) {
         activeModuleId = modules[0]._id;
       }
-      this.setState({  modules, activeModuleId, isLoding: false });
+      this.setState({ path, modules, activeModuleId, isLoding: false });
     });
   }
 
-  addModule = async module => {
+  addModule = async (module) => {
     console.log(module);
-    const newModule = await api.createModule(module);
+    
+    const{path}=this.state
+    console.log(path._id)
+    const newModule = await apiMod.createModule(path._id,module);
     console.log('NEW', newModule);
     this.setState(state => ({ modules: [...state.modules, newModule], isAddingModule: false}));
   };
   
   handleDelete =  id => { 
-    api.deleteModule(id);
+    apiMod.deleteModule(id);
       this.setState({     
         modules:this.state.modules.filter( mod => mod._id!== id )
     });
   };
 
   handleSave = async (module) => {
-    const updatedModule = await api.updateModule(module);
+    const updatedModule = await apiMod.updateModule(module);
     this.setState((previousState) => {
       const modules = [...previousState.modules];
       const index = modules.findIndex(mod => mod._id === module._id);
@@ -100,6 +107,7 @@ class Modules extends Component {
   _renderModule = module =>{
     const {activeModuleId, activeStep }= this.state;
     const isActive = module._id === activeModuleId;
+    console.log(module);
     return (
       <div className="module" key={module._id}>
         <div className="module__title">
@@ -168,6 +176,7 @@ class Modules extends Component {
   _renderAddMoudleForm = () => {
     return <Modal isOpen={true} ariaHideApp={false}>
       <ModuleForm
+        modules={this.state.modules}
         onCancel={() => this.setState({isAddingModule: false})}
         onSubmit={module => this.addModule(module)}
         buttonTitle="Add Module"

@@ -5,7 +5,6 @@ const cors = require('cors');
 
 require('dotenv').config();
 
-mongoose.set('useFindAndModify', false);
 mongoose.Promise = global.Promise;
 mongoose
   .connect(process.env.MONGODB_URL, { useNewUrlParser: true })
@@ -14,6 +13,7 @@ mongoose
     console.error(`Database error, exiting. Stack trace:\n${err}`);
     process.exit();
   });
+mongoose.set('useFindAndModify', false);
 
 const app = express();
 
@@ -25,16 +25,7 @@ app.get('/', (req, res) => {
   res.json({ message: 'API ready' });
 });
 
-require('./src/route/module.route')(app);
-
-if (process.env.NODE_ENV === 'production') {
-  const buildPath = path.join(`${__dirname}`, '../client/build');
-  app.use(express.static(buildPath));
-  app.get('*', (req, res) => {
-    res.sendFile(path.join(`${buildPath}/index.html`));
-  });
-}
-
+require('./src/route/path.route')(app);
 
 const port = process.env.PORT || 4000;
 app.listen(port, () => {

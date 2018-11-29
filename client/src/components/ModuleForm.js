@@ -21,7 +21,7 @@ export default class ModuleForm extends React.Component{
         }
 
         render() {
-            console.log('ModulEofmr', this.props.module)
+            console.log( this.props.modules)
             
             const { title, explanation, exercise,  evaluation}= this.state;
             return (
@@ -33,12 +33,12 @@ export default class ModuleForm extends React.Component{
                     <input className="module-form__text" type='text' 
                     value={title} onChange={e => this.setState ({title: e.target.value})}/>
                 </div>
-                {this._renderTextarea('explanation','Explanation',explanation)}
-                {this._renderTextarea('exercise','Exercise',exercise)}
-                {this._renderTextarea('evaluation','Evaluation',evaluation)}
-                <div className="module-form__rew module-form__actions">
-                <button className="module-form__buttom" onClick={this.onCancel}>Cancel</button>
-                <button className="module-form__buttom" onClick={this.onSubmit}>{this.props.buttonTitle}</button>
+                    {this._renderTextarea('explanation','Explanation',explanation)}
+                    {this._renderTextarea('exercise','Exercise',exercise)}
+                    {this._renderTextarea('evaluation','Evaluation',evaluation)}
+                    <div className="module-form__rew module-form__actions">
+                    <button className="module-form__buttom" onClick={this.onCancel}>Cancel</button>
+                    <button className="module-form__buttom" onClick={this.onSubmit}>{this.props.buttonTitle}</button>
                 </div>
             </form>            
             )

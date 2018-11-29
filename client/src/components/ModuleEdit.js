@@ -12,30 +12,10 @@ export default class ModuleEdit extends React.Component{
         }
 
         render() {
-            // const editorOptions = {
-            //     toolbar : [
-            //     [{ header: [1,2,3,4,5,6, false] }],
-            //     ['bold', 'italic', 'underline', 'strike'],
-            //     [
-            //       { list: 'ordered' }, { list: 'bullet' }
-            //     ],
-            //     ['link', 'image', 'video'], 
-            //     [{'indent':'-1'},{'indent':' +1'}],
-            //     [{'size': ['small', false, 'large', 'huge']}],
-            //     [{'color': []}, {'background': []}],
-            //     [{'align':[]}], [{'font': []}],
-            //     ['clean'], ['code-block']
-            //   ]
-            //     };
             const { title, explanation, exercise,  evaluation}= this.state;
             return (
             <form className='module-form'>
                 <header className="module-from__header">Edit module</header>
-                {/* <ReactQuill
-                          key={module._id}
-                          modules={editorOptions}
-                          
-                /> */}
                 <div className="module-form__rew">
                     <label className="module-form__label">Module title</label>
                     <input className="module-form__text" type='text' 
@@ -73,8 +53,6 @@ export default class ModuleEdit extends React.Component{
         return(
              <div className="module-form__rew">
                 <label className="module-form__label">{title}</label>
-                {/* <textarea className="module-form__textarea" 
-                value={value} onChange={e => this.setState ({[property]: e.target.value})}/> */}
                  <ReactQuill
                           key={module._id}
                           modules={editorOptions}
