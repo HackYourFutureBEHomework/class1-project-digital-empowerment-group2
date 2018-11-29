@@ -65,12 +65,9 @@ import PathHeader from '../shared/PathHeader';
     if (isLoding) {
         return <Loader fullscreen={true}/>;
     }
-    
     const filterPaths = this.state.paths.filter((path) => {
-      const regex = new RegExp(this.state.searchString, 'g')
-      console.log(filterPaths)
-        return regex.test(path.title)
-      })
+        return path.title.toLowerCase().indexOf(this.state.searchString.toLowerCase())!== -1;
+      });
     const pathComponents = filterPaths.map(this._renderpath);
 
     
