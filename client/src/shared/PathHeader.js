@@ -1,7 +1,7 @@
 import React from 'react';
-import './AppHeader.css';
+import './PathHeader.css';
 
-export default class AppHeader extends React.Component{
+export default class PathHeader extends React.Component{
     render(){
             return(
                 <div className= "path-header">

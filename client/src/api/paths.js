@@ -5,7 +5,7 @@ const headers = new Headers({
 
 });
 
-export const getPath = () => 
+export const getPaths = () => 
   fetch(`${API_URL}/path`)
   .then(response => 
     response.json()
@@ -16,13 +16,13 @@ fetch(`${API_URL}/path/${id}`)
   response.json()
   );
 
-export const createPath = ( title) => {
+export const createPath = ( path) => {
   const {title, module} = path;
       return fetch(`${API_URL}/path`, {
         method: 'POST',
         headers,
         body: JSON.stringify({ 
-          title})
+          path})
       }).then(response => response.json());
     };
     

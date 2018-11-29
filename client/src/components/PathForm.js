@@ -7,7 +7,7 @@ import * as api from '../api/paths';
 export default class PathForm extends React.Component{
     state={
         title:'',
-        path:[],
+        // path:[],
         }
 
         componentDidMount() {
@@ -21,12 +21,28 @@ export default class PathForm extends React.Component{
             }
         }
 
+        onSubmit = (e) => {
+            e.preventDefault();
+            const { onSubmit,path } = this.props;
+            //let module = { title, explanation, exercise,  evaluation};
+            if (path) 
+            onSubmit(path._id,{ title: this.state.title });
+            else 
+            onSubmit({ title: this.state.title });
+            // {
+            //     //module = Object.assign({}, this.props.module, module);
+                
+            // }
+            // console.log(module);
+            // this.props.onSubmit(module);
+        }
+
         render() {
             //console.log('ModulEofmr', this.props.module)
             
             const { title}= this.state;
             return (
-            <form className='path-form'>
+            <form className='path-form' onSubmit={this.onSubmit}>
                 <header className="path-from__header">Add path</header>
                 
                 <div className="path-form__rew">
@@ -39,7 +55,9 @@ export default class PathForm extends React.Component{
                 {this._renderTextarea('evaluation','Evaluation',evaluation)} */}
                 <div className="path-form__rew path-form__actions">
                 <button className="path-form__buttom" onClick={this.onCancel}>Cancel</button>
-                <button className="path-form__buttom" onClick={this.addPath}>{this.props.buttonTitle}</button>
+                <button className="path-form__buttom" 
+                //onClick={this.addPath}
+                >{this.props.buttonTitle}</button>
 
                 </div>
             </form>
@@ -83,19 +101,10 @@ export default class PathForm extends React.Component{
           this.props.onCancel();
       }
 
-    //   onSubmit = (e) => {
-    //     e.preventDefault();
-    //     const { title, explanation, exercise,  evaluation}= this.state;
-    //     let module = { title, explanation, exercise,  evaluation};
-    //     if (this.props.module) {
-    //         module = Object.assign({}, this.props.module, module);
-    //     }
-    //     console.log(module);
-    //     this.props.onSubmit(module);
-    // }
 
-    addPath = async path => {
-        const newPath = await api.createPath(this.state.title);
-        this.setState(state => ({ paths: [...state.paths, newPath],title:"", isAddingPath: false}));
-};
+
+//     addPath = async path => {
+//         const newPath = await api.createPath(this.state.title);
+//         this.setState(state => ({ paths: [...state.paths, newPath],title:"", isAddingPath: false}));
+// };
 }
