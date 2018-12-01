@@ -2,8 +2,9 @@ h2{
     font-size: 20px;
 }
 .path-list{
-    display: grid;
-    grid-template-columns: 33.3% 33.3% 33.3%;
+    display: flex;
+    flex-direction: column;
+    /* grid-template-columns: 33.3% 33.3% 33.3%; */
     
 }
 .path{
