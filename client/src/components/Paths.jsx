@@ -90,10 +90,12 @@ import PathHeader from '../shared/PathHeader';
 
   _renderpath = path =>{
     return (
-      <Link to={`/path/${path._id}`} key={path._id}>
+     
         <div className="path" >
-          <div className="path__title">
+          <Link to={`/path/${path._id}`} key={path._id}>
             <h2>{path.title}</h2>
+            </Link>
+            <div className="path__title">
               {path.completed && <span class='glyphicon glyphicon-ok'> Completed</span>}
               <button  className="Path-edit-delete__button"  onClick={() =>this.onEditPath(path)}> Copy </button>
               <button  className="Path-edit-delete__button"  onClick={() =>this.onEditPath(path)}> Edit </button>
@@ -101,7 +103,6 @@ import PathHeader from '../shared/PathHeader';
                 {if (window.confirm(`Are you sure you want to delete "${path.title}"? `)) this.handleDelete( path._id);}}> Delete </button>
           </div>
         </div>
-     </Link>
     );
   };
 
