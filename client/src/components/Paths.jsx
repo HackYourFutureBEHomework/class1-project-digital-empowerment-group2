@@ -7,6 +7,12 @@ import Loader from '../shared/Loader';
 import Modal from 'react-modal';
 import AdminBar from '../shared/AdminBar';
 import PathHeader from '../shared/PathHeader';
+import {NonIdealState, Button } from '@blueprintjs/core';
+import nprogress from 'nprogress';
+import 'nprogress/nprogress.css';
+import { CardImg } from "reactstrap";
+import "bootstrap-social";
+
 
   class Paths extends Component {
     state = {
@@ -19,7 +25,10 @@ import PathHeader from '../shared/PathHeader';
       editingPath: null,
       searchString : '',
     }
-
+    componentWillMount () {
+      nprogress.set(0.0);
+      nprogress.set(0.4);
+    }
     componentDidMount() {
       api.getPaths().then((paths) => {
         let activePathId;
@@ -28,6 +37,7 @@ import PathHeader from '../shared/PathHeader';
         }
         this.setState({  paths, activePathId, isLoding: false });
       });
+      nprogress.set(1.0);
     }
 
     addPath = async path => {
@@ -53,11 +63,39 @@ import PathHeader from '../shared/PathHeader';
         return { paths, isEditingPath: false, editingPath: null  };
       })
     };
+
     searchItem = (event) => {
       const searchString = event.target.value
       this.setState({searchString : searchString})
       console.log(this.state.searchString)
     }  
+
+    clearSearch = () => {
+      if (this.searchInput) this.searchInput.value = '';
+      this.setState({ searchString: '' });
+    }
+    search = (e) => {
+      this.setState({ searchString: e.target.value });
+    }
+    renderNOPathsHave = () => (
+      <NonIdealState
+        title="No paths yet"
+        description={(
+          <p>
+            No paths have been yet.
+          </p>
+        )}
+        action={<Button type="button" intent="primary" onClick={() =>this.onAddPath()}>Create Path</Button>}
+      />
+    )
+    renderSearchNotFound = () => (
+      <NonIdealState
+        title="No results"
+        // icon="search"
+        description={(<p>This path is not founde</p>)}
+        action={<Button type="button" intent="primary" onClick={this.clearSearch}>Home Page</Button>}
+      />
+    )
   
   render() {
     const { isLoding, paths, isAdmin, isAddingPath, isEditingPath, editingPath } = this.state
@@ -65,43 +103,65 @@ import PathHeader from '../shared/PathHeader';
     if (isLoding) {
         return <Loader fullscreen={true}/>;
     }
+
     const filterPaths = this.state.paths.filter((path) => {
         return path.title.toLowerCase().indexOf(this.state.searchString.toLowerCase())!== -1;
       });
+     let EmptySearch;
+     if (paths.length === 0) EmptySearch = this.renderNOPathsHave();
+     else if (filterPaths.length === 0) EmptySearch = this.renderSearchNotFound();
+
     const pathComponents = filterPaths.map(this._renderpath);
 
     
-
     return (
-        <div>
+        <main>
             <AppHader/>
             <PathHeader/>
             <input type='text' className="Path__input" onChange={this.searchItem} placeholder='Search Path....'/>
-            <button  className="Path__button"  onClick={() =>this.onAddPath(paths)}> Add Path </button>
+            <button  className="Path__button"  onClick={() =>this.onAddPath(paths)}> Create Path </button>
             {isAdmin && this._renderAdminBar()}
             {isAddingPath && this._renderAddPathForm()}
             {isEditingPath && this._renderEditPathForm(editingPath)}
+            { EmptySearch }
             <div className="path-list">
             {pathComponents}
             </div>
-        </div>
+            <footer>
+            <div class="social-bar">
+            <p>Hack Your Future</p>
+            </div>
+            </footer>
+        </main>
     );
   }
 
   _renderpath = path =>{
-    return (
-     
+    return (     
         <div className="path" >
-          <Link to={`/path/${path._id}`} key={path._id}>
-            <h2>{path.title}</h2>
-            </Link>
-            <div className="path__title">
-              {path.completed && <span class='glyphicon glyphicon-ok'> Completed</span>}
-              <button  className="Path-edit-delete__button"  onClick={() =>this.onEditPath(path)}> Copy </button>
-              <button  className="Path-edit-delete__button"  onClick={() =>this.onEditPath(path)}> Edit </button>
-              <button className = 'Path-edit-delete__button' onClick={() =>
-                {if (window.confirm(`Are you sure you want to delete "${path.title}"? `)) this.handleDelete( path._id);}}> Delete </button>
-          </div>
+          <div className="container">
+            <Link to={`/path/${path._id}`} key={path._id}>
+            <div className="img">
+            <CardImg
+              top
+              alt="image "
+              width="100%"
+              src="https://source.unsplash.com/random/328x218?website,developer"
+              
+            />
+            </div>
+              <h2 >{path.title}</h2>
+              </Link>            
+              <div className="path__title">
+                {path.completed && <span class='glyphicon glyphicon-ok'> Completed</span>}
+              </div>
+              <div className= 'overlay'>
+                <button  className="Path-edit-delete__button"  onClick={() =>this.onEditPath(path)}> Copy </button>
+                <button  className="Path-edit-delete__button"  onClick={() =>this.onEditPath(path)}> Edit </button>
+                <button className = 'Path-edit-delete__button' onClick={() =>
+                  {if (window.confirm(`Are you sure you want to delete "${path.title}"? `)) this.handleDelete( path._id);}}> Delete </button>
+              </div>
+            </div>
         </div>
     );
   };

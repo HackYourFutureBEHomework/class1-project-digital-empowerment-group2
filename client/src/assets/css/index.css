@@ -5,7 +5,7 @@
 }
 
 body{
-  width: 50%;
+  width: 75%;
   margin: 0 auto;
   background-color: #E8F4F1;
 }
@@ -30,7 +30,7 @@ body{
 }
 
 .module__title span {
-  margin: -28px 150px 10px 0px;
+  margin: -24px 150px 0px 0px;
   font-size: 18px;
   float: right;
   color: rgb(67, 123, 124);
@@ -50,24 +50,23 @@ display: none;
 .module__step-body.expended {
   background-color: rgba(160, 214, 208, 0.205);
   display: block;
-  border-radius: 5px;
+  border-radius: 10px;
   padding:10px;
-  font-size: 16px 
+  font-size: 16px;
 }
 
 .module__step-body button {
-  background: inherit;
-    font: inherit;
-    border: 1px solid #61ACAD;
-    color: #eee;
-    padding: 3px 5px;
-    border-radius: 4px;
-    margin-top:10px;
-    transition: transform .2s;
-    box-shadow:0 5px 10px 0 rgba(46, 61, 73, 0.12);
-    background-color: #57A6A8;
+  font: inherit;
+  border: 1px solid #61ACAD;
+  color: #eee;
+  padding: 3px 5px;
+  border-radius: 4px;
+  margin-top:10px;
+  transition: transform .2s;
+  box-shadow:0 5px 10px 0 rgba(46, 61, 73, 0.12);
+  background-color: #57A6A8;
 }
 .module__step-body button:hover{
-  transform: scale(1.2);
+  transform: scale(1.1);
   color: #343736;
 }

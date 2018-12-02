@@ -8,9 +8,10 @@ export default class Loader extends React.Component{
    render() {
         const {fullscreen} = this.props;
         const loaderClass = classNames('loader', { fullscreen })
-        return  <div className={loaderClass}>
-                    < img className="loader__image" src={spinner} alt='Loading....'/>
-                    <h5>Loading....</h5>
-                </div>
+      //   return  <div className={loaderClass}>
+      //               < img className="loader__image" src={spinner} alt='Loading....'/>
+      //               <h5>Loading....</h5>
+      //           </div>
+      return <div id="loader-wrapper"><p>Loading</p><div id="loader"></div></div>;
    } 
 }
