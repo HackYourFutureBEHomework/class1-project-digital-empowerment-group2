@@ -128,7 +128,7 @@ import "bootstrap-social";
             {pathComponents}
             </div>
             <footer>
-            <div class="social-bar">
+            <div className="social-bar">
             <p>Hack Your Future</p>
             </div>
             </footer>
@@ -138,9 +138,9 @@ import "bootstrap-social";
 
   _renderpath = path =>{
     return (     
-        <div className="path" >
+        <div className="path" key={path._id} >
           <div className="container">
-            <Link to={`/path/${path._id}`} key={path._id}>
+            <Link to={`/path/${path._id}`} >
             <div className="img">
             <CardImg
               top
