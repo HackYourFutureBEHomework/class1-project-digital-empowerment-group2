@@ -6,6 +6,7 @@ export default class AdminBar extends React.Component {
         const { actions }= this.props;
         const actionButtons = actions.map(this._renderAction)
         return < div className="admin-bar">{actionButtons}</div>
+         
     }
     
     _renderAction(action) {

@@ -1,0 +1,107 @@
+h2{
+    font-size: 20px;
+}
+.path-list{
+    margin-top: 20px;
+    display: grid;
+    grid-template-columns: 24% 24% 24% 24%;
+    grid-column-gap: 15px;
+    grid-row-gap: 20px;
+    
+}
+.path{
+    border: 2px solid #3437364d;
+    margin: 5px;
+    background-color:#57A6A8;
+    box-shadow:0 5px 10px 0 rgba(36, 37, 37, 0.719);
+
+}
+.path:hover{
+    box-shadow:5px 10px 10px 0 rgba(43, 44, 44, 0.575);
+}
+
+.path h2{
+    padding: 5px 10px ;
+    background-color:rgba(255, 255, 255, 0.808);
+    margin: 0;
+    margin-top: -90px;   
+    position: absolute; 
+    color: black;       
+}
+.path__title{
+    width: 100%;
+    background-color: rgba(240, 248, 255, 0.198);
+    padding-left: 5px;
+    border-radius: 4px;
+}
+.Path-edit-delete__button{
+    margin: 5px 2px;
+    background: inherit;
+    font: inherit;
+    border: 1px solid #3437364d;
+    color: #eee;
+    padding: 3px 5px;
+    border-radius: 4px;
+    float: right;
+    transition: transform .2s;
+    box-shadow:0 5px 10px 0 rgba(46, 61, 73, 0.12);
+}
+.Path-edit-delete__button:hover{
+    transform: scale(1.1);
+    border: 1px solid #eee;
+    color: #57A6A8;;
+}
+
+.card-img-overlay {
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    padding: 1.25rem;
+}
+
+footer{
+    background-color: #343736;
+    margin-top: 20px;
+    border-top:solid 5px #57A6A8;
+    height:40px ;
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
+}
+.container {
+    position: relative;
+    width: 111%;
+    max-width: 300px;
+    margin-left: -15px;
+  }
+  
+  .image {
+    display: block;
+    width: 100%;
+    height: auto;
+  }
+  
+  .overlay {
+    position: absolute; 
+    bottom: 0; 
+    background: rgb(0, 0, 0);
+    background: rgba(0, 0, 0, 0.5); /* Black see-through */
+    color: #f1f1f1; 
+    width: 90%;
+    transition: .5s ease;
+    opacity:0;
+    color: white;
+    font-size: 14px;
+    padding: 10px;
+    text-align: center;
+    border-top: solid 2px #FC5C5D;
+  }
+  
+  .container:hover .overlay {
+    opacity:1;
+  }
+.social-bar p{
+    color: white;
+    margin:  10px;;
+}
