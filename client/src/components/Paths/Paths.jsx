@@ -1,12 +1,12 @@
 import React, { Component } from "react";
-import * as api from '../api/paths';
+import * as api from '../../api/paths';
 import {Link } from "react-router-dom";
 import PathForm from './PathForm';
-import AppHader from '../shared/AppHeader';
-import Loader from '../shared/Loader';
+import AppHader from '../../shared/AppHeader';
+import Loader from '../../shared/Loader';
 import Modal from 'react-modal';
-import AdminBar from '../shared/AdminBar';
-import PathHeader from '../shared/PathHeader';
+import AdminBar from '../../shared/AdminBar';
+import PathHeader from '../../shared/PathHeader';
 import {NonIdealState, Button } from '@blueprintjs/core';
 import nprogress from 'nprogress';
 import 'nprogress/nprogress.css';
@@ -128,7 +128,7 @@ import "bootstrap-social";
             {pathComponents}
             </div>
             <footer>
-            <div class="social-bar">
+            <div className="social-bar">
             <p>Hack Your Future</p>
             </div>
             </footer>
@@ -138,9 +138,9 @@ import "bootstrap-social";
 
   _renderpath = path =>{
     return (     
-        <div className="path" >
+        <div className="path" key={path._id}  >
           <div className="container">
-            <Link to={`/path/${path._id}`} key={path._id}>
+            <Link to={`/path/${path._id}`} >
             <div className="img">
             <CardImg
               top
