@@ -46,19 +46,15 @@ export default class ModuleForm extends React.Component{
 
     _renderTextarea = (property, title, value) => {
         const editorOptions = {
-            toolbar : [
-            [{ header: [1,2,3,4,5,6, false] }],
-            ['bold', 'italic', 'underline', 'strike'],
-            [
-              { list: 'ordered' }, { list: 'bullet' }
-            ],
-            ['link', 'image', 'video'], 
-            [{'indent':'-1'},{'indent':' +1'}],
-            [{'size': ['small', false, 'large', 'huge']}],
-            [{'color': []}, {'background': []}],
-            [{'align':[]}], [{'font': []}],
-            ['clean'], ['code-block']
-          ]
+            toolbar: [
+                [{ header: '1' }, { header: '2' }],
+                ['bold', 'italic', 'underline', 'strike'],
+                [
+                  { list: 'ordered' }, { list: 'bullet' }
+                ],
+                ['link', 'image', 'video'],
+                ['clean']
+              ],
             };
         return(
             <div className="module-form__rew">

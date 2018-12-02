@@ -1,7 +1,6 @@
 import React from 'react';
 import './PathForm.css';
 import 'react-quill/dist/quill.snow.css';
-import * as api from '../api/paths';
 
 
 export default class PathForm extends React.Component{
@@ -19,12 +18,16 @@ export default class PathForm extends React.Component{
     onSubmit = (e) => {
       e.preventDefault();
       const { onSubmit,path } = this.props;
-    //   console.log(path._id)
 
       if (path)
       onSubmit(path._id,{ title: this.state.title });
       else 
       onSubmit({ title: this.state.title });
+    }
+
+    onCancel = (e) => {
+        e.preventDefault();
+        this.props.onCancel();
     }
 
     render() {
@@ -44,21 +47,5 @@ export default class PathForm extends React.Component{
                 </div>
             </form>
         )
-    };
-
-    onCancel = (e) => {
-        e.preventDefault();
-        this.props.onCancel();
-    }
-
-    // onSubmit = (e) => {console.log(e);
-    //     e.preventDefault();
-    //     const { title }= this.state;console.log(title);
-    //     let path = { title};console.log(path);
-    //         if (this.props.path) {
-    //             path = Object.assign({}, this.props.path, path);console.log(path);
-    //         }
-    //         console.log(path);
-    //         this.props.onSubmit(path);
-    // }
+    };   
 };

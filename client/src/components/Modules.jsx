@@ -9,7 +9,8 @@ import Loader from '../shared/Loader';
 import Modal from 'react-modal';
 import AdminBar from '../shared/AdminBar';
 import classNames from 'classnames'
-
+import nprogress from 'nprogress';
+import 'nprogress/nprogress.css';
 
 const SETP_EXPLANATION ='explanation';
 const SETP_EXERCISE ='exercise';
@@ -36,8 +37,14 @@ class Modules extends Component {
     newEvaluation: "",
   }; 
 
-  componentDidMount() {
 
+
+componentWillMount () {
+  nprogress.set(0.0);
+  nprogress.set(0.4);
+}
+
+  componentDidMount() {
     const { pathId } = this.props.match.params;
      apiPath.getPath(pathId).then((path) => {
       const { modules } = path;
@@ -47,6 +54,7 @@ class Modules extends Component {
       }
       this.setState({ path, modules, activeModuleId, isLoding: false });
     });
+    nprogress.set(1.0);
   }
 
   addModule = async (module) => {
@@ -87,7 +95,7 @@ class Modules extends Component {
   }
 
   render() {
-    const { isLoding, modules, isAdmin, isAddingModule, isEditingModule, editingModule } = this.state
+    const {path, isLoding, modules, isAdmin, isAddingModule, isEditingModule, editingModule } = this.state
     if (isLoding) {
         return <Loader fullscreen={true}/>;
     }
@@ -98,6 +106,7 @@ class Modules extends Component {
             {isAdmin && this._renderAdminBar()}
             {isAddingModule && this._renderAddMoudleForm()}
             {isEditingModule && this._renderEditMoudleForm(editingModule)}
+            <h2 className="module-pathId__header">{path ? path.title : null}</h2>
             <div className="module-list">
             {moduleComponents}
             </div>
