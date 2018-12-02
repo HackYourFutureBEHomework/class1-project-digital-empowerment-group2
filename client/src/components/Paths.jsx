@@ -138,7 +138,7 @@ import "bootstrap-social";
 
   _renderpath = path =>{
     return (     
-        <div className="path" key={path._id} >
+        <div className="path" key={path._id}  >
           <div className="container">
             <Link to={`/path/${path._id}`} >
             <div className="img">
