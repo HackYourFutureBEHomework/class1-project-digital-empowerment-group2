@@ -140,7 +140,7 @@ import "bootstrap-social";
             <CardImg
               top
               alt="image "
-              width="100%"
+            
               src="https://source.unsplash.com/random/328x218?website,developer"
               
             />
