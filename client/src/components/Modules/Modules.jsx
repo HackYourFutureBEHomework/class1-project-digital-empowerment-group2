@@ -1,13 +1,13 @@
 import React, { Component} from 'react';
 
-import * as apiMod from '../api/modules';
-import * as apiPath from '../api/paths';
+import * as apiMod from '../../api/modules';
+import * as apiPath from '../../api/paths';
 import 'react-quill/dist/quill.snow.css';
 import ModuleForm from './ModuleForm';
-import AppHader from '../shared/AppHeader';
-import Loader from '../shared/Loader';
+import AppHader from '../../shared/AppHeader';
+import Loader from '../../shared/Loader';
 import Modal from 'react-modal';
-import AdminBar from '../shared/AdminBar';
+import AdminBar from '../../shared/AdminBar';
 import classNames from 'classnames'
 import nprogress from 'nprogress';
 import 'nprogress/nprogress.css';
@@ -140,7 +140,7 @@ componentWillMount () {
       <div className="module" key={module._id}>
         <div className="module__title">
           <h2>{module.title}</h2>
-            {module.completed && <span class='glyphicon glyphicon-ok'> Completed</span>}
+            {module.completed && <span className='glyphicon glyphicon-ok'> Completed</span>}
             <button  className="edit-delete__button"  onClick={() =>this.onEditMoudle(module)}> Edit </button>
             <button className = 'edit-delete__button' onClick={() =>
               {if (window.confirm(`Are you sure you want to delete "${module.title}"? `)) this.handleDelete( module._id);}}> Delete </button>
