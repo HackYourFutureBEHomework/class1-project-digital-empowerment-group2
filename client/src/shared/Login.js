@@ -39,9 +39,9 @@ export default class Login extends React.Component{
         isOpen
         onClose={cancelLogin}
         title="Log in"
-        className="dialog"
+        className="Login"
       >
-        <div className="bp3-dialog-body">
+        <div className="Login-body">
           <form onSubmit={this.login}>
             <FormGroup label="Email" labelFor="login-email">
               <InputGroup type="email" id="login-email" name="email" value={email} onChange={this.setField} required />
