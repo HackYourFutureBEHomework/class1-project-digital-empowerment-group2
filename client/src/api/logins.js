@@ -1,13 +1,11 @@
-import { API_URL } from '../shared/constants';
-
-const BASE_URL = `${API_URL}/user`;
+const API_URL = process.env.REACT_APP_API_URL || 'http://localhost:4000';
 
 const headers = new Headers({
   'Content-Type': 'application/json'
 });
 
 export const login = (email, password) => (
-  fetch(`${BASE_URL}/login`, {
+  fetch(`${API_URL}/user/login`, {
     method: 'POST',
     headers,
     body: JSON.stringify({ email, password })

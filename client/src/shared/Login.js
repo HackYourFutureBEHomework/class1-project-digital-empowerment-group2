@@ -1,28 +1,26 @@
-import React, { Component } from 'react';
-import PropTypes from 'prop-types';
-import {Dialog,FormGroup,InputGroup,Button} from '@blueprintjs/core';
-import { cookies } from './constants';
-import * as api from '../api/logins';
-
+import React from 'react';
 import './Login.css';
-class Login extends Component {
+import * as api from '../api/logins';
+import {Dialog,FormGroup,InputGroup,Button} from '@blueprintjs/core';
+
+export default class Login extends React.Component{
   state = {
-    loginLoading: false,
+    isLoding: false,
     email: '',
     password: ''
   };
 
   login = (e) => {
     e.preventDefault();
-    this.setState({ loginLoading: true });
+    this.setState({ isLoding: true });
 
     const { email, password } = this.state;
     const { completeLogin } = this.props;
     api.login(email, password)
       .then((res) => {
-        cookies.set('auth', res.token);
+        // cookies.set('auth', res.token);
         delete res.token;
-        cookies.set('user', res);
+        // cookies.set('user', res);
         completeLogin();
       })
       .catch(error => console.error(error));
@@ -33,7 +31,7 @@ class Login extends Component {
   }
 
   render() {
-    const { loginLoading, email, password } = this.state;
+    const { isLoding, email, password } = this.state;
     const { cancelLogin } = this.props;
 
     return (
@@ -48,20 +46,13 @@ class Login extends Component {
             <FormGroup label="Email" labelFor="login-email">
               <InputGroup type="email" id="login-email" name="email" value={email} onChange={this.setField} required />
             </FormGroup>
-            <FormGroup label="Password" labelFor="login-password">
+            <FormGroup label="Password" labelFor="login_password">
               <InputGroup type="password" id="login-password" name="password" value={password} onChange={this.setField} required />
             </FormGroup>
-            <Button type="submit" intent="primary" loading={loginLoading}>Log in</Button>
+            <Button type="submit" intent="primary" loading={isLoding}>Log in</Button>
           </form>
         </div>
       </Dialog>
     );
   }
 }
-
-Login.propTypes = {
-  cancelLogin: PropTypes.func.isRequired,
-  completeLogin: PropTypes.func.isRequired
-};
-
-export default Login;
