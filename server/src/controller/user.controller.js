@@ -9,18 +9,21 @@ const VerifyToken = require('./VerifyToken');
 
 
 // exports.createUsers=(req, res)=> {
-//     const { name , email, password ,isAdmin} = req.body;
+//     const { name , email, password ,isAdmin } = req.body;
 //     const hashedPassword = bcrypt.hashSync(password, 8);
 //     const user = new User({ name , email, hashedPassword, isAdmin });
-//     console.log(password)
-//     user.save(function(err) {
+//     console.log(user)
+//     // user.save()
+//     // .then (()=>res.status(200).send("Error registering new user please try again."))
+
+//     user.save =(err)=>{
 //       if (err) {
 //         res.status(500)
 //           .send("Error registering new user please try again.");
 //       } else {
 //         res.status(200).send("Welcome to the club!");
 //       }
-//     });
+//     };
 //   };
 
     exports.createUsers=(req, res)=> {
@@ -57,6 +60,7 @@ const VerifyToken = require('./VerifyToken');
         res.status(200).send(user);
       });    });
   };
+  
   exports.login=(req, res) =>{
 
     User.findOne({ email: req.body.email }, function (err, user) {
