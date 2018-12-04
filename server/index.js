@@ -2,6 +2,10 @@ const express = require('express');
 const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
 const cors = require('cors');
+//
+
+
+
 
 require('dotenv').config();
 
@@ -27,6 +31,9 @@ app.get('/', (req, res) => {
 
 require('./src/route/path.route')(app);
 require('./src/route/module.route')(app);
+
+//const User = require('../user/User');
+require('./src/route/user.route')(app);
 
 const port = process.env.PORT || 4000;
 app.listen(port, () => {
