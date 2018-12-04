@@ -1,15 +1,15 @@
 import React, { Component} from 'react'; 
 
 
-class Login extends Component{
+class LoginForm extends Component{
 
-    onLogin = (e) => {
+    Login = (e) => {
         e.preventDefault();
     }
 
     render(){
         return(
-            <form onSubmit={this.onLogin}>
+            <form onSubmit={this.Login}>
                 <label> Email:
                     <input type= 'email'   />
                 </label    >
@@ -23,4 +23,4 @@ class Login extends Component{
         )
     }
 }
-export default Login
+export default LoginForm

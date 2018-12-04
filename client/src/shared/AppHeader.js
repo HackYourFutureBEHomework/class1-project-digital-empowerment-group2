@@ -1,7 +1,7 @@
 import React from 'react';
 import './AppHeader.css';
 import { Link } from 'react-router-dom';
-import Loging from 'Login'
+import LoginForm from './LoginForm'
 
 
 export default class AppHeader extends React.Component{
@@ -9,7 +9,10 @@ export default class AppHeader extends React.Component{
         isLoging: false
     }
 
-
+    onLogin = ()=> {
+        this.setState({isLoging: true})
+        }
+        
     render(){
         const {isLoging}=this.state
             return(
@@ -19,13 +22,27 @@ export default class AppHeader extends React.Component{
                     <div className="nav">
                     <Link to="/paths" className="app-header-nav">Home</Link>
                     <Link to="/paths" className="app-header-nav">Paths</Link>
-                    <button onClick= {this.onLogin}>Log in</button>
+                    <Link to="/paths" className="app-header-nav" onClick= {this.onLogin}>Log in</Link>
                     </div>
+                    {/* <div> 
+                        {isLoging && _renderLoginForm}
+                    </div> */}
                 </div>  
                 
+                
+                
                 )
-                onLogin = ()=> {
-                    this.setState({isLoging: true})
-                  }
+   
+
+    // _renderLoginForm = () => {
+    //     return <Modal isOpen={true} ariaHideApp={false}>
+    //         <LoginForm
+    //             module={module}
+    //             onCancel={() => this.setState({isEditingModule: false, editingModule: null})}
+    //             onSubmit={module => this.handleSave(module)}
+    //             buttonTitle="Edit Module"
+    //         />   
+    //         </Modal>
+    //     }
     }
 }
