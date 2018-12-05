@@ -2,7 +2,7 @@ import React from 'react';
 import './AppHeader.css';
 import { Link } from 'react-router-dom';
 import {Navbar,Button} from '@blueprintjs/core';
-import Login from './Login';
+import Login from '../components/Login/Login';
 
 
 export default class AppHeader extends React.Component{

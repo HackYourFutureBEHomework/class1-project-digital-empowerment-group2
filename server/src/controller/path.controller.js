@@ -1,4 +1,5 @@
 const Path = require('../model/path.model');
+// const jwt = require('jsonwebtoken');
 
 exports.findAll = (req, res) => {
   Path.
@@ -43,7 +44,13 @@ exports.destroy = (req, res) => {
   });
 };
 
-exports.update = (req, res) => {
+// const { JWT_SECRET } = process.env;
+exports.update = (req, res) => {  
+  // const { token } = req.body;
+    // jwt.verify(token , JWT_SECRET, async (err) => {
+    //   if (err) return res.send({ message: 'token invalid'});
+    // }); 
+    // const allTweets = await Tweet.find();
     Path.findOneAndUpdate({ _id: req.params.pathId }, req.body, { new: true })
     .then((data) => { res.send(data); })
     .catch((err) => {
