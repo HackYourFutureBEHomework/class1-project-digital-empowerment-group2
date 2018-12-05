@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import './login.css';
+import * as api from '../api/users';
 
 class Login extends Component {
     constructor(){
@@ -11,7 +12,7 @@ class Login extends Component {
             <div className="center">
                 <div className="card">
                     <h1>Login</h1>
-                    <form>
+                    <form onSubmit={this.login}>
                         <input
                             className="form-item"
                             placeholder="Username goes here..."
@@ -36,6 +37,22 @@ class Login extends Component {
             </div>
         );
     }
+
+    login = (e) => {
+        e.preventDefault();
+        this.setState({ loginLoading: true });
+        const { email, password } = this.state;
+        const { completeLogin } = this.props;
+        api.login(email, password)
+          .then((res) => {
+            delete res.token;
+            completeLogin();
+          })
+          .catch(error => console.error(error));
+      };
+      setField = (e) => {
+        this.setState({ [e.currentTarget.name]: e.currentTarget.value });
+      }
 
     handleChange(e){
         this.setState(
