@@ -33,8 +33,9 @@ class App extends Component {
       <BrowserRouter>
         <Switch>
           <Route exact path="/:path(|paths|path|index)" component={Paths} />  
-          <Route path="/path/:pathId" component={Modules} /> */}
-           <Route path="/login" render= { () => < Login stetLoggedInState={this.stetLoggedInState} />}/>
+          <Route path="/path/:pathId" component={Modules} />
+          <Route path="/login" component={Login}/>
+           {/* <Route path="/login" render= { () => < Login stetLoggedInState={this.stetLoggedInState} />}/> */}
           <Route render={() => <p>Page not found</p>} />
         </Switch>
       </BrowserRouter>

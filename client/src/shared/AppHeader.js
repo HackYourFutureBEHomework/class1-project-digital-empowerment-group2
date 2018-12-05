@@ -35,10 +35,11 @@ export default class AppHeader extends React.Component{
                         <div className="nav">
                             <Link to="/" className="app-header-nav">Home</Link>
                             <Link to="/paths" className="app-header-nav">Paths</Link>
-                            { user
+                            <Link to="/login" className="app-header-nav" >Log in</Link>
+                            {/* { user
                                 ? <Button minimal text="Log out" onClick={this.LogOut} />
                                 : <Button minimal text="Log in" onClick={this.LoginIN} />
-                            }
+                            } */}
                         </div>
                     </div>
                 </Navbar>               
