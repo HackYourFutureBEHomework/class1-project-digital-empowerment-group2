@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import './Login.css';
 import * as api from '../../api/logins';
 import {Dialog,FormGroup,InputGroup,Button} from '@blueprintjs/core';
-import PropTypes from 'prop-types';
 
 const headers = new Headers({
   'Content-Type':'application/json'
@@ -35,18 +34,16 @@ class Login extends Component {
 login = (e) => {
   e.preventDefault();
   this.setState({ loginLoading: true });
-
   const { email, password } = this.state;
   const { completeLogin } = this.props;
   api.login(email, password)
     .then((res) => {
-      // cookies.set('auth', res.token);
       delete res.token;
-      // cookies.set('user', res);
       completeLogin();
     })
     .catch(error => console.error(error));
 };
+
   setField = (e) => {
     this.setState({ [e.currentTarget.name]: e.currentTarget.value });
   }
@@ -77,8 +74,7 @@ login = (e) => {
     );
   }
 }
-Login.propTypes = {
-  cancelLogin: PropTypes.func.isRequired,
-  completeLogin: PropTypes.func.isRequired
-};
+
 export default Login;
+
+

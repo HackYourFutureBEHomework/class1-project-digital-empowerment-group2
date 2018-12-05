@@ -4,6 +4,7 @@ import Paths from './components/Paths/Paths';
 import Modules from './components/Modules/Modules';
 import Login from './components/Login/Login'
 
+
 class App extends Component {
   constructor(){
     super();
@@ -25,14 +26,15 @@ class App extends Component {
   } 
   
   render() {
-    const { loggedIn } = this.state;
-    console.log(loggedIn);
+    const { user } = this.state;
+    // const { loggedIn } = this.state;
+    console.log(user);
     return (
       <BrowserRouter>
         <Switch>
           <Route exact path="/:path(|paths|path|index)" component={Paths} />  
-          <Route path="/path/:pathId" component={Modules} />
-          <Route path="/login" render= { () => < Login stetLoggedInState={this.stetLoggedInState} />}/>
+          <Route path="/path/:pathId" component={Modules} /> */}
+           <Route path="/login" render= { () => < Login stetLoggedInState={this.stetLoggedInState} />}/>
           <Route render={() => <p>Page not found</p>} />
         </Switch>
       </BrowserRouter>

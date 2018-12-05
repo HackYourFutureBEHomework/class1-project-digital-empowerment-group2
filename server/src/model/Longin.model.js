@@ -1,16 +1,25 @@
-const mongoose = require('mongoose');
-
+const mongoose = require("mongoose");
 
 const LonginSchema = mongoose.Schema(
   {
-    title: {
+    name: {
       type: String,
       required: true
     },
+    email: {
+        type: String,
+        required: true
+      },
+    password: {
+        type: String,
+        required: true
+      },
+      isAdmin:Boolean
   },
   {
     timestamps: true
   }
+  
 );
 
-module.exports = mongoose.model('Login', LonginSchema);
+module.exports = mongoose.model("Login", LonginSchema);
