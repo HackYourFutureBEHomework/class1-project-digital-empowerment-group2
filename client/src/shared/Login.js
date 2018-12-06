@@ -1,7 +1,7 @@
 import React, { Component} from 'react'; 
 
 
-class LoginForm extends Component{
+class Login extends Component{
 
     Login = (e) => {
         e.preventDefault();
@@ -10,6 +10,9 @@ class LoginForm extends Component{
     render(){
         return(
             <form onSubmit={this.Login}>
+                <label> Name:
+                    <input type= 'text'   />
+                </label    >
                 <label> Email:
                     <input type= 'email'   />
                 </label    >
@@ -23,4 +26,4 @@ class LoginForm extends Component{
         )
     }
 }
-export default LoginForm
+export default Login

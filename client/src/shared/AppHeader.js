@@ -1,7 +1,7 @@
 import React from 'react';
 import './AppHeader.css';
 import { Link } from 'react-router-dom';
-import LoginForm from './LoginForm'
+import Login from './Login'
 
 
 export default class AppHeader extends React.Component{
@@ -22,7 +22,9 @@ export default class AppHeader extends React.Component{
                     <div className="nav">
                     <Link to="/paths" className="app-header-nav">Home</Link>
                     <Link to="/paths" className="app-header-nav">Paths</Link>
-                    <Link to="/paths" className="app-header-nav" onClick= {this.onLogin}>Log in</Link>
+                    <Link to="/Login" className="app-header-nav" 
+                    // onClick= {this.onLogin}
+                     >Log in</Link>
                     </div>
                     {/* <div> 
                         {isLoging && _renderLoginForm}
