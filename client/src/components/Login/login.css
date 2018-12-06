@@ -65,8 +65,12 @@
     left: 0;
     opacity: 1;
     z-index: 20;
-    background-color: rgba(61, 65, 65, 0.63);
+    background-color: rgba(16,22,26,.7);
     overflow: auto;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
 }
 
 .bp3-overlay-content {
