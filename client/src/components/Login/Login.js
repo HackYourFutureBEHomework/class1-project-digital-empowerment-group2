@@ -1,46 +1,17 @@
 import React, { Component } from 'react';
-import './login.css';
 import * as api from '../../api/users';
 
-class Login extends Component {
-    constructor(){
-        super();
-        this.handleChange = this.handleChange.bind(this);
-    }
-    render() {
-        return (
-            <div className="center">
-                <div className="card">
-                    <h1>Login</h1>
-                    <form onSubmit={this.login}>
-                        <input
-                            className="form-item"
-                            placeholder="Username goes here..."
-                            name="username"
-                            type="text"
-                            onChange={this.handleChange}
-                        />
-                        <input
-                            className="form-item"
-                            placeholder="Password goes here..."
-                            name="password"
-                            type="password"
-                            onChange={this.handleChange}
-                        />
-                        <input
-                            className="form-submit"
-                            value="SUBMIT"
-                            type="submit"
-                        />
-                    </form>
-                </div>
-            </div>
-        );
-    }
+ class  Login extends Component {
+    state = {
+        loginLoading: false,
+        email:'',
+        password:''
+    };
 
     login = (e) => {
         e.preventDefault();
         this.setState({ loginLoading: true });
+    
         const { email, password } = this.state;
         const { completeLogin } = this.props;
         api.login(email, password)
@@ -50,17 +21,39 @@ class Login extends Component {
           })
           .catch(error => console.error(error));
       };
-      setField = (e) => {
+    //  login = (e) => {
+    //     const { email, password } = this.state;
+    //     e.preventDefault();
+    //     // console.log(email, password);
+
+    //     const response = await fetch('http:// localhost:4000/api/login', {
+    //         method: 'POST',
+    //         headers,
+    //         body: JSON.stringify({ email, password })
+    //     });
+    //     const user = await response.json();
+    //     console.log(user);
+    //  }
+
+     setField = (e) => {
         this.setState({ [e.currentTarget.name]: e.currentTarget.value });
       }
 
-    handleChange(e){
-        this.setState(
-            {
-                [e.target.name]: e.target.value
-            }
-        )
-    }
-}
-
-export default Login;
+      render() {
+         const { email, password } = this.state;
+          return (
+            <form onSubmit={ this.login}>
+                <label>
+                  Email:
+                  <input type="email" value={email} name="email" onChange={this.setField}/>
+                </label>
+                <label>
+                    Password:
+                    <input type="password" value={password} name="password" onChange={this.setField}/>
+                </label>
+                <input type="submit" value="log in"/>
+            </form>
+          )
+      }
+ }
+ export default Login;

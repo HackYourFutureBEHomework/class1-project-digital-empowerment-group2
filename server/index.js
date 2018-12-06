@@ -2,7 +2,7 @@ const express = require('express');
 const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
 const cors = require('cors');
-//
+const jwt = require('jsonwebtoken')
 
 
 
@@ -28,6 +28,26 @@ app.use(bodyParser.json());
 app.get('/', (req, res) => {
   res.json({ message: 'API ready' });
 });
+
+const { JWT_SECRET } = process.env;
+const userEmail = 'wameedh112@gmail.com';
+const userPassword = "1234";
+
+app.post('/api/login', async (req, res) => {
+  // res.json({ message: 'API ready' });
+  const { email, password } = req.body;
+  // console.log(email, password);
+  if ( email === userEmail && password === userPassword) {
+    const payload = { email };
+    const token = jwt.sign(payload, JWT_SECRET, {
+      // expiresIn: 'h3'
+    });
+    res.send({ token, email });
+  } else {
+    res.status(403).send({ message: 'incorrect email or password'})
+  }
+});
+
 
 require('./src/route/path.route')(app);
 require('./src/route/module.route')(app);
