@@ -37,7 +37,7 @@ app.post('/api/login', async (req,res)=> {
 
 require('./src/route/path.route')(app);
 require('./src/route/module.route')(app);
-require('./src/route/user.route')(app);
+// require('./src/route/user.route')(app);
 
 
 

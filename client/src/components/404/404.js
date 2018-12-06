@@ -10,7 +10,7 @@ const NotFound = () => {
     <NonIdealState
       icon="issue"
       title="404"
-      description={<p>This page does not exist</p>}
+      description={<p>This page you were looking for was moved or doesn't exist.</p>}
       action={<Link to="/">back to homepage</Link>}
       className="not-found"
     />
