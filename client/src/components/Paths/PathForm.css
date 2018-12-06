@@ -61,14 +61,6 @@ h2{
     padding: 1.25rem;
 }
 
-footer{
-    background-color: #343736;
-    margin-top: 20px;
-    border-top:solid 5px #57A6A8;
-    height:40px ;
-    border-top-left-radius: 5px;
-    border-top-right-radius: 5px;
-}
 .container {
     position: relative;
     width: 111%;
@@ -107,5 +99,5 @@ footer{
 }
 
 .card-img-top{
-width: 100%;
+    width: 100%;
 }

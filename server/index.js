@@ -26,10 +26,20 @@ app.get('/', (req, res) => {
   res.json({ message: 'API ready' });
 });
 
+app.post('/api/login', async (req,res)=> {
+  const { email, password } = req.body;
+
+  if (email === userEmail && password === userPassword) {
+    res.send({ token })
+    res.status(403).send({ message: ' incorrect email or password'});
+  }
+})
+
 require('./src/route/path.route')(app);
 require('./src/route/module.route')(app);
-
 require('./src/route/user.route')(app);
+
+
 
 const port = process.env.PORT || 4000;
 app.listen(port, () => {

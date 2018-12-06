@@ -1,35 +1,26 @@
 const config = require('../../config');
 const jwt = require('jsonwebtoken');
 const bcrypt = require('bcryptjs');
-
-const User = require('../model/user.model');
+ const User = require('../model/user.model');
 const VerifyToken = require('./VerifyToken');
-
-
-
-// exports.createUsers=(req, res)=> {
-//     const { name , email, password ,isAdmin } = req.body;
+ // exports.createUsers=(req, res)=> {
+//     const { name , email, password ,isAdmin} = req.body;
 //     const hashedPassword = bcrypt.hashSync(password, 8);
 //     const user = new User({ name , email, hashedPassword, isAdmin });
-//     console.log(user)
-//     // user.save()
-//     // .then (()=>res.status(200).send("Error registering new user please try again."))
-
-//     user.save =(err)=>{
+//     console.log(password)
+//     user.save(function(err) {
 //       if (err) {
 //         res.status(500)
 //           .send("Error registering new user please try again.");
 //       } else {
 //         res.status(200).send("Welcome to the club!");
 //       }
-//     };
+//     });
 //   };
-
-    exports.createUsers=(req, res)=> {
+     exports.createUsers=(req, res)=> {
   //  const newUser = new User(req.body);
     var hashedPassword = bcrypt.hashSync(req.body.password, 8);
-
-    //console.log(hashedPassword);
+     //console.log(hashedPassword);
     User.create({
       name : req.body.name,
       email : req.body.email,
@@ -59,10 +50,8 @@ const VerifyToken = require('./VerifyToken');
         res.status(200).send(user);
       });    });
   };
-  
   exports.login=(req, res) =>{
-
-    User.findOne({ email: req.body.email }, function (err, user) {
+     User.findOne({ email: req.body.email }, function (err, user) {
       if (err) return res.status(500).send('Error on the server.');
       if (!user) return res.status(404).send('No user found.');
       var passwordIsValid = bcrypt.compareSync(req.body.password, user.password);
@@ -73,7 +62,6 @@ const VerifyToken = require('./VerifyToken');
       res.status(200).send({ auth: true, token: token });
     });
   };
-
-  exports.logout=(req, res) =>{
+   exports.logout=(req, res) =>{
     res.status(200).send({ auth: false, token: null });
-  };
+  }; 

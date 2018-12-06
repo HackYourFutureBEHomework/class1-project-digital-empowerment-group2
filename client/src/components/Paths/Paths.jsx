@@ -25,8 +25,9 @@ import "bootstrap-social";
       editingPath: null,
       searchString : '',
     }
+    
     componentWillMount () {
-      nprogress.set(0.0);
+      nprogress.start();
       nprogress.set(0.4);
     }
     componentDidMount() {

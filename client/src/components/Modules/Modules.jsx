@@ -40,10 +40,10 @@ class Modules extends Component {
 
 
 
-componentWillMount () {
-  nprogress.set(0.0);
-  nprogress.set(0.4);
-}
+  componentWillMount () {
+    nprogress.start();
+    nprogress.set(0.4);
+  }
 
   componentDidMount() {
     const { pathId } = this.props.match.params;

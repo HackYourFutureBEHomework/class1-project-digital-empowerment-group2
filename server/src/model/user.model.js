@@ -1,6 +1,6 @@
 const mongoose = require("mongoose");
 
-const LonginSchema = mongoose.Schema(
+const UserSchema = mongoose.Schema(
   {
     name: {
       type: String,
@@ -22,4 +22,4 @@ const LonginSchema = mongoose.Schema(
   
 );
 
-module.exports = mongoose.model("Login", LonginSchema);
+module.exports = mongoose.model("User", UserSchema);

@@ -71,3 +71,17 @@ display: none;
   transform: scale(1.1);
   color: #343736;
 }
+
+
+#nprogress .bar {
+  height:5px;
+}
+
+#nprogress .bar {
+  background: #fc5c5d;
+}
+
+#nprogress .spinner-icon {
+  border-top-color: rgb(3, 3, 3);
+  border-left-color: rgb(3, 3, 3);
+}
