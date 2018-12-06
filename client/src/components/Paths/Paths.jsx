@@ -127,11 +127,6 @@ import "bootstrap-social";
             <div className="path-list">
             {pathComponents}
             </div>
-            <footer>
-            <div className="social-bar">
-            <p>Hack Your Future</p>
-            </div>
-            </footer>
         </main>
     );
   }
