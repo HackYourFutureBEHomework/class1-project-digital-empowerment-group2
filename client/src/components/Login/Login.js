@@ -34,13 +34,13 @@ class Login extends Component {
         title="Log in"
         className="dialog"
       >
-        <div className="body">
+        <div className="bp3-dialog-body">
           <form onSubmit={this.login}>
             <FormGroup label="Email" labelFor="login-email">
-              <InputGroup  id="login-email"  name="email " type="email"  value={email} onChange={this.setField  } required />
+              <InputGroup type="email" id="login-email" name="email" value={email} onChange={this.setField} required />
             </FormGroup>
-            <FormGroup label="Password" labelFor=" login-password">
-              <InputGroup id="login-password"  name="password" type="password" value={password} onChange={ this.setField}  required />
+            <FormGroup label="Password" labelFor="login-password">
+              <InputGroup type="password" name="password" value={password} onChange={this.setField} required />
             </FormGroup>
             <button  className='login__button' type="submit" intent="primary">Log in</button>
           </form>
