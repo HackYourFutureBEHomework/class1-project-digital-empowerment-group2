@@ -1,19 +1,27 @@
 import React from 'react';
 import NProgress from 'nprogress';
-import { NonIdealState } from '@blueprintjs/core';
-import { Link } from 'react-router-dom';
-
+import './404.css'
+import Footer from "../../shared/Footer";
+import AppHader from '../../shared/AppHeader';
 const NotFound = () => {
   NProgress.done(true);
 
   return (
-    <NonIdealState
-      icon="issue"
-      title="404"
-      description={<p>This page you were looking for was moved or doesn't exist.</p>}
-      action={<Link to="/">back to homepage</Link>}
-      className="not-found"
-    />
+    <div>
+       <AppHader/>
+      <div className= "footer-bar">
+        <section className="error-container">
+          <span>4</span>
+          <span><span className="screen-reader-text">0</span></span>
+          <span>4</span>
+        </section>
+        <p className="zoom-area"><b>This page</b>  you were looking for was moved or doesn't exist. </p>
+        <div className="link-container">
+          <a  href="/" className="more-link">back to homepage</a>
+        </div>
+      </div> 
+      <Footer/>     
+   </div>
   );
 };
 export default NotFound;

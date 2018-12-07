@@ -5,7 +5,7 @@ const headers = new Headers({
 });
 
 export const login = (email, password) => (
-  fetch(`${API_URL}/users/login`, {
+  fetch(`${API_URL}/login`, {
     method: 'POST',
     headers,
     body: JSON.stringify({ email, password })
