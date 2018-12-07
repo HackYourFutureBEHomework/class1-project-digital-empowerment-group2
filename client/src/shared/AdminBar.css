@@ -5,6 +5,7 @@
     border-top: 2px solid #3437364d;
     border-bottom: 2px solid #3437364d;
     height: 60px;
+    border-bottom: solid 2px #fc5c5d;
 }
 
 .admin-bar__button {

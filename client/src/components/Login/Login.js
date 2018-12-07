@@ -57,7 +57,7 @@ class Login extends Component {
             <FormGroup label="Password" labelFor="login-password">
               <InputGroup type="password" id="login-password" name="password" value={password} onChange={this.setField} required />
             </FormGroup>
-            <Button type="submit" intent="primary" loading={loginLoading}>Log in</Button>
+            <button  className='login__button ' type="submit" intent="primary" loading={loginLoading}>Log in</button>
           </form>
         </div>
       </Dialog>

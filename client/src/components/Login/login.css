@@ -24,6 +24,7 @@
     padding-left: 20px;
     border-bottom: solid 2px #fc5c5d;
     color: #fff;
+    height: 40px;
 }
 .Login-body {
     flex: 1 1 auto;
@@ -37,25 +38,7 @@
     margin: 0 0 15px;
 }
 
-.bp3-button.bp3-intent-primary {
-    background: #61ACAD;
-    border: 1px solid #3437364d;
-    color: #eee;
-    margin-right: 10px;
-    border-radius: 5px;
-    box-shadow: 0 5px 10px 0 rgba(46, 61, 73, 0.12);
-    -webkit-transition: -webkit-transform .2s;
-    transition: -webkit-transform .2s;
-    transition: transform .2s;
-    transition: transform .2s, -webkit-transform .2s;
-    min-width: 30px;
-    min-height: 30px;
-}
-.bp3-button.bp3-intent-primary:hover{
-    transform: scale(1.2);
-    background-color:rgb(94, 162, 163);
-    border-radius: 5px;
-}
+
 
 .bp3-overlay-backdrop {
     position: fixed;
@@ -65,12 +48,8 @@
     left: 0;
     opacity: 1;
     z-index: 20;
-    background-color: rgba(16,22,26,.7);
+    background-color: rgba(61, 65, 65, 0.63);
     overflow: auto;
-    -webkit-user-select: none;
-    -moz-user-select: none;
-    -ms-user-select: none;
-    user-select: none;
 }
 
 .bp3-overlay-content {
@@ -110,11 +89,7 @@
     line-height: inherit;
 }
 
-.bp3-button{
-    background:  inherit;
-    font: inherit;
-    border:none;
-}
+
 
 
 
@@ -149,11 +124,41 @@
     font-size: 14px;
     font-weight: 400;
 }
-.bp3-button.bp3-minimal {
-    box-shadow: none;
-    background: none;
+
+.bp3-icon>svg:not([fill]) {
+    fill: currentColor;
 }
-.bp3-button.bp3-minimal:hover{
-    background-color:  #fc5c5d;
-    border-radius: 5px;
+.bp3-icon>svg {
+    display: block;
+    height: 20px;
 }
+.bp3-icon>svg:hover{
+  background-color:  #fc5c5d; 
+  border-radius: 5px;
+    
+}
+
+form{ padding: 20px;}
+
+.bp3-button{
+    background:  inherit;
+    border:none;
+}
+
+.login__button{
+    background:  #57A6A8;
+    font: inherit;
+    border: 1px solid #3437364d;
+    color: #eee;
+    padding: 3px 5px;
+    border-radius: 4px;
+    transition: transform .2s;
+    margin-right: 10px;  
+    box-shadow:0 5px 10px 0 rgba(46, 61, 73, 0.12);
+
+}
+.login__button:hover{
+    transform: scale(1.2);
+    border: 1px solid #eee;
+    color: #343736;
+}  
