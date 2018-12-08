@@ -21,7 +21,7 @@ exports.createUsers=(req, res)=> {
         name : req.body.name,
         email : req.body.email,
         password : hashedPassword
-      },
+      }.save(),
       (err, newUser) =>{
         if (err) return res.status(500).send("There was a problem registering the user.")
         // create a token

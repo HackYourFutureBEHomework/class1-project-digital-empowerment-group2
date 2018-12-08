@@ -23,7 +23,7 @@ class Login extends Component{
         .then ( res =>{
             if (!res.token) return this.setState({invalid: true}) + alert('email or password not right' );
             cookies.set ('token', res.token);
-            window.location.reload();
+            //window.location.reload();
             this.setState({
                 email: '',
                 password: ''

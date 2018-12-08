@@ -1,20 +1,54 @@
-import React from 'react';
+import React, { Component } from 'react';
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import Paths from './components/Paths/Paths';
 import Modules from './components/Modules/Modules';
 import Login from './shared/Login';
-import register from './shared/register'
+import register from './shared/register';
+import Cookies from 'universal-cookie';
 
-const App = () => (
-  <BrowserRouter>
+
+const cookies = new Cookies();
+
+class App extends Component {
+  constructor(){
+    super();
+    const token = cookies.get('token');
+    this.state = {
+      isLoggedIn: !! token,
+    }
+    console.log(document.cookie)
+  }
+  setLoggedInState = () =>{
+    this.setState ({
+      isLoggedIn: true
+
+    })
+  }
+  render (){
+    const { isLoggedIn } = this.state;
+    return (
+      <BrowserRouter>
     <Switch>
-      <Route exact path="/:path(|paths|path|index)" component={Paths} />  
-      <Route path="/path/:pathId" component={Modules} />
-      <Route path="/Login" component={Login} />
+      <Route exact path="/:path(|paths|path|index)" 
+      render ={ props => <Paths {...props} isLoggedIn={isLoggedIn}/>}
+      //component={Paths} 
+      />  
+      <Route path="/path/:pathId" 
+      render={props => <Modules {...props} isLoggedIn={isLoggedIn} />}
+      //component={Modules}
+       />
+      <Route path="/Login" render={() => <Login setLoggedInState={this.setLoggedInState}/>}
+      //component={Login} 
+      />
       <Route path="/register" component={register} />
       <Route render={() => <p>Page not found</p>} />
     </Switch>
   </BrowserRouter>
-);
+    )
+  }
+}
+
+
+
 
 export default App;

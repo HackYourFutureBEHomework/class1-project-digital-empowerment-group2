@@ -1,11 +1,6 @@
-// const config = require('../../config');
-// const jwt = require('jsonwebtoken');
-// const bcrypt = require('bcryptjs');
 
-// const User = require('../model/user.model');
-// const VerifyToken = require('./VerifyToken');
 
-const API_URL = process.env.REACT_APP_API_URL || 'http://localhost:4000';
+const API_URL = 'http://localhost:4000';
 
 const headers = new Headers({
   'Content-Type': 'application/json',
@@ -23,17 +18,22 @@ export const userRegister = async (user) => {
         headers,
         body: JSON.stringify({ name, email,password})
       })
+     // const user = await response.json();
       return response.json();
 };
     
 export const userLogIn = async (user) => {
-  const {name, email,password} = user;
+  const { email,password} = user;
   const response = await  fetch(`${API_URL}/login `, {
     method: 'POST',
     headers,
-    body: JSON.stringify({ name, email,password})
+    body: JSON.stringify({  email,password})
   });
-  return response.json();
+  // const {token}  = await response.json();
+  // document.cookie = `token = $ {token}`;
+  // console.log(token)
+ return response.json();
+ this.props.setLoggedInState()
 };
 
 //export const deleteUser = id => {fetch(`${API_URL}/user/${id}`, { method: 'DELETE', headers }).then(response => response.json());};
