@@ -3,6 +3,9 @@ import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import Paths from   './components/Paths/Paths';
 import Modules from './components/Modules/Modules';
 import Login from   './shared/Login';
+import NotFound from './components/404/404';
+
+
 class App extends Component { 
   constructor (props){
   super(props);
@@ -34,7 +37,7 @@ console.log(token)
           <Route exact path="/:path(|paths|path|index)"  render={props => <Paths {...props} isloggedIn={loggedIn}/>}  />  
           <Route path="/path/:pathId" render={props => <Modules {...props} isloggedIn={loggedIn} />} />
           <Route path="/login" render={()=><Login setLoggedInState={this.setLoggedInState}/>}/>
-          <Route render={() => <p>Page not found</p>} />
+          <Route component={NotFound} />
         </Switch>
       </BrowserRouter>
     )
