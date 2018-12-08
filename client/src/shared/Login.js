@@ -15,8 +15,8 @@ class Login extends Component {
     login= async (e)=>{
         const {email,password}=this.state;
         e.preventDefault();
-        
         const user = await api.login(email,password);
+        
         const {token}=user
         document.cookie=`token=${token}`;
         this.props.setLoggedInState();

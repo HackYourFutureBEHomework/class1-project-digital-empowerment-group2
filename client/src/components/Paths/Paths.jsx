@@ -118,6 +118,7 @@ import "bootstrap-social";
         <main>
             <AppHader/>
             <PathHeader/>
+            {/* <button  className=""  onClick={() =>this.props.delete_cookie}> Create Path </button> */}
             <input type='text' className="Path__input" onChange={this.searchItem} placeholder='Search Path....'/>
             {isloggedIn &&<button  className="Path__button"  onClick={() =>this.onAddPath(paths)}> Create Path </button>}
             {isAdmin && this._renderAdminBar()}

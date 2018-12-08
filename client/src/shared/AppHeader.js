@@ -13,6 +13,8 @@ export default class AppHeader extends React.Component{
                     <Link to="/paths" className="app-header-nav">Home</Link>
                     <Link to="/paths" className="app-header-nav">Paths</Link>
                     <Link to="/login" className="app-header-nav" >Log in</Link>
+                    <Link to="/logout" className="app-header-nav" >Log out</Link>
+
                     </div>
                 </div>               
             )
