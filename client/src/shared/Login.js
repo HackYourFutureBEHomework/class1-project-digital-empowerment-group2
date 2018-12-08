@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import './login.css';
 import * as api from '../api/users'
 import { Redirect,Link } from 'react-router-dom'
+import { Dialog,FormGroup,InputGroup } from '@blueprintjs/core';
+
 
 class Login extends Component {
     constructor(){
@@ -15,8 +17,8 @@ class Login extends Component {
     login= async (e)=>{
         const {email,password}=this.state;
         e.preventDefault();
-        const user = await api.login(email,password);
         
+        const user = await api.login(email,password);
         const {token}=user
         document.cookie=`token=${token}`;
         this.props.setLoggedInState();
@@ -26,56 +28,35 @@ class Login extends Component {
         
     };
 
-    handleChange=(e)=>{
-       
-        this.setState(
-            {
-                [e.target.name]: e.target.value
-            }
-        )
-     
+    handleChange=(e)=>{       
+        this.setState({ [e.target.name]: e.target.value })
     }
 
-
     render() {
-        const{password, email}=this.state
+        const { email, password } = this.state;
+        // const { cancelLogin } = this.props;
+    
         return (
-            <div className="center">
-                <div className="card">
-                    <h1>Login</h1>
-                    <form onSubmit={this.login}>
-                    <label className="loginLabels">
-                    Email:
-                        <input
-                            className="form-item"
-                            value={email}
-                            placeholder="Username goes here..."
-                            name="email"
-                            type="text"
-                            onChange={this.handleChange}
-                        />
-                    </label>
-                    <label className="loginLabels">
-                        Password
-                        <input
-                            className="form-item"
-                            value={password}
-                            placeholder="Password goes here..."
-                            name="password"
-                            type="password"
-                            onChange={this.handleChange}
-                        />
-                    </label>
-                        <input
-                            className="form-submit"
-                            value="SUBMIT"
-                            type="submit"
-                        />
-                    </form>
-                </div>
-            </div>
-        );
-    };
+          <Dialog
+            isOpen
+            // onClose={cancelLogin}
+            title="Login"
+            className="dialog"
+          >
+           <div className="bp3-dialog-body">
+          <form onSubmit={this.login}>
+            <FormGroup label="Email" labelFor="login-email">
+              <InputGroup type="email" id="login-email" name="email" value={email} onChange={this.handleChange} required  />
+            </FormGroup>
+            <FormGroup label="Password" labelFor="login-password">
+              <InputGroup type="password" name="password" value={password} onChange={this.handleChange} required />
+            </FormGroup>
+            <button  className='login__button' type="submit" intent="primary">Login</button>
+          </form>
+        </div>
+      </Dialog>
+    );
+  }
 
 } ;
 export default Login;
