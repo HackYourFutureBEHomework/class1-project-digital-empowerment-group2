@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import './login.css';
 import * as api from '../api/users'
-import { Redirect,Link } from 'react-router-dom'
 import { Dialog,FormGroup,InputGroup } from '@blueprintjs/core';
 
 
@@ -34,12 +33,12 @@ class Login extends Component {
 
     render() {
         const { email, password } = this.state;
-        // const { cancelLogin } = this.props;
+        const { cancelLogin } = this.props;
     
         return (
           <Dialog
             isOpen
-            // onClose={cancelLogin}
+            onClose={cancelLogin}
             title="Login"
             className="dialog"
           >

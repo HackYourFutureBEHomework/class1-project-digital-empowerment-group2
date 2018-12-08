@@ -99,7 +99,7 @@ import "bootstrap-social";
   
   render() {
     const { isLoding, paths, isAdmin, isAddingPath, isEditingPath, editingPath } = this.state
-
+    const {isloggedIn}=this.props;
     if (isLoding) {
         return <Loader fullscreen={true}/>;
     }
@@ -112,13 +112,10 @@ import "bootstrap-social";
      else if (filterPaths.length === 0) EmptySearch = this.renderSearchNotFound();
 
     const pathComponents = filterPaths.map(this._renderpath);
-
-    const {isloggedIn}=this.props;
     return (
         <main>
-            <AppHader/>
-            <PathHeader/>
-            {/* <button  className=""  onClick={() =>this.props.delete_cookie}> Create Path </button> */}
+            <AppHader isloggedIn={isloggedIn}/>
+            <PathHeader />
             <input type='text' className="Path__input" onChange={this.searchItem} placeholder='Search Path....'/>
             {isloggedIn &&<button  className="Path__button"  onClick={() =>this.onAddPath(paths)}> Create Path </button>}
             {isAdmin && this._renderAdminBar()}
