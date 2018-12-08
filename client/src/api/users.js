@@ -39,15 +39,13 @@ export const userLogIn = async (email,password) => {
     }
   })
   .catch(err => {
-    //console.error = error(res.error);
+    
     alert('your are not logged in ')
   })
-  // const {token}  = await response.json();
-  // document.cookie = `token = $ {token}`;
-  // console.log(token)
  
-// this.props.setLoggedInState()
+ 
+
 };
 
-//export const deleteUser = id => {fetch(`${API_URL}/user/${id}`, { method: 'DELETE', headers }).then(response => response.json());};
+
 

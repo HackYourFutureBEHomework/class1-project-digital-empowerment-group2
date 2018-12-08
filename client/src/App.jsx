@@ -3,7 +3,9 @@ import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import Paths from './components/Paths/Paths';
 import Modules from './components/Modules/Modules';
 import Login from './shared/Login';
-import Cookies from 'universal-cookie';
+import Home from './shared/Home';
+
+//import Cookies from 'universal-cookie';
 
 
 //const cookies = new Cookies();
@@ -47,6 +49,10 @@ class App extends Component {
        />
       <Route path="/Login" render={() => <Login setLoggedInState={this.setLoggedInState}/>}
       //component={Login} 
+      />
+       <Route path="/Home" component={Home}  
+       //render={() => <Login setLoggedInState={this.setLoggedInState}/>}
+      
       />
       
       <Route render={() => <p>Page not found</p>} />

@@ -91,7 +91,7 @@ import "bootstrap-social";
     renderSearchNotFound = () => (
       <NonIdealState
         title="No results"
-        // icon="search"
+        
         description={(<p>This path is not founde</p>)}
         action={<Button type="button" intent="primary" onClick={this.clearSearch}>Home Page</Button>}
       />

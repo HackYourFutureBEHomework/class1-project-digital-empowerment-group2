@@ -1,14 +1,12 @@
-//import Cookies from 'universal-cookie';
+
 
 const API_URL = 'http://localhost:4000';
 
-// const cookies = new Cookies();
+
 
 const headers = new Headers({
   'Content-Type': 'application/json',
-  // 'Accept': 'application/json',
-  // 'Access-Control-Allow-Origin': window.location.origin,
-  //  Authorization: `Bearer ${cookies.get('auth')}`
+  
 });
 
 export const getPaths = () => {

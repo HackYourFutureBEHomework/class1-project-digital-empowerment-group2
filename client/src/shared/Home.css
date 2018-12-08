@@ -1,0 +1,33 @@
+.hobo{
+    text-align: center;
+    word-spacing: 20px;
+    color: blue;
+    font-size: 30px ;
+    text-shadow: 3px 2px red;
+}
+.contact{
+    color: blue;
+    display: flex; 
+    flex-direction: column;
+    
+}
+.contact:hover{
+    color: blueviolet
+}
+.uren{
+    color: blue;
+    display: flex; 
+    flex-direction: column;
+    
+}
+.uren:hover{
+    color: blueviolet
+}
+
+.list{
+    display: grid;
+    grid-template-columns: 50% 50% ;
+    grid-column-gap: 15px;
+    grid-row-gap: 20px;
+   
+}
