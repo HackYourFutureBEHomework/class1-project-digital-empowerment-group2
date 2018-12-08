@@ -4,9 +4,6 @@ const jwt = require('jsonwebtoken');
 const bcrypt = require('bcryptjs');
 
 const User = require('../model/user.model');
-const VerifyToken = require('./VerifyToken');
-
-
 
 // exports.createUsers=(req, res)=> {
 //     const { name , email, password ,isAdmin } = req.body;
@@ -61,17 +58,27 @@ const VerifyToken = require('./VerifyToken');
       });    });
   };
   
-  exports.login=(req, res) =>{
 
-    User.findOne({ email: req.body.email }, function (err, user) {
+  // const userEmail='mohammedradwan@yahoo.com'
+  // const userPassword='radwan'
+  exports.login=(req, res) =>{
+    const {email,password}=req.body;
+    // if(email===userEmail && password===userPassword){
+    //   res.send({ token:'...'})
+    // }else{
+    //   res.status(401).send({ message :'incorrect email address'});
+    // }
+    console.log(email,password)
+    User.findOne({ email }, function (err, user) {
       if (err) return res.status(500).send('Error on the server.');
-      if (!user) return res.status(404).send('No user found.');
-      var passwordIsValid = bcrypt.compareSync(req.body.password, user.password);
+      if (!email) return res.status(404).send('No user found.');
+      let passwordIsValid = bcrypt.compareSync(req.body.password, user.password);
       if (!passwordIsValid) return res.status(401).send({ auth: false, token: null });
-      var token = jwt.sign({ id: user._id }, config.secret, {
+      let token = jwt.sign({ id: user._id }, config.secret, {
         expiresIn: 86400 // expires in 24 hours
       });
-      res.status(200).send({ auth: true, token: token });
+      res.status(200).send({ auth: true, token: token ,email:email});
+      console.log(token)
     });
   };
 

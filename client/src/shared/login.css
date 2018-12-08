@@ -21,7 +21,9 @@
     display: flex;
     flex-direction: column;
 }
-
+/* .loginLabels{
+    width:25rem;
+} */
 .card h1{
     text-align: center;
     margin-top: 0;

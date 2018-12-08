@@ -113,13 +113,13 @@ import "bootstrap-social";
 
     const pathComponents = filterPaths.map(this._renderpath);
 
-    
+    const {isloggedIn}=this.props;
     return (
         <main>
             <AppHader/>
             <PathHeader/>
             <input type='text' className="Path__input" onChange={this.searchItem} placeholder='Search Path....'/>
-            <button  className="Path__button"  onClick={() =>this.onAddPath(paths)}> Create Path </button>
+            {isloggedIn &&<button  className="Path__button"  onClick={() =>this.onAddPath(paths)}> Create Path </button>}
             {isAdmin && this._renderAdminBar()}
             {isAddingPath && this._renderAddPathForm()}
             {isEditingPath && this._renderEditPathForm(editingPath)}
@@ -137,6 +137,9 @@ import "bootstrap-social";
   }
 
   _renderpath = path =>{
+    const {isloggedIn}=this.props;
+    console.log(isloggedIn)
+
     return (     
         <div className="path" key={path._id}  >
           <div className="container">
@@ -155,12 +158,12 @@ import "bootstrap-social";
               <div className="path__title">
                 {path.completed && <span class='glyphicon glyphicon-ok'> Completed</span>}
               </div>
-              <div className= 'overlay'>
+              {isloggedIn && <div className= 'overlay'>
                 <button  className="Path-edit-delete__button"  onClick={() =>this.onEditPath(path)}> Copy </button>
                 <button  className="Path-edit-delete__button"  onClick={() =>this.onEditPath(path)}> Edit </button>
                 <button className = 'Path-edit-delete__button' onClick={() =>
                   {if (window.confirm(`Are you sure you want to delete "${path.title}"? `)) this.handleDelete( path._id);}}> Delete </button>
-              </div>
+              </div>}
             </div>
         </div>
     );
