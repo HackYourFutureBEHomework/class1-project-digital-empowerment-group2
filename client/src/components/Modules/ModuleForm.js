@@ -22,11 +22,11 @@ export default class ModuleForm extends React.Component{
 
         render() {
             console.log( this.props.modules)
-            
+            const {isloggedIn}=this.props;
             const { title, explanation, exercise,  evaluation}= this.state;
             return (
             <form className='module-form'>
-                <header className="module-from__header">Add module</header>
+                {isloggedIn && <header className="module-from__header">Add module</header>}
                 
                 <div className="module-form__rew">
                     <label className="module-form__label">Module title</label>

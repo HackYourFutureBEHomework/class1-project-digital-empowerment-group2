@@ -107,6 +107,8 @@ componentWillMount () {
         return <Loader fullscreen={true}/>;
     }
     const moduleComponents = modules.map(this._renderModule);
+
+   
     return (
         <div>
             <AppHader/>
@@ -191,7 +193,11 @@ componentWillMount () {
   };
 
   onAddMoudle = () => {
-    this.setState({isAddingModule: true})
+    //const { isLoggedIn } = this.props;
+
+    this.setState({isAddingModule: true, 
+    //  isLoggedIn: isLoggedIn
+    })
   }
 
   _renderAddMoudleForm = () => {

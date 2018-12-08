@@ -19,23 +19,20 @@ class Login extends Component{
         const {  email, password} = this.state;
         e.preventDefault();
         console.log( email, password)
-        userLogIn(email, password)
-        .then ( res =>{
-            if (!res.token) return this.setState({invalid: true}) + alert('email or password not right' );
-            cookies.set ('token', res.token);
-            //window.location.reload();
-            this.setState({
-                email: '',
-                password: ''
-            })
-        })
+        const user = await userLogIn(email, password);
+        const {token}=user
+        document.cookie=`token=${token}`;
+        this.props.setLoggedInState();
         
+        console.log(token)
+
+           
     }
 
-    logout = () => {
-        cookies.remove("token");
-        window.location.reload();
-    };
+    // logout = () => {
+    //     cookies.remove("token");
+    //     window.location.reload();
+    // };
 
 
     setField = (e) =>{
@@ -46,12 +43,7 @@ class Login extends Component{
         const {  email, password} = this.state;
         return(
             <form onSubmit={this.Login}>
-                {/* <label> Name:
-                    <input type= 'text'  
-                    value = {name} name = 'name'
-                    onChange = {this.setField} 
-                    />
-                </label    > */}
+             
                 <label> Email:
                     <input type= 'email'  
                     value = {email} name = 'email'

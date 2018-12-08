@@ -3,7 +3,7 @@ const jwt = require('jsonwebtoken');
 const bcrypt = require('bcryptjs');
 
 const User = require('../model/user.model');
-const VerifyToken = require('./VerifyToken');
+//const VerifyToken = require('./VerifyToken');
 
 
 
@@ -55,7 +55,7 @@ exports.createUsers=(req, res)=> {
         var passwordIsValid = bcrypt.compareSync(req.body.password, user.password);
         if (!passwordIsValid) return res.status(401).send({ auth: false, token: null });
         var token = jwt.sign({ id: user._id }, config.secret, {
-          expiresIn: 86400 // expires in 24 hours
+          expiresIn: 120 // expires in 24 hours
         });
         res.status(200).send({ auth: true, token: token });
       });

@@ -22,7 +22,7 @@ export default class AppHeader extends React.Component{
                     <Link to="/paths" className="app-header-nav">Home</Link>
                     <Link to="/paths" className="app-header-nav">Paths</Link>
                     {!isLoggedIn && (<Link to="/Login" className="app-header-nav" >Log in</Link>)}
-                    <Link to="/register" className="app-header-nav" >Register</Link>
+                    {/* <Link to="/register" className="app-header-nav" >Register</Link> */}
                     </div>
                     
                 </div>  
