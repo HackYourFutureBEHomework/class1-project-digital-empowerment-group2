@@ -85,13 +85,13 @@ import "bootstrap-social";
             No paths have been yet.
           </p>
         )}
-        action={<Button type="button" intent="primary" onClick={() =>this.onAddPath()}>Create Path</Button>}
+        // action={<Button type="button" intent="primary" onClick={() =>this.onAddPath()}>Create Path</Button>}
       />
     )
     renderSearchNotFound = () => (
       <NonIdealState
         title="No results"
-        // icon="search"
+        icon="search"
         description={(<p>This path is not founde</p>)}
         action={<Button type="button" intent="primary" onClick={this.clearSearch}>Home Page</Button>}
       />
@@ -159,11 +159,12 @@ import "bootstrap-social";
               <div className="path__title">
                 {path.completed && <span class='glyphicon glyphicon-ok'> Completed</span>}
               </div>
-              {isloggedIn && <div className= 'overlay'>
-                <button  className="Path-edit-delete__button"  onClick={() =>this.onEditPath(path)}> Copy </button>
-                <button  className="Path-edit-delete__button"  onClick={() =>this.onEditPath(path)}> Edit </button>
-                <button className = 'Path-edit-delete__button' onClick={() =>
-                  {if (window.confirm(`Are you sure you want to delete "${path.title}"? `)) this.handleDelete( path._id);}}> Delete </button>
+              {isloggedIn && 
+                <div className= 'overlay'>
+                  <button  className="Path-edit-delete__button"  onClick={() =>this.onEditPath(path)}> Copy </button>
+                  <button  className="Path-edit-delete__button"  onClick={() =>this.onEditPath(path)}> Edit </button>
+                  <button className = 'Path-edit-delete__button' onClick={() =>
+                    {if (window.confirm(`Are you sure you want to delete "${path.title}"? `)) this.handleDelete( path._id);}}> Delete </button>
               </div>}
             </div>
         </div>
