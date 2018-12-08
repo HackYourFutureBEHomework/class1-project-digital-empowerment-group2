@@ -34,7 +34,7 @@ class Modules extends Component {
     newTitle: "",
     newExplanation: "",
     newExercise: "",
-    newEvaluation: "",
+    newEvaluation: ""
   }; 
 
 
@@ -96,44 +96,52 @@ componentWillMount () {
 
   render() {
     const {path, isLoding, modules, isAdmin, isAddingModule, isEditingModule, editingModule } = this.state
+    const {isloggedIn}=this.props
     if (isLoding) {
         return <Loader fullscreen={true}/>;
     }
     const moduleComponents = modules.map(this._renderModule);
     return (
-        <div>
+        <main>
             <AppHader/>
             {isAdmin && this._renderAdminBar()}
+            {isloggedIn &&<button  className="Path__button"  onClick={() =>this.onAddMoudle(modules)}> Create Module </button>}
             {isAddingModule && this._renderAddMoudleForm()}
             {isEditingModule && this._renderEditMoudleForm(editingModule)}
             <h2 className="module-pathId__header">{path ? path.title : null}</h2>
             <div className="module-list">
             {moduleComponents}
             </div>
-        </div>
+        </main>
     );
   }
   _renderModule = module =>{
     const {activeModuleId, activeStep }= this.state;
     const isActive = module._id === activeModuleId;
+    const {isloggedIn}=this.props;
+
     console.log(module);
     return (
-      <div className="module" key={module._id}>
+      <nav className="module" key={module._id}>
         <div className="module__title">
           <h2>{module.title}</h2>
             {module.completed && <span className='glyphicon glyphicon-ok'> Completed</span>}
+        </div> 
+        {isloggedIn && 
+          <div>            
             <button  className="edit-delete__button"  onClick={() =>this.onEditMoudle(module)}> Edit </button>
             <button className = 'edit-delete__button' onClick={() =>
-              {if (window.confirm(`Are you sure you want to delete "${module.title}"? `)) this.handleDelete( module._id);}}> Delete </button>
-        </div>
+              {if (window.confirm(`Are you sure you want to delete "${module.title}"? `)) this.handleDelete( module._id);}}> Delete </button> 
+          </div>
+        }
         {isActive && (
           <div className="module__body">
             {this._renderStep('Explanation', 'module__explanation', module.explanation, activeStep === SETP_EXPLANATION)}
             {this._renderStep('Exercise', 'module__exercise', module.exercise,  activeStep === SETP_EXERCISE)}
             {this._renderStep('Evaluation', 'module__evaluation', module.evaluation,  activeStep === SETP_EVALUATION)}
-          </div>
+         </div>
         )}
-      </div>
+      </nav>
     );
   };
   _renderStep = (title, className, body, expended) => {
@@ -175,7 +183,7 @@ componentWillMount () {
 
   _renderAdminBar = () => {
     const actions = [{title: ' Add Module', handler:this.onAddMoudle}];
-    return <AdminBar actions={actions}/>;
+    return <AdminBar actions={actions} />;
   };
 
   onAddMoudle = () => {

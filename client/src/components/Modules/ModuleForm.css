@@ -88,3 +88,9 @@
     font-size: 16px;
     color: #eee;
 }
+.edit-delete__button_bar{
+    margin-top: -10px;
+}
+.module__title{
+    height: 60px;
+}

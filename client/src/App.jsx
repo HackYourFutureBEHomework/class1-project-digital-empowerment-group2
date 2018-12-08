@@ -31,13 +31,13 @@ console.log(token)
     return(
       <BrowserRouter>
         <Switch>
-          <Route exact path="/:path(|paths|path|index)"  render={()=><Paths isloggedIn={loggedIn}/>}  />  
-          <Route path="/path/:pathId" component={Modules} />
+          <Route exact path="/:path(|paths|path|index)"  render={props => <Paths {...props} isloggedIn={loggedIn}/>}  />  
+          <Route path="/path/:pathId" render={props => <Modules {...props} isloggedIn={loggedIn} />} />
           <Route path="/login" render={()=><Login setLoggedInState={this.setLoggedInState}/>}/>
           <Route render={() => <p>Page not found</p>} />
         </Switch>
       </BrowserRouter>
     )
-}
+  }
 }
 export default App;
