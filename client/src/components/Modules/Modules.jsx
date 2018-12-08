@@ -121,7 +121,7 @@ componentWillMount () {
     const moduleComponents = modules.map(this._renderModule);
     return (
         <main>
-            <AppHader/>
+            <AppHader isloggedIn={isloggedIn}/>
             {isAdmin && this._renderAdminBar()}
             {isloggedIn &&<button  className="Path__button"  onClick={() =>this.onAddMoudle(modules)}> Create Module </button>}
             {isAddingModule && this._renderAddMoudleForm()}
