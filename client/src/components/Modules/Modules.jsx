@@ -11,6 +11,7 @@ import AdminBar from '../../shared/AdminBar';
 import classNames from 'classnames'
 import nprogress from 'nprogress';
 import 'nprogress/nprogress.css';
+import { NonIdealState } from '@blueprintjs/core';
 
 const SETP_EXPLANATION ='explanation';
 const SETP_EXERCISE ='exercise';
@@ -93,6 +94,17 @@ componentWillMount () {
   handleSelect = (module) =>{
     this.setState({ selectedModule: module})
   }
+  renderNoMoudlesHave = () => (
+    <NonIdealState
+      title="No Module yet"
+      description={(
+        <p>
+          No Modules have been yet.
+        </p>
+      )}
+      // action={<Button type="button" intent="primary" onClick={() =>this.onAddMoudle()}>Create Module</Button>}
+    />
+  )
 
   render() {
     const {path, isLoding, modules, isAdmin, isAddingModule, isEditingModule, editingModule } = this.state
@@ -100,6 +112,12 @@ componentWillMount () {
     if (isLoding) {
         return <Loader fullscreen={true}/>;
     }
+
+    let EmptyModule;
+    if (modules.length === 0) EmptyModule  = this.renderNoMoudlesHave();
+
+
+
     const moduleComponents = modules.map(this._renderModule);
     return (
         <main>
@@ -109,6 +127,7 @@ componentWillMount () {
             {isAddingModule && this._renderAddMoudleForm()}
             {isEditingModule && this._renderEditMoudleForm(editingModule)}
             <h2 className="module-pathId__header">{path ? path.title : null}</h2>
+            { EmptyModule  }
             <div className="module-list">
             {moduleComponents}
             </div>

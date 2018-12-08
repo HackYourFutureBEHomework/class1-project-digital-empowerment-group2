@@ -85,13 +85,13 @@ import "bootstrap-social";
             No paths have been yet.
           </p>
         )}
-        action={<Button type="button" intent="primary" onClick={() =>this.onAddPath()}>Create Path</Button>}
+        // action={<Button type="button" intent="primary" onClick={() =>this.onAddPath()}>Create Path</Button>}
       />
     )
     renderSearchNotFound = () => (
       <NonIdealState
         title="No results"
-        // icon="search"
+        icon="search"
         description={(<p>This path is not founde</p>)}
         action={<Button type="button" intent="primary" onClick={this.clearSearch}>Home Page</Button>}
       />
