@@ -1,41 +1,41 @@
 import React, { Component} from 'react'; 
-import { userLogIn }  from '../api/users';
+import { userRegister }  from '../api/users';
 import Cookies from "universal-cookie";
+import { Link } from "react-router-dom";
+//import history from "../../history";
 
 
 
 
-const cookies = new Cookies();
+//const cookies = new Cookies();
 
-class Login extends Component{
+class register extends Component{
     state = {
-         
+        name: '', 
         email: '', 
         password: '', 
         invalid: false
     }
 
-    Login = async (e) => {
-        const {  email, password} = this.state;
-        e.preventDefault();
-        console.log( email, password)
-        userLogIn(email, password)
-        .then ( res =>{
-            if (!res.token) return this.setState({invalid: true}) + alert('email or password not right' );
-            cookies.set ('token', res.token);
-            window.location.reload();
+    register = async (e) => {
+        const { name, email, password} = this.state;
+        //e.preventDefault();
+        console.log(name, email, password)
+        userRegister(name, email, password)
+        // .then ( res =>{
+        //     if (!res.token) return this.setState({invalid: true}) + alert('email or password not right' );
+        //     cookies.set ('token', res.token);
+        //     window.location.reload();
             this.setState({
                 email: '',
                 password: ''
             })
-        })
+            alert('you are registered');
+       // })
         
     }
 
-    logout = () => {
-        cookies.remove("token");
-        window.location.reload();
-    };
+    
 
 
     setField = (e) =>{
@@ -43,15 +43,16 @@ class Login extends Component{
     }
 
     render(){
-        const {  email, password} = this.state;
+        const { name, email, password} = this.state;
         return(
-            <form onSubmit={this.Login}>
-                {/* <label> Name:
+            <div>
+            <form onSubmit={this.register}>
+                <label> Name:
                     <input type= 'text'  
                     value = {name} name = 'name'
                     onChange = {this.setField} 
                     />
-                </label    > */}
+                </label    >
                 <label> Email:
                     <input type= 'email'  
                     value = {email} name = 'email'
@@ -64,11 +65,13 @@ class Login extends Component{
                     onChange = {this.setField}
                     />
                 </label    >
-                <input type= 'submit' value = 'Log In'/>
+                <input type= 'submit' value = 'Register'/>
 
 
             </form>
+            {/* <Link to={`/paths/${path._id}`} > </Link> */}
+            </div>
         )
     }
 }
-export default Login
+export default register

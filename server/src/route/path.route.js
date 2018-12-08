@@ -1,5 +1,6 @@
 const paths = require('../controller/path.controller.js');
 const modules = require('../controller/module.controller.js');
+// const VerifyToken = require('../VerifyToken');
 
 module.exports = (app) => {
   app.get('/path', paths.findAll);

@@ -137,6 +137,7 @@ import "bootstrap-social";
   }
 
   _renderpath = path =>{
+    const { isLoggedIn } = this.props;
     return (     
         <div className="path" key={path._id}  >
           <div className="container">
@@ -155,12 +156,12 @@ import "bootstrap-social";
               <div className="path__title">
                 {path.completed && <span class='glyphicon glyphicon-ok'> Completed</span>}
               </div>
-              <div className= 'overlay'>
+              {isLoggedIn && (<div className= 'overlay'>
                 <button  className="Path-edit-delete__button"  onClick={() =>this.onEditPath(path)}> Copy </button>
                 <button  className="Path-edit-delete__button"  onClick={() =>this.onEditPath(path)}> Edit </button>
                 <button className = 'Path-edit-delete__button' onClick={() =>
                   {if (window.confirm(`Are you sure you want to delete "${path.title}"? `)) this.handleDelete( path._id);}}> Delete </button>
-              </div>
+              </div>)}
             </div>
         </div>
     );

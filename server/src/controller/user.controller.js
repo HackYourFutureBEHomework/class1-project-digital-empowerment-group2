@@ -5,6 +5,13 @@ const bcrypt = require('bcryptjs');
 const User = require('../model/user.model');
 const VerifyToken = require('./VerifyToken');
 
+
+
+
+//  
+
+
+
 exports.createUsers=(req, res)=> {
     //  const newUser = new User(req.body);
       var hashedPassword = bcrypt.hashSync(req.body.password, 8);

@@ -18,25 +18,31 @@ const SETP_EVALUATION ='evaluation';
 
 
 class Modules extends Component {
-  state = {
-    title:'',
-    path: null,
-    modules: [],
-    activeModuleId: undefined,
-    activeStep: SETP_EXPLANATION,
-    isLoding: true,
-    isAdmin: true,
-    show:true, 
-    edit: false,
-    isAddingModule:false,
-    isEditingModule:false,
-    editingModule: null,
-    newTitle: "",
-    newExplanation: "",
-    newExercise: "",
-    newEvaluation: "",
-  }; 
+  constructor (props){
+    super(props);
 
+    this.state = {
+      title:'',
+      path: null,
+      modules: [],
+      activeModuleId: undefined,
+      activeStep: SETP_EXPLANATION,
+      isLoding: true,
+      isAdmin: true,
+      show:true, 
+      edit: false,
+      isAddingModule:false,
+      isEditingModule:false,
+      editingModule: null,
+      newTitle: "",
+      newExplanation: "",
+      newExercise: "",
+      newEvaluation: "",
+      //isLoggedIn: true
+    }; 
+  
+  }
+  
 
 
 componentWillMount () {
@@ -96,6 +102,7 @@ componentWillMount () {
 
   render() {
     const {path, isLoding, modules, isAdmin, isAddingModule, isEditingModule, editingModule } = this.state
+    
     if (isLoding) {
         return <Loader fullscreen={true}/>;
     }
@@ -115,6 +122,7 @@ componentWillMount () {
   }
   _renderModule = module =>{
     const {activeModuleId, activeStep }= this.state;
+    const { isLoggedIn } = this.props;
     const isActive = module._id === activeModuleId;
     console.log(module);
     return (
@@ -122,9 +130,13 @@ componentWillMount () {
         <div className="module__title">
           <h2>{module.title}</h2>
             {module.completed && <span className='glyphicon glyphicon-ok'> Completed</span>}
-            <button  className="edit-delete__button"  onClick={() =>this.onEditMoudle(module)}> Edit </button>
-            <button className = 'edit-delete__button' onClick={() =>
-              {if (window.confirm(`Are you sure you want to delete "${module.title}"? `)) this.handleDelete( module._id);}}> Delete </button>
+            { isLoggedIn && (
+              <div>
+              <button  className="edit-delete__button"  onClick={() =>this.onEditMoudle(module)}> Edit </button>
+              <button className = 'edit-delete__button' onClick={() =>
+                {if (window.confirm(`Are you sure you want to delete "${module.title}"? `)) this.handleDelete( module._id);}}> Delete </button>
+              </div>
+            )}
         </div>
         {isActive && (
           <div className="module__body">
