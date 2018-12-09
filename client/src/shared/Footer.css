@@ -1,0 +1,15 @@
+.footer-a{
+    right: 0;
+    bottom: 0;
+    left: 0;
+    padding: 1rem;
+    background-color: #343736;
+    border-top: #57A6A8 5px solid;
+    text-align: center;
+    width: 100%;
+    margin: 0 auto;
+    color: white;
+    font-size: 18px;
+    height: 50px;
+    margin-top: 50px;
+}

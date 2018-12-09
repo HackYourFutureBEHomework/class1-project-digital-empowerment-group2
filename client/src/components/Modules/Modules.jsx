@@ -12,6 +12,7 @@ import classNames from 'classnames'
 import nprogress from 'nprogress';
 import 'nprogress/nprogress.css';
 import { NonIdealState } from '@blueprintjs/core';
+import Footer from "../../shared/Footer";
 
 const SETP_EXPLANATION ='explanation';
 const SETP_EXERCISE ='exercise';
@@ -129,6 +130,7 @@ componentWillMount () {
             <div className="module-list">
             {moduleComponents}
             </div>
+            <Footer/>
         </main>
     );
   }

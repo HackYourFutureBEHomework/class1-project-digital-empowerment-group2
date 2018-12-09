@@ -12,7 +12,7 @@ import nprogress from 'nprogress';
 import 'nprogress/nprogress.css';
 import { CardImg } from "reactstrap";
 import "bootstrap-social";
-
+import Footer from "../../shared/Footer";
 
   class Paths extends Component {
     state = {
@@ -125,11 +125,7 @@ import "bootstrap-social";
             <div className="path-list">
             {pathComponents}
             </div>
-            <footer>
-            <div className="social-bar">
-            <p>Hack Your Future</p>
-            </div>
-            </footer>
+            <Footer/>
         </main>
     );
   }
