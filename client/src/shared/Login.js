@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import './login.css';
 import * as api from '../api/users'
 import { Dialog,FormGroup,InputGroup } from '@blueprintjs/core';
-
+import { withRouter } from 'react-router-dom';
 
 class Login extends Component {
     constructor(){
@@ -22,9 +22,8 @@ class Login extends Component {
         document.cookie=`token=${token}`;
         this.props.setLoggedInState();
         // console.log( this.props.setLoggedInState())
-        console.log(token)
-        
-        
+        console.log(token)      
+        this.props.history.push('/');
     };
 
     handleChange=(e)=>{       
@@ -58,4 +57,4 @@ class Login extends Component {
   }
 
 } ;
-export default Login;
+export default withRouter(Login);
