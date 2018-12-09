@@ -12,7 +12,7 @@ import nprogress from 'nprogress';
 import 'nprogress/nprogress.css';
 import { CardImg } from "reactstrap";
 import "bootstrap-social";
-
+import Footer from "../../shared/Footer";
 
   class Paths extends Component {
     state = {
@@ -85,13 +85,13 @@ import "bootstrap-social";
             No paths have been yet.
           </p>
         )}
-        action={<Button type="button" intent="primary" onClick={() =>this.onAddPath()}>Create Path</Button>}
+        // action={<Button type="button" intent="primary" onClick={() =>this.onAddPath()}>Create Path</Button>}
       />
     )
     renderSearchNotFound = () => (
       <NonIdealState
         title="No results"
-        // icon="search"
+        icon="search"
         description={(<p>This path is not founde</p>)}
         action={<Button type="button" intent="primary" onClick={this.clearSearch}>Home Page</Button>}
       />
@@ -99,7 +99,7 @@ import "bootstrap-social";
   
   render() {
     const { isLoding, paths, isAdmin, isAddingPath, isEditingPath, editingPath } = this.state
-
+    const {isloggedIn}=this.props;
     if (isLoding) {
         return <Loader fullscreen={true}/>;
     }
@@ -112,14 +112,12 @@ import "bootstrap-social";
      else if (filterPaths.length === 0) EmptySearch = this.renderSearchNotFound();
 
     const pathComponents = filterPaths.map(this._renderpath);
-
-    
     return (
         <main>
-            <AppHader/>
-            <PathHeader/>
+            <AppHader isloggedIn={isloggedIn}/>
+            <PathHeader />
             <input type='text' className="Path__input" onChange={this.searchItem} placeholder='Search Path....'/>
-            <button  className="Path__button"  onClick={() =>this.onAddPath(paths)}> Create Path </button>
+            {isloggedIn &&<button  className="Path__button"  onClick={() =>this.onAddPath(paths)}> Create Path </button>}
             {isAdmin && this._renderAdminBar()}
             {isAddingPath && this._renderAddPathForm()}
             {isEditingPath && this._renderEditPathForm(editingPath)}
@@ -127,16 +125,15 @@ import "bootstrap-social";
             <div className="path-list">
             {pathComponents}
             </div>
-            <footer>
-            <div className="social-bar">
-            <p>Hack Your Future</p>
-            </div>
-            </footer>
+            <Footer/>
         </main>
     );
   }
 
   _renderpath = path =>{
+    const {isloggedIn}=this.props;
+    console.log(isloggedIn)
+
     return (     
         <div className="path" key={path._id}  >
           <div className="container">
@@ -155,12 +152,13 @@ import "bootstrap-social";
               <div className="path__title">
                 {path.completed && <span class='glyphicon glyphicon-ok'> Completed</span>}
               </div>
-              <div className= 'overlay'>
-                <button  className="Path-edit-delete__button"  onClick={() =>this.onEditPath(path)}> Copy </button>
-                <button  className="Path-edit-delete__button"  onClick={() =>this.onEditPath(path)}> Edit </button>
-                <button className = 'Path-edit-delete__button' onClick={() =>
-                  {if (window.confirm(`Are you sure you want to delete "${path.title}"? `)) this.handleDelete( path._id);}}> Delete </button>
-              </div>
+              {isloggedIn && 
+                <div className= 'overlay'>
+                  <button  className="Path-edit-delete__button"  onClick={() =>this.onEditPath(path)}> Copy </button>
+                  <button  className="Path-edit-delete__button"  onClick={() =>this.onEditPath(path)}> Edit </button>
+                  <button className = 'Path-edit-delete__button' onClick={() =>
+                    {if (window.confirm(`Are you sure you want to delete "${path.title}"? `)) this.handleDelete( path._id);}}> Delete </button>
+              </div>}
             </div>
         </div>
     );
