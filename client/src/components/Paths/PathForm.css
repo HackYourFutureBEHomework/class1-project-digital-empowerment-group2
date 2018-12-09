@@ -62,12 +62,20 @@ h2{
 }
 
 footer{
-    background-color: #343736;
+    /* background-color: #343736;
     margin-top: 20px;
     border-top:solid 5px #57A6A8;
     height:40px ;
     border-top-left-radius: 5px;
-    border-top-right-radius: 5px;
+    border-top-right-radius: 5px; */
+    position: fixed;
+    left: 0;
+    bottom: 0;
+    width: 75%;
+    background-color: #343736;
+    border-top:solid 5px #57A6A8;
+    color: white;
+    text-align: center;
 }
 .container {
     position: relative;
