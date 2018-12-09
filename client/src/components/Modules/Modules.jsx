@@ -116,8 +116,6 @@ componentWillMount () {
     let EmptyModule;
     if (modules.length === 0) EmptyModule  = this.renderNoMoudlesHave();
 
-
-
     const moduleComponents = modules.map(this._renderModule);
     return (
         <main>

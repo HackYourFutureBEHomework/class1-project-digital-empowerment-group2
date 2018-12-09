@@ -20,6 +20,18 @@ export default class AppHeader extends Component {
                    )}
                     {/* <Login isloggedIn={isloggedIn} /> */}
                     </div>
+                    <div className='logo-hobo'>
+                        <h1>
+                            <span>H</span>
+                            <span>o</span>
+                            <span className='B'>B</span>
+                            <span>O</span>
+                            <span className='B'>.</span>
+                            <span>b</span>
+                            <span>e</span>
+                            <span></span>
+                        </h1>
+                    </div>
                 </div>               
             )
     }
