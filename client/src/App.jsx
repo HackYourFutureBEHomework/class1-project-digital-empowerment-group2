@@ -36,11 +36,8 @@ console.log(token)
     console.log(token)
     return null
   }
-  // logout=()=>{
-  //   this.setstate={
-  //     loggedIn: false
-  //   }
-  // }
+
+
   render(){
     const{loggedIn}=this.state
     console.log(loggedIn)

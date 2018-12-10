@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import './login.css';
 import * as api from '../api/users'
 import { Dialog,FormGroup,InputGroup } from '@blueprintjs/core';
+import { withRouter } from 'react-router-dom';
 
 
 class Login extends Component {
@@ -58,4 +59,4 @@ class Login extends Component {
   }
 
 } ;
-export default Login;
+export default withRouter(Login);
