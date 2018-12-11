@@ -2,18 +2,18 @@ import React, { Component } from "react";
 import './AppHeader.css';
 import { Link } from 'react-router-dom';
 import { Button } from "@blueprintjs/core";
-// import Login from './Login';
 
 
-export default class AppHeader extends Component {
+class AppHeader extends Component {
 
     delete_cookie (token) {
-        console.log(token)
+        console.log(this.props)
         document.cookie = token + '=; expires=Thu, 01 Jan 1970 00:00:01 GMT;';
-        this.setState={loggedIn:false}
-        console.log(token)
-        return null
+        window.location.reload();
+        return null;
+        
       }
+      
 
     render(){
         const { isloggedIn } = this.props;
@@ -25,11 +25,12 @@ export default class AppHeader extends Component {
                     <Link to="/" className="app-header-nav">Home</Link>
                     <Link to="/paths" className="app-header-nav">Paths</Link>
                     {isloggedIn ? (
-                      <Button  className="app-header-nav"  onClick = {() => this.delete_cookie('token')}>Log out</Button>
+
+                      <Button className="app-header-nav" onClick={()=>this.delete_cookie("token")}>Log out</Button>
                      ) : (
                     <Link to="/login" className="app-header-nav" >Log in</Link>
                    )}
-                    
+
                     </div>
                     <div className='logo-hobo'>
                         <h1>
@@ -47,3 +48,4 @@ export default class AppHeader extends Component {
             )
     }
 }
+export default AppHeader;

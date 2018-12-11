@@ -5,6 +5,7 @@ import { Dialog,FormGroup,InputGroup } from '@blueprintjs/core';
 import { withRouter } from 'react-router-dom';
 
 
+
 class Login extends Component {
     constructor(){
         super()
@@ -23,9 +24,8 @@ class Login extends Component {
         document.cookie=`token=${token}`;
         this.props.setLoggedInState();
         // console.log( this.props.setLoggedInState())
-        console.log(token)
-        
-        
+        console.log(token)      
+        this.props.history.push('/');
     };
 
     handleChange=(e)=>{       
