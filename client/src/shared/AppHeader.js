@@ -3,6 +3,7 @@ import './AppHeader.css';
 import { Link } from 'react-router-dom';
 import { Button } from "@blueprintjs/core";
 
+
 class AppHeader extends Component {
 
     delete_cookie (token) {
@@ -13,6 +14,7 @@ class AppHeader extends Component {
         
       }
       
+
     render(){
         const { isloggedIn } = this.props;
             return(
@@ -23,10 +25,12 @@ class AppHeader extends Component {
                     <Link to="/" className="app-header-nav">Home</Link>
                     <Link to="/paths" className="app-header-nav">Paths</Link>
                     {isloggedIn ? (
+
                       <Button className="app-header-nav" onClick={()=>this.delete_cookie("token")}>Log out</Button>
                      ) : (
                     <Link to="/login" className="app-header-nav" >Log in</Link>
                    )}
+
                     </div>
                     <div className='logo-hobo'>
                         <h1>
